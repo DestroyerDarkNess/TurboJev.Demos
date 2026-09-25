@@ -68,7 +68,12 @@ if (string.IsNullOrWhiteSpace(model)) {
     }
     model = cache;
 }
-await using var engine = await TurboJevEngine.LoadAsync(new { model, nGpuLayers = 0, nThreads = 4 });
+await using var engine = await TurboJevEngine.LoadAsync(new {
+    model,
+    nGpuLayers = 0,
+    nThreads = 4,
+    execution = new { orderRobustness = "none" },
+});
 var request = new {
     state = new { ticket = "My package arrived broken. Please send a replacement." },
     questions = new Dictionary<string, object> {

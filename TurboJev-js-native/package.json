@@ -3,5 +3,5 @@
   "private": true,
   "type": "module",
   "scripts": { "start": "node main.js" },
-  "dependencies": { "@turbojev/node": "0.28.4" }
+  "dependencies": { "@turbojev/node": "0.28.5" }
 }

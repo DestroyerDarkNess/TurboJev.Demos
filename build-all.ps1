@@ -1,5 +1,5 @@
 $ErrorActionPreference = "Stop"
-$version = "0.28.4"
+$version = "0.28.5"
 $rids = @("win-x86", "win-x64", "win-arm64")
 
 foreach ($arch in @("ia32", "x64", "arm64")) {

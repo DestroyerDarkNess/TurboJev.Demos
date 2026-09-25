@@ -1,0 +1,10 @@
+**/node_modules/
+**/dist/
+**/bin/
+**/obj/
+**/target/
+**/__pycache__/
+**/*.py[cod]
+*.gguf
+.cache/
+.artifacts/

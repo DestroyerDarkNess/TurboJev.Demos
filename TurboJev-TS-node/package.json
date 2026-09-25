@@ -1,0 +1,8 @@
+{
+  "name": "turbojev-typescript-demo",
+  "private": true,
+  "type": "module",
+  "scripts": { "build": "tsc -p tsconfig.json", "start": "npm run build && node dist/main.js" },
+  "dependencies": { "@turbojev/node": "0.28.4" },
+  "devDependencies": { "@types/node": "22.15.0", "typescript": "5.9.2" }
+}

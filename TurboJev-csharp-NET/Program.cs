@@ -12,8 +12,31 @@ if (string.IsNullOrWhiteSpace(model)) {
         using var http = new HttpClient();
         using var downloadResponse = await http.GetAsync("https://huggingface.co/bartowski/Qwen_Qwen3-0.6B-GGUF/resolve/main/Qwen_Qwen3-0.6B-Q4_K_M.gguf?download=true", HttpCompletionOption.ResponseHeadersRead);
         downloadResponse.EnsureSuccessStatusCode();
-        await using var target = File.Create(cache);
-        await downloadResponse.Content.CopyToAsync(target);
+        var temporary = cache + ".part";
+        try {
+            await using var source = await downloadResponse.Content.ReadAsStreamAsync();
+            await using var target = File.Create(temporary);
+            var total = downloadResponse.Content.Headers.ContentLength ?? 0;
+            var buffer = new byte[1024 * 1024];
+            long received = 0;
+            int count;
+            while ((count = await source.ReadAsync(buffer)) > 0) {
+                await target.WriteAsync(buffer.AsMemory(0, count));
+                received += count;
+                if (total > 0) {
+                    var ratio = Math.Min(1d, (double)received / total);
+                    const int width = 28;
+                    var filled = (int)Math.Round(ratio * width);
+                    Console.Write($"\rQwen3 0.6B [{new string('█', filled)}{new string('─', width - filled)}] {ratio:P1}  {received / 1048576d:F0} / {total / 1048576d:F0} MB");
+                } else Console.Write($"\rDownloading Qwen3 0.6B: {received / 1048576d:F0} MB");
+            }
+            Console.WriteLine();
+            File.Move(temporary, cache, overwrite: true);
+        } catch {
+            if (File.Exists(temporary)) File.Delete(temporary);
+            Console.WriteLine();
+            throw;
+        }
     }
     model = cache;
 }

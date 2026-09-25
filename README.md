@@ -6,6 +6,8 @@ Small, idiomatic examples built against the latest published TurboJev packages. 
 
 The default model is [Qwen3 0.6B, Q4_K_M](https://huggingface.co/bartowski/Qwen_Qwen3-0.6B-GGUF), about 0.48 GB. The Node, Python, and .NET demos download and cache it on first run. Set `TURBOJEV_MODEL` to use a local GGUF instead.
 
+First-time downloads show a progress bar and are cached under the user's home directory. Later runs reuse the cached file.
+
 ## Demos
 
 | Project | Install from | Run |

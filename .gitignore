@@ -2,9 +2,11 @@
 **/dist/
 **/bin/
 **/obj/
+**/.vs/
 **/target/
 **/__pycache__/
 **/*.py[cod]
 *.gguf
 .cache/
 .artifacts/
+.vs/

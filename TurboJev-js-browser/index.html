@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="theme-color" content="#f3f2ee">
+    <title>TurboJev in the browser</title>
+    <link rel="stylesheet" href="styles.css">
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="./">turbo<span>jev</span></a>
+      <span class="topbar-note">Browser demo · JavaScript + WebAssembly</span>
+      <a class="source-link" href="https://www.npmjs.com/package/@turbojev/web" target="_blank" rel="noreferrer">npm package ↗</a>
+    </header>
+
+    <main>
+      <section class="intro">
+        <div>
+          <p class="kicker">No install · runs on localhost or HTTPS</p>
+          <h1>Give a small model<br>one clear decision.</h1>
+          <p class="lede">TurboJev scores the choices you provide and returns the same typed result each time. The model runs in your browser.</p>
+        </div>
+        <div class="runtime-card" aria-live="polite">
+          <span class="runtime-label">RUNTIME</span>
+          <strong id="runtime-state">Not loaded</strong>
+          <span id="runtime-detail">Model files stay in your browser cache.</span>
+        </div>
+      </section>
+
+      <section class="demo" aria-label="Text classification demo">
+        <div class="controls">
+          <div class="controls-heading">
+            <span class="step">01</span>
+            <div><h2>Load a model</h2><p>First load downloads model files from Hugging Face.</p></div>
+          </div>
+          <label for="model">Model</label>
+          <select id="model">
+            <option value="onnx-community/Qwen3-0.6B-ONNX" selected>Qwen3 · 0.6B · recommended</option>
+            <option value="onnx-community/Qwen2.5-0.5B-Instruct">Qwen2.5 · 0.5B</option>
+            <option value="HuggingFaceTB/SmolLM2-360M-Instruct">SmolLM2 · 360M</option>
+            <option value="HuggingFaceTB/SmolLM2-135M-Instruct">SmolLM2 · 135M · smallest</option>
+          </select>
+          <label for="device">Run on</label>
+          <select id="device"><option value="wasm" selected>CPU · WebAssembly</option><option value="webgpu">GPU · WebGPU</option></select>
+          <div class="button-row"><button id="load" class="button primary">Load model <span aria-hidden="true">↗</span></button><button id="unload" class="button quiet" disabled>Unload</button></div>
+          <div id="load-progress" class="progress-wrap" hidden>
+            <div class="progress-copy"><span id="progress-label">Preparing model</span><span id="progress-value">0%</span></div>
+            <progress id="progress" max="100" value="0"></progress>
+            <span id="progress-file" class="file-name"></span>
+          </div>
+          <p class="fine-print">CPU is the default. WebGPU is requested only when selected; unsupported browsers show an error instead of switching devices.</p>
+        </div>
+
+        <div class="decision">
+          <div class="controls-heading">
+            <span class="step">02</span>
+            <div><h2>Ask a question</h2><p>Enter one state and the allowed answers.</p></div>
+          </div>
+          <label for="state">Message</label>
+          <textarea id="state" rows="5">My package arrived broken. Please send a replacement.</textarea>
+          <div class="label-row"><label for="choices">Possible answers</label><span>One answer per line</span></div>
+          <textarea id="choices" rows="4">billing
+shipping
+technical
+other</textarea>
+          <button id="evaluate" class="button dark" disabled>Evaluate <span aria-hidden="true">↗</span></button>
+        </div>
+
+        <section class="output" aria-live="polite" aria-label="Evaluation result">
+          <div class="output-head"><div><span class="step">03</span><h2>Result</h2></div><span id="elapsed" class="elapsed">—</span></div>
+          <div id="empty" class="empty"><span class="empty-mark">↗</span><p>Your result will appear here.</p></div>
+          <div id="result" hidden>
+            <p class="selected-label">SELECTED ANSWER</p>
+            <strong id="selected" class="selected-answer"></strong>
+            <div id="scores" class="scores"></div>
+            <p class="fine-print">Probabilities are relative to the supplied choices. They are not calibrated confidence.</p>
+          </div>
+          <p id="error" class="error" role="alert" hidden></p>
+        </section>
+      </section>
+
+      <footer><span>TurboJev 0.28.6 · <a href="https://github.com/DestroyerDarkNess/TurboJev" target="_blank" rel="noreferrer">source</a></span><span>Model inference happens locally in this browser.</span></footer>
+    </main>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>

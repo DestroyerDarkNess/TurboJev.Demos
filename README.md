@@ -13,7 +13,7 @@ First-time downloads show a progress bar and are cached under the user's home di
 | Project | Install from | Run |
 |---|---|---|
 | JavaScript (Node) | npm: `@turbojev/node` | `cd TurboJev-js-native && npm install && npm start` |
-| JavaScript (browser) | jsDelivr + esm.sh + WebAssembly | `cd TurboJev-js-browser && py -m http.server 4174`, then open `http://localhost:4174` |
+| JavaScript (browser) | jsDelivr (`@turbojev/web`) + esm.sh (`@turbojev/wasm`, Transformers.js runtime) | `cd TurboJev-js-browser && py -m http.server 4174`, then open `http://localhost:4174` |
 | TypeScript (Node) | npm: `@turbojev/node` | `cd TurboJev-TS-node && npm install && npm start` |
 | Python | PyPI: `turbojev` | `cd TurboJev-Python && py -m pip install -r requirements.txt && py main.py` |
 | C# / .NET | NuGet: `TurboJev` | `cd TurboJev-csharp-NET && dotnet run -c Release` |
@@ -23,7 +23,7 @@ On Windows, run `.\build-all.ps1` to check the three npm native packages and PyP
 
 The npm, PyPI, and NuGet packages contain native artifacts for Windows x86, x64, and ARM64. Run each project using a matching Node/Python/.NET architecture to select its corresponding native binary. Cross-architecture execution requires a matching host or emulator.
 
-The browser example needs no package installation or build step. It loads the TurboJev worker and model runtime from public CDNs, downloads model files from Hugging Face, and runs inference in a browser worker. Serve it over localhost or HTTPS; browsers block module workers from `file://` pages.
+The browser example needs no package installation or build step. It loads the TurboJev worker and WASM core plus the model runtime from public CDNs, downloads model files from Hugging Face, and runs inference in a browser worker. Serve it over localhost or HTTPS; browsers block module workers from `file://` pages.
 
 The Node, TypeScript, Python, and .NET inference demos set `orderRobustness` to `none` for one evaluation pass. Set it to `cyclic` in the engine options to average candidate-order rotations; this can improve order consistency, but requires additional model evaluations and is slower. The Rust demo uses only the portable core crate and does not load a model, so this runtime option does not apply.
 

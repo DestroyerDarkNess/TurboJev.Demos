@@ -6,8 +6,8 @@ let engineReady = false;
 let busy = false;
 let activeFile = "";
 
-// The compiled TurboJev WASM files live in this demo repository and are delivered by jsDelivr.
-const wasmCdn = "https://cdn.jsdelivr.net/gh/DestroyerDarkNess/TurboJev.Demos@main/TurboJev-js-browser/vendor/wasm";
+// esm.sh serves the published wasm-bindgen module and its adjacent .wasm binary.
+const wasmCdn = "https://esm.sh/@turbojev/wasm@0.28.6/es2022";
 
 worker.addEventListener("message", ({ data }) => {
   if (data.type === "progress") {
@@ -87,7 +87,7 @@ $("load").addEventListener("click", async () => {
     const descriptor = await call("load", {
       model,
       runtimeModuleUrl: new URL("./runtime.js", import.meta.url).href,
-      wasmModuleUrl: `${wasmCdn}/turbojev_wasm.js`,
+      wasmModuleUrl: `${wasmCdn}/wasm.mjs`,
       workerUrl: new URL("./worker-bootstrap.js", import.meta.url).href,
       runtimeOptions: { device, dtype: "q4" },
     });

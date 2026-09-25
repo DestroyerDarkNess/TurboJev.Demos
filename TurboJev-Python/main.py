@@ -56,7 +56,12 @@ request = {
     },
 }
 
-with TurboJev.load(MODEL, n_gpu_layers=0) as engine:
+# Use "cyclic" to average candidate-order rotations; it is slower.
+with TurboJev.load(
+    MODEL,
+    n_gpu_layers=0,
+    execution={"orderRobustness": "none"},  # Change to "cyclic" for order robustness at extra inference cost.
+) as engine:
     start = time.perf_counter()
     response = engine.evaluate(request)
     print(json.dumps(response, indent=2))

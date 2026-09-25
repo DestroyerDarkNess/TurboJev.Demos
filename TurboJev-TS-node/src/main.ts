@@ -39,7 +39,13 @@ async function getModel(): Promise<string> {
   }
 }
 const model = await getModel();
-const engine = await TurboJev.load({ model, nGpuLayers: 0, nThreads: 4 });
+const engine = await TurboJev.load({
+  model,
+  nGpuLayers: 0,
+  nThreads: 4,
+  // Use "cyclic" to average candidate-order rotations; it is slower.
+  execution: { orderRobustness: "none" }, // Change to "cyclic" when order robustness is worth the extra evaluations.
+});
 try {
   const start = performance.now();
   const result = await engine.evaluate({

@@ -72,6 +72,7 @@ await using var engine = await TurboJevEngine.LoadAsync(new {
     model,
     nGpuLayers = 0,
     nThreads = 4,
+    // Use "cyclic" to average candidate-order rotations; it is slower.
     execution = new { orderRobustness = "none" },
 });
 var request = new {

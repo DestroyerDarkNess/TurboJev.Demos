@@ -22,6 +22,8 @@ On Windows, run `.\build-all.ps1` to check the three npm native packages and PyP
 
 The npm, PyPI, and NuGet packages contain native artifacts for Windows x86, x64, and ARM64. Run each project using a matching Node/Python/.NET architecture to select its corresponding native binary. Cross-architecture execution requires a matching host or emulator.
 
+The Node, TypeScript, Python, and .NET inference demos set `orderRobustness` to `none` for one evaluation pass. Set it to `cyclic` in the engine options to average candidate-order rotations; this can improve order consistency, but requires additional model evaluations and is slower. The Rust demo uses only the portable core crate and does not load a model, so this runtime option does not apply.
+
 The Rust crates.io package is the portable decision core. It does not bundle a GGUF inference runtime, so the Rust project prints the same typed request shape but does not score it or run Qwen. A package-only Rust inference demo needs a published TurboJev runtime crate with native runtime assets.
 
 All package versions are kept at the latest release when these demos are updated. They are declared in each project's manifest; no project links to this repository's source tree or builds TurboJev locally.

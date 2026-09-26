@@ -202,17 +202,12 @@ def play(engine: TurboJev, model: str, max_turns: int, load_seconds: float,
                 change = distance_after - current_distance
                 progress = "closer" if change < 0 else "farther" if change > 0 else "same distance"
                 move_groups.setdefault(progress, []).append(name)
-                distance_change = f"{abs(change)} {progress}" if change else progress
-                move_details[name] = (
-                    f"Move {name} to square ({target[0]}, {target[1]}). "
-                    f"Manhattan distance to food after the move: {distance_after} "
-                    f"({distance_change}). Safe and legal."
-                )
+                move_details[name] = f"{name} (distance {distance_after})"
             # Let TurboJev choose the semantic progress class. The host resolves
             # equivalent directions with a fixed tie-break, rather than asking a
             # 0.6B model to distinguish equally good route steps.
             decision_criteria = {
-                progress: "Legal moves: " + "; ".join(move_details[name] for name in move_groups[progress])
+                progress: "Safe legal moves: " + ", ".join(move_details[name] for name in move_groups[progress])
                 for progress in ("closer", "same distance", "farther")
                 if progress in move_groups
             }
@@ -223,14 +218,17 @@ def play(engine: TurboJev, model: str, max_turns: int, load_seconds: float,
                 forced_moves += 1
                 print(f"Decision {step}: only {choice} moves are legal; continue {direction}.")
             else:
-                horizontal = "west" if food_x < head_x else "east" if food_x > head_x else "same column"
-                vertical = "north" if food_y < head_y else "south" if food_y > head_y else "same row"
+                horizontal = (
+                    f"{abs(head_x - food_x)} squares {'west' if food_x < head_x else 'east'}"
+                    if food_x != head_x else "in the same column"
+                )
+                vertical = (
+                    f"{abs(head_y - food_y)} squares {'north' if food_y < head_y else 'south'}"
+                    if food_y != head_y else "in the same row"
+                )
                 state = (
-                    f"Snake head at ({head_x}, {head_y}); food at ({food_x}, {food_y}). "
-                    f"The food is {abs(head_x - food_x)} squares {horizontal} and "
-                    f"{abs(head_y - food_y)} squares {vertical}. Current direction: {direction}. "
-                    f"Current Manhattan distance: {current_distance}. "
-                    f"Safe legal moves: {'; '.join(move_details.values())}"
+                    f"Food is {horizontal} and {vertical} relative to the snake head. "
+                    f"Manhattan distance: {current_distance}."
                 )
                 request = {
                     "state": state,
@@ -238,10 +236,8 @@ def play(engine: TurboJev, model: str, max_turns: int, load_seconds: float,
                         "move": {
                             "type": "choice",
                             "instructions": (
-                                "Choose the progress category that leaves the head at the smallest "
-                                "Manhattan distance from the food. 'closer' reduces distance, 'same "
-                                "distance' preserves it, and 'farther' increases it. This is a single "
-                                "step decision; the host resolves ties between equivalent directions."
+                            "Choose the category with the lowest resulting Manhattan distance. "
+                            "Decide one step only; the host resolves ties."
                             ),
                             "criteria": decision_criteria,
                         }

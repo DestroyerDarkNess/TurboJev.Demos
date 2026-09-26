@@ -1,6 +1,6 @@
 # Python Snake
 
-A terminal Snake game where TurboJev evaluates one-step progress using a local GGUF model. Each legal move is grouped by whether it gets closer to, stays the same distance from, or gets farther from the food. TurboJev chooses the progress category; the host keeps moving straight when multiple directions in the chosen category are equivalent. Moves forced by the game rules are applied without a model call. This keeps the model responsible for the semantic decision while avoiding arbitrary direction tie-breaks.
+A terminal Snake game where TurboJev evaluates one-step progress using a local GGUF model. The prompt states the food's direction and distance concisely, then lists only the safe moves and their resulting distances. Each move is grouped as closer, same distance, or farther; TurboJev chooses the progress category, while the host keeps moving straight when equivalent directions tie. Moves forced by the game rules are applied without a model call. This keeps the model responsible for the semantic decision without sending it a full route-planning problem or redundant prompt details.
 
 The state describes positions and their meaning in plain language (for example, that the food is west and north of the head). This helps small models compare candidates without having to infer the relationship from coordinates alone. See the [decision-design guide](https://github.com/DestroyerDarkNess/TurboJev/blob/main/docs/DECISION_DESIGN.md) for the general pattern.
 

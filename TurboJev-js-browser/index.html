@@ -35,7 +35,7 @@
             <div><h2>Load a model</h2><p>First load downloads model files from Hugging Face.</p></div>
           </div>
           <label for="runtime">Runtime</label>
-          <select id="runtime"><option value="transformers" selected>Transformers.js · ONNX</option><option value="llamacpp">llama.cpp · GGUF / WASM</option></select>
+          <select id="runtime"><option value="transformers">Transformers.js · ONNX</option><option value="llamacpp" selected>llama.cpp · GGUF / WASM</option></select>
           <label for="model">Model</label>
           <select id="model"></select>
           <label for="device">Run on</label>
@@ -54,16 +54,21 @@
             <span class="step">02</span>
             <div><h2>Ask a question</h2><p>Provide the state, question, and allowed answers.</p></div>
           </div>
+          <div class="example-row" aria-label="SemIf examples">
+            <span>Examples</span>
+            <button class="example" type="button" data-example="account">Account support</button>
+            <button class="example" type="button" data-example="email">Email triage</button>
+          </div>
           <label for="state">State</label>
-          <textarea id="state" rows="4">A customer says their package arrived broken and asks for a replacement.</textarea>
+          <textarea id="state" rows="4">A customer says a password reset succeeded, but every login attempt still returns ‘account locked’. Two unlock emails were requested and neither arrived.</textarea>
           <label for="question">Question</label>
-          <input id="question" value="Which team should handle this ticket?">
+          <input id="question" value="Which queue should handle this request?">
           <div class="label-row"><label for="choices">Possible answers</label><span>One answer per line</span></div>
-          <textarea id="choices" rows="4">billing
-shipping
-technical
-other</textarea>
+          <textarea id="choices" rows="4">Account access support
+Billing support
+Close as resolved</textarea>
           <button id="evaluate" class="button dark" disabled>Evaluate <span aria-hidden="true">↗</span></button>
+          <button id="compare" class="button compare" disabled>Compare TurboJev with SemIf</button>
         </div>
 
         <section class="output" aria-live="polite" aria-label="Evaluation result">
@@ -77,6 +82,15 @@ other</textarea>
           </div>
           <p id="error" class="error" role="alert" hidden></p>
         </section>
+      </section>
+
+      <section id="comparison" class="comparison" hidden aria-live="polite">
+        <div class="comparison-head"><div><span class="kicker">Same Qwen3 0.6B · Q8_0 · same input</span><h2>Median decision time · 3 runs</h2></div><strong id="comparison-ratio">—</strong></div>
+        <div class="comparison-grid">
+          <article><div class="comparison-title"><h3>TurboJev</h3><span id="turbo-time">—</span></div><div id="turbo-result" class="comparison-answer">Waiting…</div><p>Published @turbojev/web package</p></article>
+          <article><div class="comparison-title"><h3>SemIf direct readout</h3><span id="semif-time">—</span></div><div id="semif-result" class="comparison-answer">Waiting…</div><p>wllama 3.6.1 · one constrained candidate readout</p></article>
+        </div>
+        <p id="comparison-status" class="fine-print">Model load and warmup are not included. Each engine runs three times, sequentially; TurboJev’s model is released before the SemIf reference loads, so they do not compete for memory.</p>
       </section>
 
       <footer><span>TurboJev 0.29.0 · <a href="https://github.com/DestroyerDarkNess/TurboJev" target="_blank" rel="noreferrer">source</a></span><span>Model inference happens locally in this browser.</span></footer>

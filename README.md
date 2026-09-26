@@ -13,7 +13,7 @@ First-time downloads show a progress bar and are cached under the user's home di
 | Project | Install from | Run |
 |---|---|---|
 | JavaScript (Node) | npm: `@turbojev/node` | `cd TurboJev-js-native && npm install && npm start` |
-| JavaScript (browser) | jsDelivr (`@turbojev/web`, `@wllama/wllama`) + esm.sh (`@turbojev/wasm`, Transformers.js runtime) | `cd TurboJev-js-browser && py -m http.server 4174`, then open `http://localhost:4174`; choose Transformers.js or llama.cpp in Runtime |
+| JavaScript (browser) | jsDelivr (`@turbojev/web`, `@turbojev/runtime-llamacpp-wasm`, `@wllama/wllama`) + esm.sh (`@turbojev/wasm`, Transformers.js runtime) | `cd TurboJev-js-browser && py -m http.server 4174`, then open `http://localhost:4174`; choose Transformers.js or llama.cpp in Runtime |
 | TypeScript (Node) | npm: `@turbojev/node` | `cd TurboJev-TS-node && npm install && npm start` |
 | Python | PyPI: `turbojev` | `cd TurboJev-Python && py -m pip install -r requirements.txt && py main.py` |
 | C# / .NET | NuGet: `TurboJev` | `cd TurboJev-csharp-NET && dotnet run -c Release` |

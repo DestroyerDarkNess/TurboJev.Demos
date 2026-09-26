@@ -1,4 +1,5 @@
 const transformersRuntimeUrl = "https://esm.sh/@turbojev/runtime-transformersjs@0.28.6?deps=@huggingface/transformers@4.3.0";
+const llamaRuntimeUrl = "https://cdn.jsdelivr.net/npm/@turbojev/runtime-llamacpp-wasm@0.28.6/src/index.js";
 
 export async function createRuntime() {
   let runtime;
@@ -6,7 +7,7 @@ export async function createRuntime() {
   return {
     async initialize(options) {
       const { createRuntime: create } = options.backend === "llamacpp"
-        ? await import("./llamacpp-runtime.js")
+        ? await import(llamaRuntimeUrl)
         : await import(transformersRuntimeUrl);
       runtime = await create();
       return runtime.initialize({

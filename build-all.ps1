@@ -5,6 +5,7 @@ $rids = @("win-x86", "win-x64", "win-arm64")
 foreach ($arch in @("ia32", "x64", "arm64")) {
     npm view "@turbojev/node-win32-$arch@$version" version | Out-Null
 }
+npm view "@turbojev/runtime-llamacpp-wasm@$version" version | Out-Null
 
 $wheelRoot = Join-Path $PSScriptRoot ".artifacts\python"
 foreach ($target in @(

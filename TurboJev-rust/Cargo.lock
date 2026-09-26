@@ -126,9 +126,9 @@ dependencies = [
 
 [[package]]
 name = "turbojev"
-version = "0.28.5"
+version = "0.28.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "39b4ebb2b75395c91de3387c6f70b29c1cd4be7992acb014a5213fe4250e5f62"
+checksum = "ad91a82fb844c73ec7865ac375157c7c9bd1622c95ebc9ce8a9b88baa3597e99"
 dependencies = [
  "turbojev-backend",
  "turbojev-backend-custom",
@@ -157,9 +157,9 @@ dependencies = [
 
 [[package]]
 name = "turbojev-backend"
-version = "0.28.5"
+version = "0.28.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "362f591858616f42a82a92cfa92b07532b635bed453e4f11d87e08070a488fe4"
+checksum = "94bae5a774ee09890a4e8a666409994a792bc68f58052d8126b2f820e2c02818"
 dependencies = [
  "serde",
  "serde_json",
@@ -168,18 +168,18 @@ dependencies = [
 
 [[package]]
 name = "turbojev-backend-custom"
-version = "0.28.5"
+version = "0.28.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0799391e07c36771b2612cd36d58d85ca67267c2c2a7029492707fa0ebb499ff"
+checksum = "1610b440ac7d0100da78a1bfffcca45aee6a1006e219fd94a319516d6b12a40d"
 dependencies = [
  "turbojev-backend",
 ]
 
 [[package]]
 name = "turbojev-backend-mock"
-version = "0.28.5"
+version = "0.28.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7e81f90f6cab8989157859c626dc02bb7867b71c92413ddd693fba38651ea2e8"
+checksum = "32c2e4e2902ed8987eae8cc97a89835eab93e5b29718e89a2fca77e9935e4dfb"
 dependencies = [
  "indexmap",
  "turbojev-backend",
@@ -187,9 +187,9 @@ dependencies = [
 
 [[package]]
 name = "turbojev-benchmark"
-version = "0.28.5"
+version = "0.28.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "14dc8bc22409227fecb486966af83047a20bce466dfc6bec48adc19c2cf10763"
+checksum = "2f648a29a57254158feac59f8908f82415682662a201ac0963b154c9160de83f"
 dependencies = [
  "serde",
  "serde_json",
@@ -200,9 +200,9 @@ dependencies = [
 
 [[package]]
 name = "turbojev-calibration"
-version = "0.28.5"
+version = "0.28.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "200330da856970dd4507bd1f28bd5101c8ad9a6e5ae514ffbf718fb7c47f6096"
+checksum = "135ad72c6bc14a4c4ac4deddf5f4aa7322a13d5d4c1a2940346e7f940425cb34"
 dependencies = [
  "serde",
  "thiserror",
@@ -210,9 +210,9 @@ dependencies = [
 
 [[package]]
 name = "turbojev-compat"
-version = "0.28.5"
+version = "0.28.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "647709852b836bf258e4090d7fdacffba1fc73e50b97a9e4220054934ba14888"
+checksum = "a6c0a6c7da68cb1cf61af569b23c4c64003b5067d4d74d4aee78ba7ce880a485"
 dependencies = [
  "indexmap",
  "serde_json",
@@ -222,9 +222,9 @@ dependencies = [
 
 [[package]]
 name = "turbojev-conformance"
-version = "0.28.5"
+version = "0.28.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f7c1749ebd2c81a26ee795adb27da56eb6dcae4f459403f28793834bf96856e3"
+checksum = "c7ef0661d40a6060b61d8facc43b99e786e824e858ea3a2dc703d5ea27daab47"
 dependencies = [
  "indexmap",
  "serde",
@@ -234,9 +234,9 @@ dependencies = [
 
 [[package]]
 name = "turbojev-core"
-version = "0.28.5"
+version = "0.28.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fb34540949c806811984fa263473fd197aebe040b9eeb5b08c0db4a99c36cf5d"
+checksum = "e4a25ff660ff1ae812c07e003f218e4235fd405cafadca6d5c84e427937adb01"
 dependencies = [
  "indexmap",
  "serde_json",
@@ -249,18 +249,18 @@ dependencies = [
 
 [[package]]
 name = "turbojev-engine"
-version = "0.28.5"
+version = "0.28.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f4af50a5143f698598539a74036734a70787694b91c10c368d29d802c97661a5"
+checksum = "fcb6ffbf620cda0318e917a38691ddb5ae1bddd1eb45f54cd2a03bcb10ac8c8f"
 dependencies = [
  "turbojev-backend",
 ]
 
 [[package]]
 name = "turbojev-model"
-version = "0.28.5"
+version = "0.28.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "8305d918c224177623a709ade64abd15448b004335dda4999fc75e7733788b76"
+checksum = "158ae613406c2837f5f20970a5294ff913fcd52df4d9ae7cdc97cbc5cf8d9121"
 dependencies = [
  "serde",
  "thiserror",
@@ -268,9 +268,9 @@ dependencies = [
 
 [[package]]
 name = "turbojev-projection"
-version = "0.28.5"
+version = "0.28.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f27fb918714f39ee491e8d7ad9deb0ca80dfd157036518792b4426edfb444e69"
+checksum = "586d32fd833124fb3c4fcc507ec986c36309ca13390c2de51cba133cc39d2118"
 dependencies = [
  "serde",
  "thiserror",
@@ -278,9 +278,9 @@ dependencies = [
 
 [[package]]
 name = "turbojev-prompt"
-version = "0.28.5"
+version = "0.28.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "f7a4c64d254d64fc7ef2a38f050ae34fa5b81b2bed983cd60de728cb31c7386b"
+checksum = "e59201389a8568627580821476ea3877481de4f4c8b88758316bfa5c8dd22457"
 dependencies = [
  "serde",
  "serde_json",
@@ -290,9 +290,9 @@ dependencies = [
 
 [[package]]
 name = "turbojev-runtime"
-version = "0.28.5"
+version = "0.28.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "618edd163d5a7f9e328804bb2bacdb1a4b1936c6b9a123ea1610892945ba71b4"
+checksum = "90adca447dddfe40b8c73ff4b37dd30f75d6dbbfd27eb58c66207af642f929dc"
 dependencies = [
  "serde_json",
  "thiserror",
@@ -303,9 +303,9 @@ dependencies = [
 
 [[package]]
 name = "turbojev-runtime-conformance"
-version = "0.28.5"
+version = "0.28.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "7f0a8e41be928948193c1f8e20057fbf04e985388ae0fa67919564c218d3535b"
+checksum = "2e8a244810ebb34c1a8ebba70faf819615fe99ff096d62f0548e99efc4e2e2a6"
 dependencies = [
  "serde",
  "thiserror",
@@ -318,9 +318,9 @@ dependencies = [
 
 [[package]]
 name = "turbojev-runtime-projection"
-version = "0.28.5"
+version = "0.28.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "b5d7bc43908629dd953f68b8e7e3c287221f09231f6304947d1184bca985dc93"
+checksum = "ecafa0f4f37ec496c49f8d2d68ee513f428f77f87536c065d0f9f121cb3951c9"
 dependencies = [
  "thiserror",
  "turbojev-backend",
@@ -330,9 +330,9 @@ dependencies = [
 
 [[package]]
 name = "turbojev-runtime-qualification"
-version = "0.28.5"
+version = "0.28.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "fdca09b00fea3ad3a5fe1cb99ed17fa28ac2e6b64bad63fc659d2e3d98ec4467"
+checksum = "2650c7031b40df02e1f356a7094efcf6eb35ad391b301086b5c2579c39fd89ff"
 dependencies = [
  "serde",
  "thiserror",
@@ -348,9 +348,9 @@ dependencies = [
 
 [[package]]
 name = "turbojev-schema"
-version = "0.28.5"
+version = "0.28.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1b454e69a3bda2e897fabf6f64b95c31b3a1f70e0cf286a0eb0d5a0697dfd13e"
+checksum = "41da3d1eb4be383bc7467f628a2fa0996723ec594ee8a7026fabaf37c156fb46"
 dependencies = [
  "indexmap",
  "serde",
@@ -360,18 +360,18 @@ dependencies = [
 
 [[package]]
 name = "turbojev-sequence"
-version = "0.28.5"
+version = "0.28.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0d34e8817f2e394457fc525e5efa97f4ca5a288fba07cdfb332797c7cb3fddf2"
+checksum = "7ec54b216fba06dd21477047abb1a2dad993f243207ca1ceb5e7ff88d47a5083"
 dependencies = [
  "thiserror",
 ]
 
 [[package]]
 name = "turbojev-specialized"
-version = "0.28.5"
+version = "0.28.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "0784c90d4dd22dd831e952fdea649fd97f1762cf30ac08f0b515f755c37264f1"
+checksum = "8dc432ec674190a31406a83a03831dd20172c47b939fa74724e33682dc291a78"
 dependencies = [
  "serde",
  "serde_json",
@@ -381,9 +381,9 @@ dependencies = [
 
 [[package]]
 name = "turbojev-specialized-artifact"
-version = "0.28.5"
+version = "0.28.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "a1027f1e73364fe18a0bec02e5a8509a0c027de9853dd3c45e1a20bae00bbc5f"
+checksum = "2be55e6df718024e6e3e48e87509a1b09d62b50fb4229cffdb543e65d2aac541"
 dependencies = [
  "serde",
  "thiserror",
@@ -399,9 +399,9 @@ dependencies = [
 
 [[package]]
 name = "turbojev-specialized-eval"
-version = "0.28.5"
+version = "0.28.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "48196b302c90ced100e2f0fcdaa75ac69769958faff8cee36843f82eabd9a7c5"
+checksum = "cec8f99f72887a807cbc33ac79576962f3dad1cbb1f6691bcd55e89f2f804cb9"
 dependencies = [
  "serde",
  "thiserror",
@@ -412,18 +412,18 @@ dependencies = [
 
 [[package]]
 name = "turbojev-tokenizer"
-version = "0.28.5"
+version = "0.28.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "829def859e45436402fadee7a96d6bde772567b611e95400bb377741fe718a57"
+checksum = "b137c194140dfb593ad0c46eb8a74ddb31c5989099c045199e006c18ab8b031c"
 dependencies = [
  "thiserror",
 ]
 
 [[package]]
 name = "turbojev-training-data"
-version = "0.28.5"
+version = "0.28.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "1d74622ac9b9a2794e4c42cd2fa8112405b3ce957f26336944aefa2e9c9bf788"
+checksum = "9142daf07e75fe9a13d281b867bdb561f14afdc9d4ad85edaec7c291fd1d6f0a"
 dependencies = [
  "indexmap",
  "serde",
@@ -438,9 +438,9 @@ dependencies = [
 
 [[package]]
 name = "turbojev-wire"
-version = "0.28.5"
+version = "0.28.6"
 source = "registry+https://github.com/rust-lang/crates.io-index"
-checksum = "08a7809ea1c6d578b380cf9f1b5238bc0d0b742e1be01485551083bd061cdf8e"
+checksum = "d29f2e15f33afb787d25c2cee1c098ddd0a82395da5ac20f8b9a702b0e762002"
 dependencies = [
  "serde_json",
  "thiserror",

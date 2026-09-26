@@ -34,11 +34,10 @@
             <span class="step">01</span>
             <div><h2>Load a model</h2><p>First load downloads model files from Hugging Face.</p></div>
           </div>
+          <label for="runtime">Runtime</label>
+          <select id="runtime"><option value="transformers" selected>Transformers.js · ONNX</option><option value="llamacpp">llama.cpp · GGUF / WASM</option></select>
           <label for="model">Model</label>
-          <select id="model">
-            <option value="onnx-community/Qwen3-0.6B-ONNX" selected>Qwen3 · 0.6B · recommended</option>
-            <option value="onnx-community/Qwen2.5-0.5B-Instruct">Qwen2.5 · 0.5B</option>
-          </select>
+          <select id="model"></select>
           <label for="device">Run on</label>
           <select id="device"><option value="wasm" selected>CPU · WebAssembly</option><option value="webgpu">GPU · WebGPU</option></select>
           <div class="button-row"><button id="load" class="button primary">Load model <span aria-hidden="true">↗</span></button><button id="unload" class="button quiet" disabled>Unload</button></div>

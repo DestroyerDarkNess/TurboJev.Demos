@@ -1,10 +1,32 @@
 const $ = (id) => document.getElementById(id);
+const modelCatalog = {
+  transformers: [
+    { id: "onnx-community/Qwen3-0.6B-ONNX", name: "Qwen3 · 0.6B · ONNX" },
+    { id: "onnx-community/Qwen2.5-0.5B-Instruct", name: "Qwen2.5 · 0.5B · ONNX" },
+  ],
+  llamacpp: [
+    { id: "Qwen/Qwen3-0.6B-GGUF", name: "Qwen3 · 0.6B · Q4_K_M · GGUF", url: "https://huggingface.co/Qwen/Qwen3-0.6B-GGUF/resolve/1208e45d782fe18602c5eaf10e5758d5b0f24c03/Qwen3-0.6B-Q4_K_M.gguf" },
+  ],
+};
 const worker = new Worker("./worker-bootstrap.js", { type: "module" });
 const pending = new Map();
 let nextId = 1;
 let engineReady = false;
 let busy = false;
 let activeFile = "";
+
+function updateModelChoices() {
+  const runtime = $("runtime").value;
+  const models = modelCatalog[runtime];
+  $("model").replaceChildren(...models.map((model) => {
+    const option = new Option(model.name, model.id);
+    if (model.url) option.dataset.url = model.url;
+    return option;
+  }));
+  $("runtime-detail").textContent = runtime === "llamacpp"
+    ? "GGUF models · llama.cpp WebAssembly, with optional WebGPU."
+    : "ONNX models · Transformers.js WebAssembly or WebGPU.";
+}
 
 // esm.sh serves the published wasm-bindgen module and its adjacent .wasm binary.
 const wasmCdn = "https://esm.sh/@turbojev/wasm@0.28.6/es2022";
@@ -39,6 +61,7 @@ function setBusy(value) {
   $("load").disabled = value || engineReady;
   $("unload").disabled = value || !engineReady;
   $("evaluate").disabled = value || !engineReady;
+  $("runtime").disabled = value || engineReady;
   $("model").disabled = value || engineReady;
   $("device").disabled = value || engineReady;
 }
@@ -83,17 +106,25 @@ $("load").addEventListener("click", async () => {
   $("runtime-state").textContent = "Loading";
   $("runtime-detail").textContent = $("model").selectedOptions[0].textContent;
   try {
-    const model = $("model").value;
+    const runtime = $("runtime").value;
+    const selectedModel = $("model").selectedOptions[0];
+    const model = selectedModel.value;
     const descriptor = await call("load", {
       model,
       runtimeModuleUrl: new URL("./runtime.js", import.meta.url).href,
       wasmModuleUrl: `${wasmCdn}/wasm.mjs`,
       workerUrl: new URL("./worker-bootstrap.js", import.meta.url).href,
-      runtimeOptions: { device, dtype: "q4" },
+      runtimeOptions: {
+        backend: runtime,
+        modality: "text",
+        device,
+        dtype: "q4",
+        ...(runtime === "llamacpp" ? { modelUrl: selectedModel.dataset.url, modelLabel: selectedModel.textContent } : {}),
+      },
     });
     engineReady = true;
     $("runtime-state").textContent = "Ready";
-    $("runtime-detail").textContent = `${descriptor.model} · ${device === "wasm" ? "WebAssembly CPU" : "WebGPU"}`;
+    $("runtime-detail").textContent = `${descriptor.model} · ${runtime === "llamacpp" ? "llama.cpp WASM" : "Transformers.js"} · ${device === "wasm" ? "CPU" : "WebGPU"}`;
     $("load-progress").hidden = true;
     $("empty").hidden = false;
     $("result").hidden = true;
@@ -173,3 +204,6 @@ function renderResult(response, elapsed) {
   $("empty").hidden = true;
   $("result").hidden = false;
 }
+
+$("runtime").addEventListener("change", updateModelChoices);
+updateModelChoices();

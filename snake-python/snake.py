@@ -80,9 +80,12 @@ def choose_model(argument: str | None) -> str:
     return str(download_default_model())
 
 
-def spawn_food(snake: list[tuple[int, int]]) -> tuple[int, int] | None:
+def spawn_food(
+    snake: list[tuple[int, int]], rng: random.Random | None = None
+) -> tuple[int, int] | None:
     free = [(x, y) for x in range(WIDTH) for y in range(HEIGHT) if (x, y) not in snake]
-    return random.choice(free) if free else None
+    chooser = rng or random
+    return chooser.choice(free) if free else None
 
 
 def safe_moves(snake: list[tuple[int, int]], direction: str) -> list[str]:
@@ -116,13 +119,61 @@ def percentile(values: list[float], fraction: float) -> float:
     return ordered[min(len(ordered) - 1, math.ceil(fraction * len(ordered)) - 1)]
 
 
-def play(engine: TurboJev, model: str, max_turns: int, load_seconds: float,
-         order_robustness: str, seed: int) -> None:
+def closest_safe_move(
+    snake: list[tuple[int, int]], direction: str, food: tuple[int, int]
+) -> str | None:
+    """Simple model-free reference: minimize the next-step Manhattan distance."""
+    options = safe_moves(snake, direction)
+    if not options:
+        return None
+    head_x, head_y = snake[0]
+    distances = {
+        name: abs(head_x + DIRECTIONS[name][0] - food[0])
+        + abs(head_y + DIRECTIONS[name][1] - food[1])
+        for name in options
+    }
+    best = min(distances.values())
+    tied = [name for name in options if distances[name] == best]
+    return direction if direction in tied else min(tied)
+
+
+def greedy_reference(seed: int, max_turns: int) -> tuple[int, int | None]:
+    """Verify that the seeded board is reachable without calling a model."""
+    rng = random.Random(seed)
     snake = [(WIDTH // 2, HEIGHT // 2), (WIDTH // 2 - 1, HEIGHT // 2)]
     direction = "right"
-    food = spawn_food(snake)
+    food = spawn_food(snake, rng)
     assert food is not None
     score = 0
+    first_food_turn: int | None = None
+    for step in range(1, max_turns + 1):
+        direction = closest_safe_move(snake, direction, food)
+        if direction is None:
+            break
+        dx, dy = DIRECTIONS[direction]
+        head = (snake[0][0] + dx, snake[0][1] + dy)
+        snake.insert(0, head)
+        if head == food:
+            score += 1
+            first_food_turn = first_food_turn or step
+            food = spawn_food(snake, rng)
+            if food is None:
+                break
+        else:
+            snake.pop()
+    return score, first_food_turn
+
+
+def play(engine: TurboJev, model: str, max_turns: int, load_seconds: float,
+         order_robustness: str, seed: int, reference_score: int,
+         reference_first_food: int | None) -> None:
+    rng = random.Random(seed)
+    snake = [(WIDTH // 2, HEIGHT // 2), (WIDTH // 2 - 1, HEIGHT // 2)]
+    direction = "right"
+    food = spawn_food(snake, rng)
+    assert food is not None
+    score = 0
+    first_food_turn: int | None = None
     latencies: list[float] = []
     forced_moves = 0
     game_started = time.perf_counter()
@@ -141,47 +192,86 @@ def play(engine: TurboJev, model: str, max_turns: int, load_seconds: float,
         else:
             head_x, head_y = snake[0]
             food_x, food_y = food
-            state = {
-                "board": {"width": WIDTH, "height": HEIGHT},
-                "head": {"x": head_x, "y": head_y},
-                "food": {"x": food_x, "y": food_y},
-                "food_direction": {
-                    "horizontal": "right" if food_x > head_x else "left" if food_x < head_x else "same column",
-                    "vertical": "down" if food_y > head_y else "up" if food_y < head_y else "same row",
-                },
-                "current_direction": direction,
-                "length": len(snake),
-                "danger": {
-                    name: "blocked"
-                    for name in DIRECTIONS
-                    if name not in options and name != OPPOSITE[direction]
-                },
+            current_distance = abs(head_x - food_x) + abs(head_y - food_y)
+            move_details = {}
+            move_groups: dict[str, list[str]] = {}
+            for name in options:
+                dx, dy = DIRECTIONS[name]
+                target = (head_x + dx, head_y + dy)
+                distance_after = abs(target[0] - food_x) + abs(target[1] - food_y)
+                change = distance_after - current_distance
+                progress = "closer" if change < 0 else "farther" if change > 0 else "same distance"
+                move_groups.setdefault(progress, []).append(name)
+                distance_change = f"{abs(change)} {progress}" if change else progress
+                move_details[name] = (
+                    f"Move {name} to square ({target[0]}, {target[1]}). "
+                    f"Manhattan distance to food after the move: {distance_after} "
+                    f"({distance_change}). Safe and legal."
+                )
+            # Let TurboJev choose the semantic progress class. The host resolves
+            # equivalent directions with a fixed tie-break, rather than asking a
+            # 0.6B model to distinguish equally good route steps.
+            decision_criteria = {
+                progress: "Legal moves: " + "; ".join(move_details[name] for name in move_groups[progress])
+                for progress in ("closer", "same distance", "farther")
+                if progress in move_groups
             }
-            request = {
-                "state": state,
-                "questions": {
-                    "move": {
-                        "type": "choice",
-                        "instructions": "Which direction should the snake move next to reach the food without hitting a wall or itself?",
-                        "criteria": {name: f"Move {name}" for name in options},
-                    }
-                },
-            }
-            started = time.perf_counter()
-            response = engine.evaluate(request)["answers"]["move"]
-            latency = time.perf_counter() - started
-            latencies.append(latency)
-            choice = response.get("choice")
-            if choice not in options:
-                choice = max(response["probabilities"], key=response["probabilities"].get)
-            direction = choice if choice in options else options[0]
+
+            if len(move_groups) == 1:
+                choice, selected_moves = next(iter(move_groups.items()))
+                direction = direction if direction in selected_moves else min(selected_moves)
+                forced_moves += 1
+                print(f"Decision {step}: only {choice} moves are legal; continue {direction}.")
+            else:
+                horizontal = "west" if food_x < head_x else "east" if food_x > head_x else "same column"
+                vertical = "north" if food_y < head_y else "south" if food_y > head_y else "same row"
+                state = (
+                    f"Snake head at ({head_x}, {head_y}); food at ({food_x}, {food_y}). "
+                    f"The food is {abs(head_x - food_x)} squares {horizontal} and "
+                    f"{abs(head_y - food_y)} squares {vertical}. Current direction: {direction}. "
+                    f"Current Manhattan distance: {current_distance}. "
+                    f"Safe legal moves: {'; '.join(move_details.values())}"
+                )
+                request = {
+                    "state": state,
+                    "questions": {
+                        "move": {
+                            "type": "choice",
+                            "instructions": (
+                                "Choose the progress category that leaves the head at the smallest "
+                                "Manhattan distance from the food. 'closer' reduces distance, 'same "
+                                "distance' preserves it, and 'farther' increases it. This is a single "
+                                "step decision; the host resolves ties between equivalent directions."
+                            ),
+                            "criteria": decision_criteria,
+                        }
+                    },
+                }
+                started = time.perf_counter()
+                response = engine.evaluate(request)["answers"]["move"]
+                latency = time.perf_counter() - started
+                latencies.append(latency)
+                choice = response.get("choice")
+                if choice not in move_groups:
+                    choice = max(response["probabilities"], key=response["probabilities"].get)
+                selected_moves = move_groups.get(choice, options)
+                direction = direction if direction in selected_moves else min(selected_moves)
+                probability_text = ", ".join(
+                    f"{category} {probability:.0%}"
+                    for category, probability in response["probabilities"].items()
+                )
+                print(
+                    f"Decision {step}: head ({head_x}, {head_y}), food ({food_x}, {food_y}); "
+                    f"chose {choice} → {direction} — {probability_text}"
+                )
 
         dx, dy = DIRECTIONS[direction]
         head = (snake[0][0] + dx, snake[0][1] + dy)
         snake.insert(0, head)
         if head == food:
             score += 1
-            food = spawn_food(snake)
+            first_food_turn = first_food_turn or step
+            food = spawn_food(snake, rng)
             if food is None:
                 game_over = "board filled"
                 break
@@ -193,8 +283,7 @@ def play(engine: TurboJev, model: str, max_turns: int, load_seconds: float,
 
     elapsed = time.perf_counter() - game_started
     draw(snake, food if food is not None else snake[0], score, step)
-    print(f"Game over: {game_over}. Press Enter to view benchmark.")
-    input()
+    print(f"Game over: {game_over}.")
 
     print("\nBenchmark")
     print(f"  Model:             {Path(model).name}")
@@ -203,6 +292,8 @@ def play(engine: TurboJev, model: str, max_turns: int, load_seconds: float,
     print(f"  Model load:        {load_seconds:.2f} s")
     print(f"  Game seed:         {seed}")
     print(f"  Score / food:      {score}")
+    print(f"  First food turn:   {first_food_turn or '—'}")
+    print(f"  Greedy reference:  {reference_score} food; first at turn {reference_first_food or '—'}")
     print(f"  Steps:             {step}")
     print(f"  Model decisions:   {len(latencies)}")
     print(f"  Forced moves:      {forced_moves}")
@@ -222,21 +313,31 @@ def main() -> None:
     parser.add_argument("--model", help="Path to a GGUF model; alternatively set TURBOJEV_MODEL.")
     parser.add_argument("--max-turns", type=int, default=100, help="Maximum turns before the benchmark (default: 100).")
     parser.add_argument("--seed", type=int, default=0, help="Seed for reproducible food placement (default: 0).")
-    parser.add_argument("--fast", action="store_true",
-                        help="Use one scoring pass per move; faster, but more sensitive to option order.")
+    parser.add_argument(
+        "--order-robustness", choices=("none", "cyclic"), default="none",
+        help="Option-order scoring mode (default: none; cyclic reduces order bias at extra cost).",
+    )
     args = parser.parse_args()
     if args.max_turns < 1:
         parser.error("--max-turns must be at least 1")
     model = choose_model(args.model)
-    random.seed(args.seed)
+    reference_score, reference_first_food = greedy_reference(args.seed, args.max_turns)
+    print(
+        f"Seeded-board check: simple greedy reference reaches "
+        f"{reference_score} food(s) in {args.max_turns} turns; "
+        f"first at turn {reference_first_food or '—'}."
+    )
     print("Loading model on CPU; set device='gpu' in snake.py to request GPU offload.")
     load_started = time.perf_counter()
-    order_robustness = "none" if args.fast else "cyclic"
-    execution = {"orderRobustness": "none"} if args.fast else {}
+    order_robustness = args.order_robustness
+    execution = {"execution": {"orderRobustness": order_robustness}}
     with TurboJev.load(model, device="cpu", n_gpu_layers=0, **execution) as engine:
         load_seconds = time.perf_counter() - load_started
         print(f"Model ready in {load_seconds:.2f}s. Starting game...")
-        play(engine, model, args.max_turns, load_seconds, order_robustness, args.seed)
+        play(
+            engine, model, args.max_turns, load_seconds, order_robustness, args.seed,
+            reference_score, reference_first_food,
+        )
 
 
 if __name__ == "__main__":

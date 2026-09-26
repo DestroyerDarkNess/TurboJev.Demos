@@ -29,7 +29,7 @@ function updateModelChoices() {
 }
 
 // esm.sh serves the published wasm-bindgen module and its adjacent .wasm binary.
-const wasmCdn = "https://esm.sh/@turbojev/wasm@0.28.6/es2022";
+const wasmCdn = "https://esm.sh/@turbojev/wasm@0.29.0/es2022";
 
 worker.addEventListener("message", ({ data }) => {
   if (data.type === "progress") {
@@ -169,7 +169,17 @@ $("evaluate").addEventListener("click", async () => {
   $("runtime-detail").textContent = "Scoring the supplied choices…";
   const started = performance.now();
   try {
-    const response = await call("classify", { state, options });
+    const criteria = Object.fromEntries(options.map((option) => [option, option]));
+    const response = await call("evaluate", {
+      state: { message: state },
+      questions: {
+        route: {
+          type: "choice",
+          instructions: "Which answer best matches the message?",
+          criteria,
+        },
+      },
+    });
     const elapsed = performance.now() - started;
     renderResult(response, elapsed);
     $("runtime-state").textContent = "Ready";
@@ -182,8 +192,10 @@ $("evaluate").addEventListener("click", async () => {
 });
 
 function renderResult(response, elapsed) {
-  const probabilities = Object.entries(response.probabilities || {}).sort((a, b) => b[1] - a[1]);
-  $("selected").textContent = response.choice;
+  const answer = response.answers?.route;
+  if (!answer || answer.type !== "choice") throw new Error("TurboJev returned no choice answer.");
+  const probabilities = Object.entries(answer.probabilities || {}).sort((a, b) => b[1] - a[1]);
+  $("selected").textContent = answer.choice;
   $("elapsed").textContent = `${(elapsed / 1000).toFixed(2)} s`;
   $("scores").replaceChildren(...probabilities.map(([label, value]) => {
     const row = document.createElement("div");

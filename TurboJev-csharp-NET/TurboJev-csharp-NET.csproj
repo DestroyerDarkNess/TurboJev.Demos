@@ -6,6 +6,6 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="TurboJev" Version="0.28.6" />
+    <PackageReference Include="TurboJev" Version="0.29.0" />
   </ItemGroup>
 </Project>

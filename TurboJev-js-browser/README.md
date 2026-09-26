@@ -17,9 +17,9 @@ Open <http://localhost:4174>. Select **Load model**, wait for the file progress 
 
 ## CDN sources
 
-- `@turbojev/web@0.28.6/worker.js` from jsDelivr
-- `@turbojev/runtime-transformersjs@0.28.6` and Transformers.js from esm.sh
-- `@turbojev/runtime-llamacpp-wasm@0.28.6` and `@wllama/wllama@3.6.1` from jsDelivr
-- `@turbojev/wasm@0.28.6` from esm.sh (the module loads its adjacent WASM binary)
+- `@turbojev/web@0.29.0/worker.js` from jsDelivr
+- `@turbojev/runtime-transformersjs@0.29.0` and Transformers.js from esm.sh
+- `@turbojev/runtime-llamacpp-wasm@0.29.0` and `@wllama/wllama@3.6.1` from jsDelivr
+- `@turbojev/wasm@0.29.0` from esm.sh (the module loads its adjacent WASM binary)
 
 TurboJev itself comes from the latest published `@turbojev/web` and `@turbojev/wasm` packages. The demo requires no Rust toolchain, package installation, or build step.

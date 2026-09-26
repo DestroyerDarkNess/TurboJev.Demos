@@ -157,8 +157,10 @@ $("evaluate").addEventListener("click", async () => {
   if (!engineReady || busy) return;
   clearError();
   const state = $("state").value.trim();
+  const question = $("question").value.trim();
   const options = $("choices").value.split(/\r?\n/).map((value) => value.trim()).filter(Boolean);
-  if (!state) return fail(new Error("Enter a message to evaluate."));
+  if (!state) return fail(new Error("Enter the decision context."));
+  if (!question) return fail(new Error("Enter a question for the model."));
   if (options.length < 2) return fail(new Error("Provide at least two possible answers."));
   if (new Set(options).size !== options.length) return fail(new Error("Each possible answer must be unique."));
 
@@ -171,12 +173,14 @@ $("evaluate").addEventListener("click", async () => {
   try {
     const criteria = Object.fromEntries(options.map((option) => [option, option]));
     const response = await call("evaluate", {
-      state: { message: state },
-      questions: {
-        route: {
-          type: "choice",
-          instructions: "Which answer best matches the message?",
-          criteria,
+      request: {
+        state: { message: state },
+        questions: {
+          route: {
+            type: "choice",
+            instructions: question,
+            criteria,
+          },
         },
       },
     });

@@ -52,10 +52,12 @@
         <div class="decision">
           <div class="controls-heading">
             <span class="step">02</span>
-            <div><h2>Ask a question</h2><p>Enter one state and the allowed answers.</p></div>
+            <div><h2>Ask a question</h2><p>Provide the state, question, and allowed answers.</p></div>
           </div>
-          <label for="state">Message</label>
-          <textarea id="state" rows="5">My package arrived broken. Please send a replacement.</textarea>
+          <label for="state">State</label>
+          <textarea id="state" rows="4">A customer says their package arrived broken and asks for a replacement.</textarea>
+          <label for="question">Question</label>
+          <input id="question" value="Which team should handle this ticket?">
           <div class="label-row"><label for="choices">Possible answers</label><span>One answer per line</span></div>
           <textarea id="choices" rows="4">billing
 shipping

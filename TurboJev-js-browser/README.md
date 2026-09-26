@@ -13,7 +13,7 @@ cd TurboJev-js-browser
 py -m http.server 4174
 ```
 
-Open <http://localhost:4174>. Select **Load model**, wait for the file progress bar to finish, then evaluate a message. The elapsed time measures inference only, after the model is loaded.
+Open <http://localhost:4174>. Select **Load model**, wait for the file progress bar to finish, then enter a state, a decision question, and the allowed answers. The elapsed time measures inference only, after the model is loaded.
 
 ## CDN sources
 

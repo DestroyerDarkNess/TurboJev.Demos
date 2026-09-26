@@ -1,5 +1,5 @@
 $ErrorActionPreference = "Stop"
-$version = "0.29.0"
+$version = "0.29.1"
 $rids = @("win-x86", "win-x64", "win-arm64")
 
 foreach ($arch in @("ia32", "x64", "arm64")) {
@@ -15,7 +15,7 @@ foreach ($target in @(
 )) {
     $destination = Join-Path $wheelRoot $target.Name
     New-Item -ItemType Directory -Force -Path $destination | Out-Null
-    py -m pip download --only-binary=:all: --no-deps --dest $destination `
+    py -m pip download --index-url https://pypi.org/simple --no-cache-dir --only-binary=:all: --no-deps --dest $destination `
         --platform $target.Platform --python-version 39 --implementation cp --abi cp39 `
         "turbojev==$version"
 }

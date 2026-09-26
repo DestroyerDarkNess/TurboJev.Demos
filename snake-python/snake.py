@@ -29,7 +29,7 @@ DIRECTIONS = {
     "right": (1, 0),
 }
 OPPOSITE = {"up": "down", "down": "up", "left": "right", "right": "left"}
-WIDTH, HEIGHT = 14, 10
+WIDTH, HEIGHT = 12, 10
 
 
 def download_default_model() -> Path:
@@ -81,7 +81,7 @@ def choose_model(argument: str | None) -> str:
 
 
 def spawn_food(snake: list[tuple[int, int]]) -> tuple[int, int] | None:
-    free = [(x, y) for y in range(HEIGHT) for x in range(WIDTH) if (x, y) not in snake]
+    free = [(x, y) for x in range(WIDTH) for y in range(HEIGHT) if (x, y) not in snake]
     return random.choice(free) if free else None
 
 
@@ -116,13 +116,15 @@ def percentile(values: list[float], fraction: float) -> float:
     return ordered[min(len(ordered) - 1, math.ceil(fraction * len(ordered)) - 1)]
 
 
-def play(engine: TurboJev, model: str, max_turns: int, load_seconds: float) -> None:
+def play(engine: TurboJev, model: str, max_turns: int, load_seconds: float,
+         order_robustness: str, seed: int) -> None:
     snake = [(WIDTH // 2, HEIGHT // 2), (WIDTH // 2 - 1, HEIGHT // 2)]
     direction = "right"
     food = spawn_food(snake)
     assert food is not None
     score = 0
     latencies: list[float] = []
+    forced_moves = 0
     game_started = time.perf_counter()
     game_over = "turn limit reached"
 
@@ -132,40 +134,47 @@ def play(engine: TurboJev, model: str, max_turns: int, load_seconds: float) -> N
         if not options:
             game_over = "no safe moves"
             break
-
-        state = {
-            "board": f"{WIDTH} columns by {HEIGHT} rows; x increases right, y increases down",
-            "snake_head": {"x": snake[0][0], "y": snake[0][1]},
-            "snake_body": [{"x": x, "y": y} for x, y in snake[1:]],
-            "food": {"x": food[0], "y": food[1]},
-            "current_direction": direction,
-            "score": score,
-            "turn": step,
-        }
-        request = {
-            "state": state,
-            "questions": {
-                "move": {
-                    "type": "choice",
-                    "instructions": (
-                        "Choose the next direction for the snake's head to reach the food. "
-                        "Avoid walls and the snake body. Only listed legal moves are available."
-                    ),
-                    "criteria": {
-                        name: f"Move one cell {name}; food is at ({food[0]}, {food[1]})."
-                        for name in options
-                    },
-                }
-            },
-        }
-        started = time.perf_counter()
-        response = engine.evaluate(request)["answers"]["move"]
-        latency = time.perf_counter() - started
-        latencies.append(latency)
-        choice = response.get("choice")
-        if choice not in options:
-            choice = max(response["probabilities"], key=response["probabilities"].get)
-        direction = choice if choice in options else options[0]
+        if len(options) == 1:
+            # Like the reference demo, skip inference when the game rules force a move.
+            direction = options[0]
+            forced_moves += 1
+        else:
+            head_x, head_y = snake[0]
+            food_x, food_y = food
+            state = {
+                "board": {"width": WIDTH, "height": HEIGHT},
+                "head": {"x": head_x, "y": head_y},
+                "food": {"x": food_x, "y": food_y},
+                "food_direction": {
+                    "horizontal": "right" if food_x > head_x else "left" if food_x < head_x else "same column",
+                    "vertical": "down" if food_y > head_y else "up" if food_y < head_y else "same row",
+                },
+                "current_direction": direction,
+                "length": len(snake),
+                "danger": {
+                    name: "blocked"
+                    for name in DIRECTIONS
+                    if name not in options and name != OPPOSITE[direction]
+                },
+            }
+            request = {
+                "state": state,
+                "questions": {
+                    "move": {
+                        "type": "choice",
+                        "instructions": "Which direction should the snake move next to reach the food without hitting a wall or itself?",
+                        "criteria": {name: f"Move {name}" for name in options},
+                    }
+                },
+            }
+            started = time.perf_counter()
+            response = engine.evaluate(request)["answers"]["move"]
+            latency = time.perf_counter() - started
+            latencies.append(latency)
+            choice = response.get("choice")
+            if choice not in options:
+                choice = max(response["probabilities"], key=response["probabilities"].get)
+            direction = choice if choice in options else options[0]
 
         dx, dy = DIRECTIONS[direction]
         head = (snake[0][0] + dx, snake[0][1] + dy)
@@ -192,8 +201,11 @@ def play(engine: TurboJev, model: str, max_turns: int, load_seconds: float) -> N
     print(f"  TurboJev:          {importlib.metadata.version('turbojev')}")
     print(f"  Host:              {platform.system()} {platform.machine()} · Python {platform.python_version()}")
     print(f"  Model load:        {load_seconds:.2f} s")
+    print(f"  Game seed:         {seed}")
     print(f"  Score / food:      {score}")
-    print(f"  Decisions:         {len(latencies)}")
+    print(f"  Steps:             {step}")
+    print(f"  Model decisions:   {len(latencies)}")
+    print(f"  Forced moves:      {forced_moves}")
     print(f"  Game time:         {elapsed:.2f} s")
     if latencies:
         print(f"  Inference total:   {sum(latencies):.2f} s")
@@ -201,24 +213,30 @@ def play(engine: TurboJev, model: str, max_turns: int, load_seconds: float) -> N
         print(f"  Latency median:    {statistics.median(latencies):.3f} s")
         print(f"  Latency p95:       {percentile(latencies, 0.95):.3f} s")
         print(f"  Decisions / sec:   {len(latencies) / sum(latencies):.2f}")
-    print("  Order robustness:  none (one evaluation per move)")
+    description = "none (single pass; fastest)" if order_robustness == "none" else "cyclic (one order rotation per option)"
+    print(f"  Order robustness:  {description}")
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Play Snake using TurboJev and a local GGUF model.")
     parser.add_argument("--model", help="Path to a GGUF model; alternatively set TURBOJEV_MODEL.")
     parser.add_argument("--max-turns", type=int, default=100, help="Maximum turns before the benchmark (default: 100).")
+    parser.add_argument("--seed", type=int, default=0, help="Seed for reproducible food placement (default: 0).")
+    parser.add_argument("--fast", action="store_true",
+                        help="Use one scoring pass per move; faster, but more sensitive to option order.")
     args = parser.parse_args()
     if args.max_turns < 1:
         parser.error("--max-turns must be at least 1")
     model = choose_model(args.model)
+    random.seed(args.seed)
     print("Loading model on CPU; set device='gpu' in snake.py to request GPU offload.")
     load_started = time.perf_counter()
-    with TurboJev.load(model, device="cpu", n_gpu_layers=0,
-                       execution={"orderRobustness": "none"}) as engine:
+    order_robustness = "none" if args.fast else "cyclic"
+    execution = {"orderRobustness": "none"} if args.fast else {}
+    with TurboJev.load(model, device="cpu", n_gpu_layers=0, **execution) as engine:
         load_seconds = time.perf_counter() - load_started
         print(f"Model ready in {load_seconds:.2f}s. Starting game...")
-        play(engine, model, args.max_turns, load_seconds)
+        play(engine, model, args.max_turns, load_seconds, order_robustness, args.seed)
 
 
 if __name__ == "__main__":

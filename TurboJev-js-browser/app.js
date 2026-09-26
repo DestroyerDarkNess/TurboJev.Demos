@@ -42,7 +42,7 @@ function updateModelChoices() {
 }
 
 // esm.sh serves the published wasm-bindgen module and its adjacent .wasm binary.
-const wasmCdn = "https://esm.sh/@turbojev/wasm@0.29.0/es2022";
+const wasmCdn = "https://esm.sh/@turbojev/wasm@0.29.1/es2022";
 
 worker.addEventListener("message", ({ data }) => {
   if (data.type === "progress") {

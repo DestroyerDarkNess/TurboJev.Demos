@@ -22,7 +22,7 @@ First-time downloads show a progress bar and are cached under the user's home di
 
 On Windows, run `.\build-all.ps1` to check the three npm native packages and PyPI wheels, publish .NET builds for x86/x64/ARM64, and compile the TypeScript and Rust examples. It requires Node.js, Python, Rust, and .NET 8.
 
-The npm, PyPI, and NuGet packages contain native artifacts for Windows x86, x64, and ARM64. Run each project using a matching Node/Python/.NET architecture to select its corresponding native binary. Cross-architecture execution requires a matching host or emulator. The Python Snake source is OS-independent, but PyPI 0.29.0 currently publishes Windows x86, x64, and ARM64 wheels; Linux and macOS need matching TurboJev wheels before the demo can run there.
+The npm, PyPI, and NuGet packages contain native artifacts for Windows x86, x64, and ARM64. Run each project using a matching Node/Python/.NET architecture to select its corresponding native binary. Cross-architecture execution requires a matching host or emulator. The Python Snake source is OS-independent, but PyPI 0.29.1 currently publishes Windows x86, x64, and ARM64 wheels; Linux and macOS need matching TurboJev wheels before the demo can run there.
 
 The browser example needs no package installation or build step. It loads the latest published TurboJev browser package plus the selected model runtime from public CDNs, downloads ONNX or GGUF model files from Hugging Face, and runs inference in a browser worker. Serve it over localhost or HTTPS; browsers block module workers from `file://` pages. The native Node, TypeScript, Python, and .NET demos use llama.cpp; the Rust example demonstrates the portable contract without model inference.
 

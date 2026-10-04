@@ -41,8 +41,9 @@ function updateModelChoices() {
     : "ONNX models · Transformers.js WebAssembly or WebGPU.";
 }
 
-// esm.sh serves the published wasm-bindgen module and its adjacent .wasm binary.
-const wasmCdn = "https://esm.sh/@turbojev/wasm@0.29.1/es2022";
+// Load the published wasm-bindgen module directly; its default initializer
+// resolves the adjacent .wasm file on the same CDN.
+const wasmCdn = "https://cdn.jsdelivr.net/npm/@turbojev/wasm@0.29.2/turbojev_wasm.js";
 
 worker.addEventListener("message", ({ data }) => {
   if (data.type === "progress") {

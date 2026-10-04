@@ -1,0 +1,56 @@
+{
+  "version": "0.29.2",
+  "native_smoke_platform": "Windows x64",
+  "native_smoke_runs": [
+    {
+      "demo": "js",
+      "team_choice": "shipping",
+      "generated_tokens": 0
+    },
+    {
+      "demo": "ts",
+      "team_choice": "shipping",
+      "generated_tokens": 0
+    },
+    {
+      "demo": "python",
+      "team_choice": "shipping",
+      "generated_tokens": 0
+    },
+    {
+      "demo": "csharp",
+      "team_choice": "shipping",
+      "generated_tokens": 0
+    }
+  ],
+  "build_checks": [
+    ".NET win-x86, win-x64, win-arm64",
+    "TypeScript compilation",
+    "Rust cargo check --locked using crates.io",
+    "PyPI wheels downloaded for win32, win_amd64, win_arm64",
+    "JavaScript and Python syntax checks"
+  ],
+  "browser_checks": {
+    "cdn_urls": [
+      {
+        "url": "https://cdn.jsdelivr.net/npm/@turbojev/web@0.29.2/worker.js",
+        "status": 200
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/@turbojev/runtime-llamacpp-wasm@0.29.2/+esm",
+        "status": 200
+      },
+      {
+        "url": "https://cdn.jsdelivr.net/npm/@turbojev/wasm@0.29.2/turbojev_wasm.js",
+        "status": 200
+      },
+      {
+        "url": "https://esm.sh/@turbojev/runtime-transformersjs@0.29.2?deps=@huggingface/transformers@4.3.0",
+        "status": 200
+      }
+    ],
+    "published_wasm_initialized": true,
+    "real_browser_model_inference": false
+  },
+  "limitations": "Native runs overlapped and are not speed benchmarks. x86/ARM64 artifacts were checked/built, not executed on matching hardware."
+}

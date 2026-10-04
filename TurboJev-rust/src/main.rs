@@ -1,5 +1,7 @@
 fn main() {
-    // crates.io currently provides TurboJev's portable core, not its GGUF runtime.
+    // This demo installs only TurboJev's portable core from crates.io.
+    // The separate turbojev-runtime-llamacpp crate is available with its ffi
+    // feature; linking it also requires the matching native llama.cpp shim.
     // This keeps the demo honest: the typed request contract is shown here, while
     // real Qwen inference is available in the Node, Python, and .NET demos.
     let request = serde_json::json!({

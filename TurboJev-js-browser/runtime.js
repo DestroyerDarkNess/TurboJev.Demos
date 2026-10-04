@@ -1,5 +1,5 @@
-const transformersRuntimeUrl = "https://esm.sh/@turbojev/runtime-transformersjs@0.29.1?deps=@huggingface/transformers@4.3.0";
-const llamaRuntimeUrl = "https://cdn.jsdelivr.net/npm/@turbojev/runtime-llamacpp-wasm@0.29.1/+esm";
+const transformersRuntimeUrl = "https://esm.sh/@turbojev/runtime-transformersjs@0.29.2?deps=@huggingface/transformers@4.3.0";
+const llamaRuntimeUrl = "https://cdn.jsdelivr.net/npm/@turbojev/runtime-llamacpp-wasm@0.29.2/+esm";
 
 export async function createRuntime() {
   let runtime;

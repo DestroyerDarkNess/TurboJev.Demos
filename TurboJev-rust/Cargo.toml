@@ -4,7 +4,7 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-turbojev = "=0.29.1"
+turbojev = "=0.29.2"
 serde_json = "1"
 
 [workspace]

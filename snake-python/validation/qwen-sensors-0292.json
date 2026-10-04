@@ -1,0 +1,1914 @@
+{
+  "package_source": "PyPI registry; no local native library or source engine override",
+  "turbojev": "0.29.2",
+  "model": "Qwen3-0.6B-Q4_K_M.gguf",
+  "model_sha256": "9acfc1e001311f34b4252001b626f2e466d592a42065f66571bff3790d4e1b14",
+  "demo_sha256": "2e0edd6b0309435ca5663da98e5aa5be6e76a3f2cb99213d0d8bcb2ef0e04939",
+  "device": "cpu",
+  "thinking": false,
+  "order_robustness": "none",
+  "n_seq_max": 4,
+  "runtime_info": {
+    "contract": "turbojev.host-native.v1",
+    "executionCapabilities": {
+      "cooperativeCancellation": false,
+      "estimatedFusedItemBytes": null,
+      "fusedBatch": false,
+      "hardDeadlines": false,
+      "maxFusedItems": null
+    },
+    "executionCapabilitiesContract": "turbojev.native-execution-capabilities.v1",
+    "modalities": [
+      "text"
+    ],
+    "model": "C:\\Users\\Administrator\\.cache\\turbojev\\Qwen3-0.6B-Q4_K_M.gguf",
+    "runtime": "llama.cpp",
+    "runtimeQualificationId": null
+  },
+  "records": [
+    {
+      "case": "top_wall",
+      "format": "coordinates",
+      "rotation": 0,
+      "expected_choices": [
+        "right"
+      ],
+      "correct": false,
+      "request": {
+        "state": "Board: 12 columns and 10 rows. Coordinates are (x, y); x increases to the right and y increases downward. Head: (6, 0). Body from neck to tail: [(6, 1)]. Food: (11, 0). Current direction: up.",
+        "questions": {
+          "move": {
+            "type": "choice",
+            "instructions": "Choose the next direction for the snake to reach the food. Avoid the board walls and the snake's body; do not reverse directly. The tail moves away unless the snake eats. Decide this move only.",
+            "criteria": {
+              "up": "Move one cell up (y - 1).",
+              "down": "Move one cell down (y + 1).",
+              "left": "Move one cell left (x - 1).",
+              "right": "Move one cell right (x + 1)."
+            }
+          }
+        }
+      },
+      "response": {
+        "model": "qwen3 0.6B Q4_K - Medium",
+        "answers": {
+          "move": {
+            "type": "choice",
+            "choice": "up",
+            "confidence": 0.5671013671207982,
+            "probabilities": {
+              "up": 0.5671013671207982,
+              "down": 0.06462294966404156,
+              "left": 0.00590149467173271,
+              "right": 0.36237418854342757
+            }
+          }
+        },
+        "usage": {
+          "decisions": 1,
+          "input_tokens": 214,
+          "generated_tokens": 0
+        },
+        "_turbojev": {
+          "backend": "llamacpp",
+          "calibration": "softmax",
+          "calibrated": false,
+          "confidence_method": "selected-candidate-probability",
+          "contract": "turbojev.core.v4",
+          "order_robustness": "none",
+          "order_evaluations": 0,
+          "execution": {
+            "prefix_reuse": "none",
+            "scheduling": "serial",
+            "parallel_task_limit": 1,
+            "projection": "full-vocabulary"
+          }
+        }
+      },
+      "seconds": 1.2075207000016235,
+      "model_choice": "up",
+      "applied_choice": "up",
+      "collision": "model hit a wall"
+    },
+    {
+      "case": "top_wall",
+      "format": "coordinates",
+      "rotation": 1,
+      "expected_choices": [
+        "right"
+      ],
+      "correct": false,
+      "request": {
+        "state": "Board: 12 columns and 10 rows. Coordinates are (x, y); x increases to the right and y increases downward. Head: (6, 0). Body from neck to tail: [(6, 1)]. Food: (11, 0). Current direction: up.",
+        "questions": {
+          "move": {
+            "type": "choice",
+            "instructions": "Choose the next direction for the snake to reach the food. Avoid the board walls and the snake's body; do not reverse directly. The tail moves away unless the snake eats. Decide this move only.",
+            "criteria": {
+              "down": "Move one cell down (y + 1).",
+              "left": "Move one cell left (x - 1).",
+              "right": "Move one cell right (x + 1).",
+              "up": "Move one cell up (y - 1)."
+            }
+          }
+        }
+      },
+      "response": {
+        "model": "qwen3 0.6B Q4_K - Medium",
+        "answers": {
+          "move": {
+            "type": "choice",
+            "choice": "up",
+            "confidence": 0.8988857079585019,
+            "probabilities": {
+              "down": 0.04425656077291084,
+              "left": 0.007874201691459585,
+              "right": 0.0489835295771276,
+              "up": 0.8988857079585019
+            }
+          }
+        },
+        "usage": {
+          "decisions": 1,
+          "input_tokens": 214,
+          "generated_tokens": 0
+        },
+        "_turbojev": {
+          "backend": "llamacpp",
+          "calibration": "softmax",
+          "calibrated": false,
+          "confidence_method": "selected-candidate-probability",
+          "contract": "turbojev.core.v4",
+          "order_robustness": "none",
+          "order_evaluations": 0,
+          "execution": {
+            "prefix_reuse": "none",
+            "scheduling": "serial",
+            "parallel_task_limit": 1,
+            "projection": "full-vocabulary"
+          }
+        }
+      },
+      "seconds": 2.4335236999977496,
+      "model_choice": "up",
+      "applied_choice": "up",
+      "collision": "model hit a wall"
+    },
+    {
+      "case": "top_wall",
+      "format": "coordinates",
+      "rotation": 2,
+      "expected_choices": [
+        "right"
+      ],
+      "correct": false,
+      "request": {
+        "state": "Board: 12 columns and 10 rows. Coordinates are (x, y); x increases to the right and y increases downward. Head: (6, 0). Body from neck to tail: [(6, 1)]. Food: (11, 0). Current direction: up.",
+        "questions": {
+          "move": {
+            "type": "choice",
+            "instructions": "Choose the next direction for the snake to reach the food. Avoid the board walls and the snake's body; do not reverse directly. The tail moves away unless the snake eats. Decide this move only.",
+            "criteria": {
+              "left": "Move one cell left (x - 1).",
+              "right": "Move one cell right (x + 1).",
+              "up": "Move one cell up (y - 1).",
+              "down": "Move one cell down (y + 1)."
+            }
+          }
+        }
+      },
+      "response": {
+        "model": "qwen3 0.6B Q4_K - Medium",
+        "answers": {
+          "move": {
+            "type": "choice",
+            "choice": "up",
+            "confidence": 0.6477626461931277,
+            "probabilities": {
+              "left": 0.021006872469502988,
+              "right": 0.009511002482659072,
+              "up": 0.6477626461931277,
+              "down": 0.32171947885471014
+            }
+          }
+        },
+        "usage": {
+          "decisions": 1,
+          "input_tokens": 214,
+          "generated_tokens": 0
+        },
+        "_turbojev": {
+          "backend": "llamacpp",
+          "calibration": "softmax",
+          "calibrated": false,
+          "confidence_method": "selected-candidate-probability",
+          "contract": "turbojev.core.v4",
+          "order_robustness": "none",
+          "order_evaluations": 0,
+          "execution": {
+            "prefix_reuse": "none",
+            "scheduling": "serial",
+            "parallel_task_limit": 1,
+            "projection": "full-vocabulary"
+          }
+        }
+      },
+      "seconds": 1.1502345999979298,
+      "model_choice": "up",
+      "applied_choice": "up",
+      "collision": "model hit a wall"
+    },
+    {
+      "case": "top_wall",
+      "format": "coordinates",
+      "rotation": 3,
+      "expected_choices": [
+        "right"
+      ],
+      "correct": false,
+      "request": {
+        "state": "Board: 12 columns and 10 rows. Coordinates are (x, y); x increases to the right and y increases downward. Head: (6, 0). Body from neck to tail: [(6, 1)]. Food: (11, 0). Current direction: up.",
+        "questions": {
+          "move": {
+            "type": "choice",
+            "instructions": "Choose the next direction for the snake to reach the food. Avoid the board walls and the snake's body; do not reverse directly. The tail moves away unless the snake eats. Decide this move only.",
+            "criteria": {
+              "right": "Move one cell right (x + 1).",
+              "up": "Move one cell up (y - 1).",
+              "down": "Move one cell down (y + 1).",
+              "left": "Move one cell left (x - 1)."
+            }
+          }
+        }
+      },
+      "response": {
+        "model": "qwen3 0.6B Q4_K - Medium",
+        "answers": {
+          "move": {
+            "type": "choice",
+            "choice": "up",
+            "confidence": 0.814925945164357,
+            "probabilities": {
+              "right": 0.004201208632097649,
+              "up": 0.814925945164357,
+              "down": 0.021238419515722928,
+              "left": 0.1596344266878224
+            }
+          }
+        },
+        "usage": {
+          "decisions": 1,
+          "input_tokens": 214,
+          "generated_tokens": 0
+        },
+        "_turbojev": {
+          "backend": "llamacpp",
+          "calibration": "softmax",
+          "calibrated": false,
+          "confidence_method": "selected-candidate-probability",
+          "contract": "turbojev.core.v4",
+          "order_robustness": "none",
+          "order_evaluations": 0,
+          "execution": {
+            "prefix_reuse": "none",
+            "scheduling": "serial",
+            "parallel_task_limit": 1,
+            "projection": "full-vocabulary"
+          }
+        }
+      },
+      "seconds": 2.0465046999961487,
+      "model_choice": "up",
+      "applied_choice": "up",
+      "collision": "model hit a wall"
+    },
+    {
+      "case": "top_wall",
+      "format": "sensors",
+      "rotation": 0,
+      "expected_choices": [
+        "right"
+      ],
+      "correct": true,
+      "request": {
+        "state": "Food direction: right.\nBlocked directions: up, down.\nClear directions: left, right.",
+        "questions": {
+          "move": {
+            "type": "choice",
+            "instructions": "Move toward the food. Choose a clear direction. Never choose a blocked direction.",
+            "criteria": {
+              "up": "Move up.",
+              "down": "Move down.",
+              "left": "Move left.",
+              "right": "Move right."
+            }
+          }
+        }
+      },
+      "response": {
+        "model": "qwen3 0.6B Q4_K - Medium",
+        "answers": {
+          "move": {
+            "type": "choice",
+            "choice": "right",
+            "confidence": 0.9967059378220706,
+            "probabilities": {
+              "up": 0.000110549610591862,
+              "down": 1.973000479004149e-05,
+              "left": 0.003163782562547477,
+              "right": 0.9967059378220706
+            }
+          }
+        },
+        "usage": {
+          "decisions": 1,
+          "input_tokens": 117,
+          "generated_tokens": 0
+        },
+        "_turbojev": {
+          "backend": "llamacpp",
+          "calibration": "softmax",
+          "calibrated": false,
+          "confidence_method": "selected-candidate-probability",
+          "contract": "turbojev.core.v4",
+          "order_robustness": "none",
+          "order_evaluations": 0,
+          "execution": {
+            "prefix_reuse": "none",
+            "scheduling": "serial",
+            "parallel_task_limit": 1,
+            "projection": "full-vocabulary"
+          }
+        }
+      },
+      "seconds": 0.630945699995209,
+      "model_choice": "right",
+      "applied_choice": "right",
+      "collision": null
+    },
+    {
+      "case": "top_wall",
+      "format": "sensors",
+      "rotation": 1,
+      "expected_choices": [
+        "right"
+      ],
+      "correct": true,
+      "request": {
+        "state": "Food direction: right.\nBlocked directions: up, down.\nClear directions: left, right.",
+        "questions": {
+          "move": {
+            "type": "choice",
+            "instructions": "Move toward the food. Choose a clear direction. Never choose a blocked direction.",
+            "criteria": {
+              "down": "Move down.",
+              "left": "Move left.",
+              "right": "Move right.",
+              "up": "Move up."
+            }
+          }
+        }
+      },
+      "response": {
+        "model": "qwen3 0.6B Q4_K - Medium",
+        "answers": {
+          "move": {
+            "type": "choice",
+            "choice": "right",
+            "confidence": 0.9993946750861327,
+            "probabilities": {
+              "down": 2.9249318746171998e-05,
+              "left": 2.7181740171046253e-05,
+              "right": 0.9993946750861327,
+              "up": 0.0005488938549501723
+            }
+          }
+        },
+        "usage": {
+          "decisions": 1,
+          "input_tokens": 117,
+          "generated_tokens": 0
+        },
+        "_turbojev": {
+          "backend": "llamacpp",
+          "calibration": "softmax",
+          "calibrated": false,
+          "confidence_method": "selected-candidate-probability",
+          "contract": "turbojev.core.v4",
+          "order_robustness": "none",
+          "order_evaluations": 0,
+          "execution": {
+            "prefix_reuse": "none",
+            "scheduling": "serial",
+            "parallel_task_limit": 1,
+            "projection": "full-vocabulary"
+          }
+        }
+      },
+      "seconds": 0.7786327000067104,
+      "model_choice": "right",
+      "applied_choice": "right",
+      "collision": null
+    },
+    {
+      "case": "top_wall",
+      "format": "sensors",
+      "rotation": 2,
+      "expected_choices": [
+        "right"
+      ],
+      "correct": true,
+      "request": {
+        "state": "Food direction: right.\nBlocked directions: up, down.\nClear directions: left, right.",
+        "questions": {
+          "move": {
+            "type": "choice",
+            "instructions": "Move toward the food. Choose a clear direction. Never choose a blocked direction.",
+            "criteria": {
+              "left": "Move left.",
+              "right": "Move right.",
+              "up": "Move up.",
+              "down": "Move down."
+            }
+          }
+        }
+      },
+      "response": {
+        "model": "qwen3 0.6B Q4_K - Medium",
+        "answers": {
+          "move": {
+            "type": "choice",
+            "choice": "right",
+            "confidence": 0.9895014817378878,
+            "probabilities": {
+              "left": 0.00018176298920355492,
+              "right": 0.9895014817378878,
+              "up": 0.0004820359398494876,
+              "down": 0.009834719333059032
+            }
+          }
+        },
+        "usage": {
+          "decisions": 1,
+          "input_tokens": 117,
+          "generated_tokens": 0
+        },
+        "_turbojev": {
+          "backend": "llamacpp",
+          "calibration": "softmax",
+          "calibrated": false,
+          "confidence_method": "selected-candidate-probability",
+          "contract": "turbojev.core.v4",
+          "order_robustness": "none",
+          "order_evaluations": 0,
+          "execution": {
+            "prefix_reuse": "none",
+            "scheduling": "serial",
+            "parallel_task_limit": 1,
+            "projection": "full-vocabulary"
+          }
+        }
+      },
+      "seconds": 0.626118400003179,
+      "model_choice": "right",
+      "applied_choice": "right",
+      "collision": null
+    },
+    {
+      "case": "top_wall",
+      "format": "sensors",
+      "rotation": 3,
+      "expected_choices": [
+        "right"
+      ],
+      "correct": true,
+      "request": {
+        "state": "Food direction: right.\nBlocked directions: up, down.\nClear directions: left, right.",
+        "questions": {
+          "move": {
+            "type": "choice",
+            "instructions": "Move toward the food. Choose a clear direction. Never choose a blocked direction.",
+            "criteria": {
+              "right": "Move right.",
+              "up": "Move up.",
+              "down": "Move down.",
+              "left": "Move left."
+            }
+          }
+        }
+      },
+      "response": {
+        "model": "qwen3 0.6B Q4_K - Medium",
+        "answers": {
+          "move": {
+            "type": "choice",
+            "choice": "right",
+            "confidence": 0.8262314171435535,
+            "probabilities": {
+              "right": 0.8262314171435535,
+              "up": 0.0006391069227664767,
+              "down": 0.0006105756575044866,
+              "left": 0.1725189002761755
+            }
+          }
+        },
+        "usage": {
+          "decisions": 1,
+          "input_tokens": 117,
+          "generated_tokens": 0
+        },
+        "_turbojev": {
+          "backend": "llamacpp",
+          "calibration": "softmax",
+          "calibrated": false,
+          "confidence_method": "selected-candidate-probability",
+          "contract": "turbojev.core.v4",
+          "order_robustness": "none",
+          "order_evaluations": 0,
+          "execution": {
+            "prefix_reuse": "none",
+            "scheduling": "serial",
+            "parallel_task_limit": 1,
+            "projection": "full-vocabulary"
+          }
+        }
+      },
+      "seconds": 0.5019142000019201,
+      "model_choice": "right",
+      "applied_choice": "right",
+      "collision": null
+    },
+    {
+      "case": "bottom_wall",
+      "format": "sensors",
+      "rotation": 0,
+      "expected_choices": [
+        "left"
+      ],
+      "correct": true,
+      "request": {
+        "state": "Food direction: left.\nBlocked directions: up, down.\nClear directions: left, right.",
+        "questions": {
+          "move": {
+            "type": "choice",
+            "instructions": "Move toward the food. Choose a clear direction. Never choose a blocked direction.",
+            "criteria": {
+              "up": "Move up.",
+              "down": "Move down.",
+              "left": "Move left.",
+              "right": "Move right."
+            }
+          }
+        }
+      },
+      "response": {
+        "model": "qwen3 0.6B Q4_K - Medium",
+        "answers": {
+          "move": {
+            "type": "choice",
+            "choice": "left",
+            "confidence": 0.9112353628927001,
+            "probabilities": {
+              "up": 0.006483508156446297,
+              "down": 0.0001339031860122822,
+              "left": 0.9112353628927001,
+              "right": 0.08214722576484133
+            }
+          }
+        },
+        "usage": {
+          "decisions": 1,
+          "input_tokens": 117,
+          "generated_tokens": 0
+        },
+        "_turbojev": {
+          "backend": "llamacpp",
+          "calibration": "softmax",
+          "calibrated": false,
+          "confidence_method": "selected-candidate-probability",
+          "contract": "turbojev.core.v4",
+          "order_robustness": "none",
+          "order_evaluations": 0,
+          "execution": {
+            "prefix_reuse": "none",
+            "scheduling": "serial",
+            "parallel_task_limit": 1,
+            "projection": "full-vocabulary"
+          }
+        }
+      },
+      "seconds": 0.5081073999972432,
+      "model_choice": "left",
+      "applied_choice": "left",
+      "collision": null
+    },
+    {
+      "case": "bottom_wall",
+      "format": "sensors",
+      "rotation": 1,
+      "expected_choices": [
+        "left"
+      ],
+      "correct": true,
+      "request": {
+        "state": "Food direction: left.\nBlocked directions: up, down.\nClear directions: left, right.",
+        "questions": {
+          "move": {
+            "type": "choice",
+            "instructions": "Move toward the food. Choose a clear direction. Never choose a blocked direction.",
+            "criteria": {
+              "down": "Move down.",
+              "left": "Move left.",
+              "right": "Move right.",
+              "up": "Move up."
+            }
+          }
+        }
+      },
+      "response": {
+        "model": "qwen3 0.6B Q4_K - Medium",
+        "answers": {
+          "move": {
+            "type": "choice",
+            "choice": "left",
+            "confidence": 0.9974023953640718,
+            "probabilities": {
+              "down": 0.00013808181921290375,
+              "left": 0.9974023953640718,
+              "right": 0.0021309096366930735,
+              "up": 0.00032861318002224484
+            }
+          }
+        },
+        "usage": {
+          "decisions": 1,
+          "input_tokens": 117,
+          "generated_tokens": 0
+        },
+        "_turbojev": {
+          "backend": "llamacpp",
+          "calibration": "softmax",
+          "calibrated": false,
+          "confidence_method": "selected-candidate-probability",
+          "contract": "turbojev.core.v4",
+          "order_robustness": "none",
+          "order_evaluations": 0,
+          "execution": {
+            "prefix_reuse": "none",
+            "scheduling": "serial",
+            "parallel_task_limit": 1,
+            "projection": "full-vocabulary"
+          }
+        }
+      },
+      "seconds": 0.4453625000023749,
+      "model_choice": "left",
+      "applied_choice": "left",
+      "collision": null
+    },
+    {
+      "case": "bottom_wall",
+      "format": "sensors",
+      "rotation": 2,
+      "expected_choices": [
+        "left"
+      ],
+      "correct": false,
+      "request": {
+        "state": "Food direction: left.\nBlocked directions: up, down.\nClear directions: left, right.",
+        "questions": {
+          "move": {
+            "type": "choice",
+            "instructions": "Move toward the food. Choose a clear direction. Never choose a blocked direction.",
+            "criteria": {
+              "left": "Move left.",
+              "right": "Move right.",
+              "up": "Move up.",
+              "down": "Move down."
+            }
+          }
+        }
+      },
+      "response": {
+        "model": "qwen3 0.6B Q4_K - Medium",
+        "answers": {
+          "move": {
+            "type": "choice",
+            "choice": "right",
+            "confidence": 0.8302182892334738,
+            "probabilities": {
+              "left": 0.14510981778939633,
+              "right": 0.8302182892334738,
+              "up": 0.008120751792029462,
+              "down": 0.016551141185100503
+            }
+          }
+        },
+        "usage": {
+          "decisions": 1,
+          "input_tokens": 117,
+          "generated_tokens": 0
+        },
+        "_turbojev": {
+          "backend": "llamacpp",
+          "calibration": "softmax",
+          "calibrated": false,
+          "confidence_method": "selected-candidate-probability",
+          "contract": "turbojev.core.v4",
+          "order_robustness": "none",
+          "order_evaluations": 0,
+          "execution": {
+            "prefix_reuse": "none",
+            "scheduling": "serial",
+            "parallel_task_limit": 1,
+            "projection": "full-vocabulary"
+          }
+        }
+      },
+      "seconds": 0.4713026999961585,
+      "model_choice": "right",
+      "applied_choice": "right",
+      "collision": null
+    },
+    {
+      "case": "bottom_wall",
+      "format": "sensors",
+      "rotation": 3,
+      "expected_choices": [
+        "left"
+      ],
+      "correct": false,
+      "request": {
+        "state": "Food direction: left.\nBlocked directions: up, down.\nClear directions: left, right.",
+        "questions": {
+          "move": {
+            "type": "choice",
+            "instructions": "Move toward the food. Choose a clear direction. Never choose a blocked direction.",
+            "criteria": {
+              "right": "Move right.",
+              "up": "Move up.",
+              "down": "Move down.",
+              "left": "Move left."
+            }
+          }
+        }
+      },
+      "response": {
+        "model": "qwen3 0.6B Q4_K - Medium",
+        "answers": {
+          "move": {
+            "type": "choice",
+            "choice": "right",
+            "confidence": 0.8024158077718432,
+            "probabilities": {
+              "right": 0.8024158077718432,
+              "up": 0.0005467683252274542,
+              "down": 0.0007080284431518245,
+              "left": 0.1963293954597776
+            }
+          }
+        },
+        "usage": {
+          "decisions": 1,
+          "input_tokens": 117,
+          "generated_tokens": 0
+        },
+        "_turbojev": {
+          "backend": "llamacpp",
+          "calibration": "softmax",
+          "calibrated": false,
+          "confidence_method": "selected-candidate-probability",
+          "contract": "turbojev.core.v4",
+          "order_robustness": "none",
+          "order_evaluations": 0,
+          "execution": {
+            "prefix_reuse": "none",
+            "scheduling": "serial",
+            "parallel_task_limit": 1,
+            "projection": "full-vocabulary"
+          }
+        }
+      },
+      "seconds": 0.5087189999976545,
+      "model_choice": "right",
+      "applied_choice": "right",
+      "collision": null
+    },
+    {
+      "case": "left_wall",
+      "format": "sensors",
+      "rotation": 0,
+      "expected_choices": [
+        "down"
+      ],
+      "correct": true,
+      "request": {
+        "state": "Food direction: down.\nBlocked directions: left, right.\nClear directions: up, down.",
+        "questions": {
+          "move": {
+            "type": "choice",
+            "instructions": "Move toward the food. Choose a clear direction. Never choose a blocked direction.",
+            "criteria": {
+              "up": "Move up.",
+              "down": "Move down.",
+              "left": "Move left.",
+              "right": "Move right."
+            }
+          }
+        }
+      },
+      "response": {
+        "model": "qwen3 0.6B Q4_K - Medium",
+        "answers": {
+          "move": {
+            "type": "choice",
+            "choice": "down",
+            "confidence": 0.6929062268302991,
+            "probabilities": {
+              "up": 0.011349585980703165,
+              "down": 0.6929062268302991,
+              "left": 0.0013008982853432848,
+              "right": 0.2944432889036545
+            }
+          }
+        },
+        "usage": {
+          "decisions": 1,
+          "input_tokens": 117,
+          "generated_tokens": 0
+        },
+        "_turbojev": {
+          "backend": "llamacpp",
+          "calibration": "softmax",
+          "calibrated": false,
+          "confidence_method": "selected-candidate-probability",
+          "contract": "turbojev.core.v4",
+          "order_robustness": "none",
+          "order_evaluations": 0,
+          "execution": {
+            "prefix_reuse": "none",
+            "scheduling": "serial",
+            "parallel_task_limit": 1,
+            "projection": "full-vocabulary"
+          }
+        }
+      },
+      "seconds": 0.6730767999979435,
+      "model_choice": "down",
+      "applied_choice": "down",
+      "collision": null
+    },
+    {
+      "case": "left_wall",
+      "format": "sensors",
+      "rotation": 1,
+      "expected_choices": [
+        "down"
+      ],
+      "correct": false,
+      "request": {
+        "state": "Food direction: down.\nBlocked directions: left, right.\nClear directions: up, down.",
+        "questions": {
+          "move": {
+            "type": "choice",
+            "instructions": "Move toward the food. Choose a clear direction. Never choose a blocked direction.",
+            "criteria": {
+              "down": "Move down.",
+              "left": "Move left.",
+              "right": "Move right.",
+              "up": "Move up."
+            }
+          }
+        }
+      },
+      "response": {
+        "model": "qwen3 0.6B Q4_K - Medium",
+        "answers": {
+          "move": {
+            "type": "choice",
+            "choice": "up",
+            "confidence": 0.9969437014981476,
+            "probabilities": {
+              "down": 0.0018818696698502757,
+              "left": 0.0004591428018572784,
+              "right": 0.0007152860301448267,
+              "up": 0.9969437014981476
+            }
+          }
+        },
+        "usage": {
+          "decisions": 1,
+          "input_tokens": 117,
+          "generated_tokens": 0
+        },
+        "_turbojev": {
+          "backend": "llamacpp",
+          "calibration": "softmax",
+          "calibrated": false,
+          "confidence_method": "selected-candidate-probability",
+          "contract": "turbojev.core.v4",
+          "order_robustness": "none",
+          "order_evaluations": 0,
+          "execution": {
+            "prefix_reuse": "none",
+            "scheduling": "serial",
+            "parallel_task_limit": 1,
+            "projection": "full-vocabulary"
+          }
+        }
+      },
+      "seconds": 0.6825968999983161,
+      "model_choice": "up",
+      "applied_choice": "up",
+      "collision": null
+    },
+    {
+      "case": "left_wall",
+      "format": "sensors",
+      "rotation": 2,
+      "expected_choices": [
+        "down"
+      ],
+      "correct": true,
+      "request": {
+        "state": "Food direction: down.\nBlocked directions: left, right.\nClear directions: up, down.",
+        "questions": {
+          "move": {
+            "type": "choice",
+            "instructions": "Move toward the food. Choose a clear direction. Never choose a blocked direction.",
+            "criteria": {
+              "left": "Move left.",
+              "right": "Move right.",
+              "up": "Move up.",
+              "down": "Move down."
+            }
+          }
+        }
+      },
+      "response": {
+        "model": "qwen3 0.6B Q4_K - Medium",
+        "answers": {
+          "move": {
+            "type": "choice",
+            "choice": "down",
+            "confidence": 0.6392596866188464,
+            "probabilities": {
+              "left": 9.991556772404614e-05,
+              "right": 0.00024212855076239805,
+              "up": 0.36039826926266727,
+              "down": 0.6392596866188464
+            }
+          }
+        },
+        "usage": {
+          "decisions": 1,
+          "input_tokens": 117,
+          "generated_tokens": 0
+        },
+        "_turbojev": {
+          "backend": "llamacpp",
+          "calibration": "softmax",
+          "calibrated": false,
+          "confidence_method": "selected-candidate-probability",
+          "contract": "turbojev.core.v4",
+          "order_robustness": "none",
+          "order_evaluations": 0,
+          "execution": {
+            "prefix_reuse": "none",
+            "scheduling": "serial",
+            "parallel_task_limit": 1,
+            "projection": "full-vocabulary"
+          }
+        }
+      },
+      "seconds": 0.5229336999982479,
+      "model_choice": "down",
+      "applied_choice": "down",
+      "collision": null
+    },
+    {
+      "case": "left_wall",
+      "format": "sensors",
+      "rotation": 3,
+      "expected_choices": [
+        "down"
+      ],
+      "correct": true,
+      "request": {
+        "state": "Food direction: down.\nBlocked directions: left, right.\nClear directions: up, down.",
+        "questions": {
+          "move": {
+            "type": "choice",
+            "instructions": "Move toward the food. Choose a clear direction. Never choose a blocked direction.",
+            "criteria": {
+              "right": "Move right.",
+              "up": "Move up.",
+              "down": "Move down.",
+              "left": "Move left."
+            }
+          }
+        }
+      },
+      "response": {
+        "model": "qwen3 0.6B Q4_K - Medium",
+        "answers": {
+          "move": {
+            "type": "choice",
+            "choice": "down",
+            "confidence": 0.883419118481468,
+            "probabilities": {
+              "right": 0.0010838900687077091,
+              "up": 0.002340387741362288,
+              "down": 0.883419118481468,
+              "left": 0.11315660370846216
+            }
+          }
+        },
+        "usage": {
+          "decisions": 1,
+          "input_tokens": 117,
+          "generated_tokens": 0
+        },
+        "_turbojev": {
+          "backend": "llamacpp",
+          "calibration": "softmax",
+          "calibrated": false,
+          "confidence_method": "selected-candidate-probability",
+          "contract": "turbojev.core.v4",
+          "order_robustness": "none",
+          "order_evaluations": 0,
+          "execution": {
+            "prefix_reuse": "none",
+            "scheduling": "serial",
+            "parallel_task_limit": 1,
+            "projection": "full-vocabulary"
+          }
+        }
+      },
+      "seconds": 0.6734800999984145,
+      "model_choice": "down",
+      "applied_choice": "down",
+      "collision": null
+    },
+    {
+      "case": "right_wall",
+      "format": "sensors",
+      "rotation": 0,
+      "expected_choices": [
+        "up"
+      ],
+      "correct": true,
+      "request": {
+        "state": "Food direction: up.\nBlocked directions: left, right.\nClear directions: up, down.",
+        "questions": {
+          "move": {
+            "type": "choice",
+            "instructions": "Move toward the food. Choose a clear direction. Never choose a blocked direction.",
+            "criteria": {
+              "up": "Move up.",
+              "down": "Move down.",
+              "left": "Move left.",
+              "right": "Move right."
+            }
+          }
+        }
+      },
+      "response": {
+        "model": "qwen3 0.6B Q4_K - Medium",
+        "answers": {
+          "move": {
+            "type": "choice",
+            "choice": "up",
+            "confidence": 0.7705241056080236,
+            "probabilities": {
+              "up": 0.7705241056080236,
+              "down": 0.19930666777213663,
+              "left": 0.0014192238096614332,
+              "right": 0.02875000281017836
+            }
+          }
+        },
+        "usage": {
+          "decisions": 1,
+          "input_tokens": 117,
+          "generated_tokens": 0
+        },
+        "_turbojev": {
+          "backend": "llamacpp",
+          "calibration": "softmax",
+          "calibrated": false,
+          "confidence_method": "selected-candidate-probability",
+          "contract": "turbojev.core.v4",
+          "order_robustness": "none",
+          "order_evaluations": 0,
+          "execution": {
+            "prefix_reuse": "none",
+            "scheduling": "serial",
+            "parallel_task_limit": 1,
+            "projection": "full-vocabulary"
+          }
+        }
+      },
+      "seconds": 0.56350470000325,
+      "model_choice": "up",
+      "applied_choice": "up",
+      "collision": null
+    },
+    {
+      "case": "right_wall",
+      "format": "sensors",
+      "rotation": 1,
+      "expected_choices": [
+        "up"
+      ],
+      "correct": true,
+      "request": {
+        "state": "Food direction: up.\nBlocked directions: left, right.\nClear directions: up, down.",
+        "questions": {
+          "move": {
+            "type": "choice",
+            "instructions": "Move toward the food. Choose a clear direction. Never choose a blocked direction.",
+            "criteria": {
+              "down": "Move down.",
+              "left": "Move left.",
+              "right": "Move right.",
+              "up": "Move up."
+            }
+          }
+        }
+      },
+      "response": {
+        "model": "qwen3 0.6B Q4_K - Medium",
+        "answers": {
+          "move": {
+            "type": "choice",
+            "choice": "up",
+            "confidence": 0.9990466219244646,
+            "probabilities": {
+              "down": 0.0006350002093961973,
+              "left": 0.00011903478173874229,
+              "right": 0.00019934308440054438,
+              "up": 0.9990466219244646
+            }
+          }
+        },
+        "usage": {
+          "decisions": 1,
+          "input_tokens": 117,
+          "generated_tokens": 0
+        },
+        "_turbojev": {
+          "backend": "llamacpp",
+          "calibration": "softmax",
+          "calibrated": false,
+          "confidence_method": "selected-candidate-probability",
+          "contract": "turbojev.core.v4",
+          "order_robustness": "none",
+          "order_evaluations": 0,
+          "execution": {
+            "prefix_reuse": "none",
+            "scheduling": "serial",
+            "parallel_task_limit": 1,
+            "projection": "full-vocabulary"
+          }
+        }
+      },
+      "seconds": 0.48186210000130814,
+      "model_choice": "up",
+      "applied_choice": "up",
+      "collision": null
+    },
+    {
+      "case": "right_wall",
+      "format": "sensors",
+      "rotation": 2,
+      "expected_choices": [
+        "up"
+      ],
+      "correct": true,
+      "request": {
+        "state": "Food direction: up.\nBlocked directions: left, right.\nClear directions: up, down.",
+        "questions": {
+          "move": {
+            "type": "choice",
+            "instructions": "Move toward the food. Choose a clear direction. Never choose a blocked direction.",
+            "criteria": {
+              "left": "Move left.",
+              "right": "Move right.",
+              "up": "Move up.",
+              "down": "Move down."
+            }
+          }
+        }
+      },
+      "response": {
+        "model": "qwen3 0.6B Q4_K - Medium",
+        "answers": {
+          "move": {
+            "type": "choice",
+            "choice": "up",
+            "confidence": 0.991629414249459,
+            "probabilities": {
+              "left": 6.941198383430649e-05,
+              "right": 5.1273326213179294e-05,
+              "up": 0.991629414249459,
+              "down": 0.008249900440493587
+            }
+          }
+        },
+        "usage": {
+          "decisions": 1,
+          "input_tokens": 117,
+          "generated_tokens": 0
+        },
+        "_turbojev": {
+          "backend": "llamacpp",
+          "calibration": "softmax",
+          "calibrated": false,
+          "confidence_method": "selected-candidate-probability",
+          "contract": "turbojev.core.v4",
+          "order_robustness": "none",
+          "order_evaluations": 0,
+          "execution": {
+            "prefix_reuse": "none",
+            "scheduling": "serial",
+            "parallel_task_limit": 1,
+            "projection": "full-vocabulary"
+          }
+        }
+      },
+      "seconds": 0.4198294000016176,
+      "model_choice": "up",
+      "applied_choice": "up",
+      "collision": null
+    },
+    {
+      "case": "right_wall",
+      "format": "sensors",
+      "rotation": 3,
+      "expected_choices": [
+        "up"
+      ],
+      "correct": true,
+      "request": {
+        "state": "Food direction: up.\nBlocked directions: left, right.\nClear directions: up, down.",
+        "questions": {
+          "move": {
+            "type": "choice",
+            "instructions": "Move toward the food. Choose a clear direction. Never choose a blocked direction.",
+            "criteria": {
+              "right": "Move right.",
+              "up": "Move up.",
+              "down": "Move down.",
+              "left": "Move left."
+            }
+          }
+        }
+      },
+      "response": {
+        "model": "qwen3 0.6B Q4_K - Medium",
+        "answers": {
+          "move": {
+            "type": "choice",
+            "choice": "up",
+            "confidence": 0.9884229967329956,
+            "probabilities": {
+              "right": 0.000515708253613564,
+              "up": 0.9884229967329956,
+              "down": 0.004312918471702947,
+              "left": 0.006748376541687933
+            }
+          }
+        },
+        "usage": {
+          "decisions": 1,
+          "input_tokens": 117,
+          "generated_tokens": 0
+        },
+        "_turbojev": {
+          "backend": "llamacpp",
+          "calibration": "softmax",
+          "calibrated": false,
+          "confidence_method": "selected-candidate-probability",
+          "contract": "turbojev.core.v4",
+          "order_robustness": "none",
+          "order_evaluations": 0,
+          "execution": {
+            "prefix_reuse": "none",
+            "scheduling": "serial",
+            "parallel_task_limit": 1,
+            "projection": "full-vocabulary"
+          }
+        }
+      },
+      "seconds": 0.7115736999985529,
+      "model_choice": "up",
+      "applied_choice": "up",
+      "collision": null
+    },
+    {
+      "case": "diagonal_food",
+      "format": "sensors",
+      "rotation": 0,
+      "expected_choices": [
+        "right",
+        "up"
+      ],
+      "correct": true,
+      "request": {
+        "state": "Food direction: up and right.\nBlocked directions: left.\nClear directions: up, down, right.",
+        "questions": {
+          "move": {
+            "type": "choice",
+            "instructions": "Move toward the food. Choose a clear direction. Never choose a blocked direction.",
+            "criteria": {
+              "up": "Move up.",
+              "down": "Move down.",
+              "left": "Move left.",
+              "right": "Move right."
+            }
+          }
+        }
+      },
+      "response": {
+        "model": "qwen3 0.6B Q4_K - Medium",
+        "answers": {
+          "move": {
+            "type": "choice",
+            "choice": "right",
+            "confidence": 0.9560695196857054,
+            "probabilities": {
+              "up": 0.038730490926154736,
+              "down": 0.0014105804467494532,
+              "left": 0.0037894089413904723,
+              "right": 0.9560695196857054
+            }
+          }
+        },
+        "usage": {
+          "decisions": 1,
+          "input_tokens": 119,
+          "generated_tokens": 0
+        },
+        "_turbojev": {
+          "backend": "llamacpp",
+          "calibration": "softmax",
+          "calibrated": false,
+          "confidence_method": "selected-candidate-probability",
+          "contract": "turbojev.core.v4",
+          "order_robustness": "none",
+          "order_evaluations": 0,
+          "execution": {
+            "prefix_reuse": "none",
+            "scheduling": "serial",
+            "parallel_task_limit": 1,
+            "projection": "full-vocabulary"
+          }
+        }
+      },
+      "seconds": 0.7112054999961401,
+      "model_choice": "right",
+      "applied_choice": "right",
+      "collision": null
+    },
+    {
+      "case": "diagonal_food",
+      "format": "sensors",
+      "rotation": 1,
+      "expected_choices": [
+        "right",
+        "up"
+      ],
+      "correct": true,
+      "request": {
+        "state": "Food direction: up and right.\nBlocked directions: left.\nClear directions: up, down, right.",
+        "questions": {
+          "move": {
+            "type": "choice",
+            "instructions": "Move toward the food. Choose a clear direction. Never choose a blocked direction.",
+            "criteria": {
+              "down": "Move down.",
+              "left": "Move left.",
+              "right": "Move right.",
+              "up": "Move up."
+            }
+          }
+        }
+      },
+      "response": {
+        "model": "qwen3 0.6B Q4_K - Medium",
+        "answers": {
+          "move": {
+            "type": "choice",
+            "choice": "up",
+            "confidence": 0.7312255197205965,
+            "probabilities": {
+              "down": 0.00018663842968367572,
+              "left": 0.00020511988247722714,
+              "right": 0.26838272196724267,
+              "up": 0.7312255197205965
+            }
+          }
+        },
+        "usage": {
+          "decisions": 1,
+          "input_tokens": 119,
+          "generated_tokens": 0
+        },
+        "_turbojev": {
+          "backend": "llamacpp",
+          "calibration": "softmax",
+          "calibrated": false,
+          "confidence_method": "selected-candidate-probability",
+          "contract": "turbojev.core.v4",
+          "order_robustness": "none",
+          "order_evaluations": 0,
+          "execution": {
+            "prefix_reuse": "none",
+            "scheduling": "serial",
+            "parallel_task_limit": 1,
+            "projection": "full-vocabulary"
+          }
+        }
+      },
+      "seconds": 0.48259500000131084,
+      "model_choice": "up",
+      "applied_choice": "up",
+      "collision": null
+    },
+    {
+      "case": "diagonal_food",
+      "format": "sensors",
+      "rotation": 2,
+      "expected_choices": [
+        "right",
+        "up"
+      ],
+      "correct": false,
+      "request": {
+        "state": "Food direction: up and right.\nBlocked directions: left.\nClear directions: up, down, right.",
+        "questions": {
+          "move": {
+            "type": "choice",
+            "instructions": "Move toward the food. Choose a clear direction. Never choose a blocked direction.",
+            "criteria": {
+              "left": "Move left.",
+              "right": "Move right.",
+              "up": "Move up.",
+              "down": "Move down."
+            }
+          }
+        }
+      },
+      "response": {
+        "model": "qwen3 0.6B Q4_K - Medium",
+        "answers": {
+          "move": {
+            "type": "choice",
+            "choice": "down",
+            "confidence": 0.5722249911930491,
+            "probabilities": {
+              "left": 0.00021788885090937983,
+              "right": 0.17671845452812002,
+              "up": 0.25083866542792155,
+              "down": 0.5722249911930491
+            }
+          }
+        },
+        "usage": {
+          "decisions": 1,
+          "input_tokens": 119,
+          "generated_tokens": 0
+        },
+        "_turbojev": {
+          "backend": "llamacpp",
+          "calibration": "softmax",
+          "calibrated": false,
+          "confidence_method": "selected-candidate-probability",
+          "contract": "turbojev.core.v4",
+          "order_robustness": "none",
+          "order_evaluations": 0,
+          "execution": {
+            "prefix_reuse": "none",
+            "scheduling": "serial",
+            "parallel_task_limit": 1,
+            "projection": "full-vocabulary"
+          }
+        }
+      },
+      "seconds": 0.541928700004064,
+      "model_choice": "down",
+      "applied_choice": "down",
+      "collision": null
+    },
+    {
+      "case": "diagonal_food",
+      "format": "sensors",
+      "rotation": 3,
+      "expected_choices": [
+        "right",
+        "up"
+      ],
+      "correct": true,
+      "request": {
+        "state": "Food direction: up and right.\nBlocked directions: left.\nClear directions: up, down, right.",
+        "questions": {
+          "move": {
+            "type": "choice",
+            "instructions": "Move toward the food. Choose a clear direction. Never choose a blocked direction.",
+            "criteria": {
+              "right": "Move right.",
+              "up": "Move up.",
+              "down": "Move down.",
+              "left": "Move left."
+            }
+          }
+        }
+      },
+      "response": {
+        "model": "qwen3 0.6B Q4_K - Medium",
+        "answers": {
+          "move": {
+            "type": "choice",
+            "choice": "up",
+            "confidence": 0.8478137187906568,
+            "probabilities": {
+              "right": 0.02690522940607666,
+              "up": 0.8478137187906568,
+              "down": 0.030518629067268675,
+              "left": 0.09476242273599778
+            }
+          }
+        },
+        "usage": {
+          "decisions": 1,
+          "input_tokens": 119,
+          "generated_tokens": 0
+        },
+        "_turbojev": {
+          "backend": "llamacpp",
+          "calibration": "softmax",
+          "calibrated": false,
+          "confidence_method": "selected-candidate-probability",
+          "contract": "turbojev.core.v4",
+          "order_robustness": "none",
+          "order_evaluations": 0,
+          "execution": {
+            "prefix_reuse": "none",
+            "scheduling": "serial",
+            "parallel_task_limit": 1,
+            "projection": "full-vocabulary"
+          }
+        }
+      },
+      "seconds": 0.6287004000041634,
+      "model_choice": "up",
+      "applied_choice": "up",
+      "collision": null
+    },
+    {
+      "case": "body_blocks_food_direction",
+      "format": "sensors",
+      "rotation": 0,
+      "expected_choices": [
+        "left",
+        "up"
+      ],
+      "correct": true,
+      "request": {
+        "state": "Food direction: right.\nBlocked directions: down, right.\nClear directions: up, left.",
+        "questions": {
+          "move": {
+            "type": "choice",
+            "instructions": "Move toward the food. Choose a clear direction. Never choose a blocked direction.",
+            "criteria": {
+              "up": "Move up.",
+              "down": "Move down.",
+              "left": "Move left.",
+              "right": "Move right."
+            }
+          }
+        }
+      },
+      "response": {
+        "model": "qwen3 0.6B Q4_K - Medium",
+        "answers": {
+          "move": {
+            "type": "choice",
+            "choice": "up",
+            "confidence": 0.9106594272519528,
+            "probabilities": {
+              "up": 0.9106594272519528,
+              "down": 0.004241495095043444,
+              "left": 0.04916911249738317,
+              "right": 0.03592996515562059
+            }
+          }
+        },
+        "usage": {
+          "decisions": 1,
+          "input_tokens": 117,
+          "generated_tokens": 0
+        },
+        "_turbojev": {
+          "backend": "llamacpp",
+          "calibration": "softmax",
+          "calibrated": false,
+          "confidence_method": "selected-candidate-probability",
+          "contract": "turbojev.core.v4",
+          "order_robustness": "none",
+          "order_evaluations": 0,
+          "execution": {
+            "prefix_reuse": "none",
+            "scheduling": "serial",
+            "parallel_task_limit": 1,
+            "projection": "full-vocabulary"
+          }
+        }
+      },
+      "seconds": 0.42752580000524176,
+      "model_choice": "up",
+      "applied_choice": "up",
+      "collision": null
+    },
+    {
+      "case": "body_blocks_food_direction",
+      "format": "sensors",
+      "rotation": 1,
+      "expected_choices": [
+        "left",
+        "up"
+      ],
+      "correct": false,
+      "request": {
+        "state": "Food direction: right.\nBlocked directions: down, right.\nClear directions: up, left.",
+        "questions": {
+          "move": {
+            "type": "choice",
+            "instructions": "Move toward the food. Choose a clear direction. Never choose a blocked direction.",
+            "criteria": {
+              "down": "Move down.",
+              "left": "Move left.",
+              "right": "Move right.",
+              "up": "Move up."
+            }
+          }
+        }
+      },
+      "response": {
+        "model": "qwen3 0.6B Q4_K - Medium",
+        "answers": {
+          "move": {
+            "type": "choice",
+            "choice": "right",
+            "confidence": 0.47439623412025417,
+            "probabilities": {
+              "down": 0.009751957355974604,
+              "left": 0.43588214141414705,
+              "right": 0.47439623412025417,
+              "up": 0.07996966710962423
+            }
+          }
+        },
+        "usage": {
+          "decisions": 1,
+          "input_tokens": 117,
+          "generated_tokens": 0
+        },
+        "_turbojev": {
+          "backend": "llamacpp",
+          "calibration": "softmax",
+          "calibrated": false,
+          "confidence_method": "selected-candidate-probability",
+          "contract": "turbojev.core.v4",
+          "order_robustness": "none",
+          "order_evaluations": 0,
+          "execution": {
+            "prefix_reuse": "none",
+            "scheduling": "serial",
+            "parallel_task_limit": 1,
+            "projection": "full-vocabulary"
+          }
+        }
+      },
+      "seconds": 0.44019379999372177,
+      "model_choice": "right",
+      "applied_choice": "right",
+      "collision": "model hit the snake body"
+    },
+    {
+      "case": "body_blocks_food_direction",
+      "format": "sensors",
+      "rotation": 2,
+      "expected_choices": [
+        "left",
+        "up"
+      ],
+      "correct": false,
+      "request": {
+        "state": "Food direction: right.\nBlocked directions: down, right.\nClear directions: up, left.",
+        "questions": {
+          "move": {
+            "type": "choice",
+            "instructions": "Move toward the food. Choose a clear direction. Never choose a blocked direction.",
+            "criteria": {
+              "left": "Move left.",
+              "right": "Move right.",
+              "up": "Move up.",
+              "down": "Move down."
+            }
+          }
+        }
+      },
+      "response": {
+        "model": "qwen3 0.6B Q4_K - Medium",
+        "answers": {
+          "move": {
+            "type": "choice",
+            "choice": "right",
+            "confidence": 0.8606806616094269,
+            "probabilities": {
+              "left": 0.04102198744087841,
+              "right": 0.8606806616094269,
+              "up": 0.004316994467080437,
+              "down": 0.09398035648261437
+            }
+          }
+        },
+        "usage": {
+          "decisions": 1,
+          "input_tokens": 117,
+          "generated_tokens": 0
+        },
+        "_turbojev": {
+          "backend": "llamacpp",
+          "calibration": "softmax",
+          "calibrated": false,
+          "confidence_method": "selected-candidate-probability",
+          "contract": "turbojev.core.v4",
+          "order_robustness": "none",
+          "order_evaluations": 0,
+          "execution": {
+            "prefix_reuse": "none",
+            "scheduling": "serial",
+            "parallel_task_limit": 1,
+            "projection": "full-vocabulary"
+          }
+        }
+      },
+      "seconds": 0.4687082000018563,
+      "model_choice": "right",
+      "applied_choice": "right",
+      "collision": "model hit the snake body"
+    },
+    {
+      "case": "body_blocks_food_direction",
+      "format": "sensors",
+      "rotation": 3,
+      "expected_choices": [
+        "left",
+        "up"
+      ],
+      "correct": true,
+      "request": {
+        "state": "Food direction: right.\nBlocked directions: down, right.\nClear directions: up, left.",
+        "questions": {
+          "move": {
+            "type": "choice",
+            "instructions": "Move toward the food. Choose a clear direction. Never choose a blocked direction.",
+            "criteria": {
+              "right": "Move right.",
+              "up": "Move up.",
+              "down": "Move down.",
+              "left": "Move left."
+            }
+          }
+        }
+      },
+      "response": {
+        "model": "qwen3 0.6B Q4_K - Medium",
+        "answers": {
+          "move": {
+            "type": "choice",
+            "choice": "up",
+            "confidence": 0.7939763206942844,
+            "probabilities": {
+              "right": 0.10891016129110118,
+              "up": 0.7939763206942844,
+              "down": 0.021364233104819906,
+              "left": 0.07574928490979467
+            }
+          }
+        },
+        "usage": {
+          "decisions": 1,
+          "input_tokens": 117,
+          "generated_tokens": 0
+        },
+        "_turbojev": {
+          "backend": "llamacpp",
+          "calibration": "softmax",
+          "calibrated": false,
+          "confidence_method": "selected-candidate-probability",
+          "contract": "turbojev.core.v4",
+          "order_robustness": "none",
+          "order_evaluations": 0,
+          "execution": {
+            "prefix_reuse": "none",
+            "scheduling": "serial",
+            "parallel_task_limit": 1,
+            "projection": "full-vocabulary"
+          }
+        }
+      },
+      "seconds": 0.8894514000057825,
+      "model_choice": "up",
+      "applied_choice": "up",
+      "collision": null
+    }
+  ],
+  "games": [
+    {
+      "event": "benchmark",
+      "model": "Qwen3-0.6B-Q4_K_M.gguf",
+      "turbojev": "0.29.2",
+      "host": "Windows AMD64 \u00b7 Python 3.12.7",
+      "model_load_s": 3.260051500001282,
+      "seed": 0,
+      "score": 3,
+      "first_food_turn": 10,
+      "executed_steps": 40,
+      "model_decisions": 40,
+      "host_selected_moves": 0,
+      "game_time_s": 22.503800699996646,
+      "inference_total_s": 18.3476430000228,
+      "order_robustness": "none",
+      "state_format": "sensors",
+      "host_observation_preprocessing": "relative food direction and immediate collision facts",
+      "end_reason": "turn limit reached",
+      "trace": "D:\\Projects\\TurboJev\\other\\TurboJev.Demos\\snake-python\\validation\\qwen-sensors-0292-seed-0.jsonl",
+      "latency_mean_ms": 458.69107500057,
+      "latency_median_ms": 400.4556500003673,
+      "latency_p95_ms": 708.0666000038036,
+      "decisions_per_s": 2.180116541397186
+    },
+    {
+      "event": "benchmark",
+      "model": "Qwen3-0.6B-Q4_K_M.gguf",
+      "turbojev": "0.29.2",
+      "host": "Windows AMD64 \u00b7 Python 3.12.7",
+      "model_load_s": 3.260051500001282,
+      "seed": 1,
+      "score": 4,
+      "first_food_turn": 17,
+      "executed_steps": 40,
+      "model_decisions": 40,
+      "host_selected_moves": 0,
+      "game_time_s": 24.608071200003906,
+      "inference_total_s": 20.516869199986104,
+      "order_robustness": "none",
+      "state_format": "sensors",
+      "host_observation_preprocessing": "relative food direction and immediate collision facts",
+      "end_reason": "turn limit reached",
+      "trace": "D:\\Projects\\TurboJev\\other\\TurboJev.Demos\\snake-python\\validation\\qwen-sensors-0292-seed-1.jsonl",
+      "latency_mean_ms": 512.9217299996526,
+      "latency_median_ms": 488.6529999967024,
+      "latency_p95_ms": 679.4471999965026,
+      "decisions_per_s": 1.949615197626112
+    },
+    {
+      "event": "benchmark",
+      "model": "Qwen3-0.6B-Q4_K_M.gguf",
+      "turbojev": "0.29.2",
+      "host": "Windows AMD64 \u00b7 Python 3.12.7",
+      "model_load_s": 3.260051500001282,
+      "seed": 2,
+      "score": 3,
+      "first_food_turn": 8,
+      "executed_steps": 40,
+      "model_decisions": 40,
+      "host_selected_moves": 0,
+      "game_time_s": 34.750937600001635,
+      "inference_total_s": 30.634607200001483,
+      "order_robustness": "none",
+      "state_format": "sensors",
+      "host_observation_preprocessing": "relative food direction and immediate collision facts",
+      "end_reason": "turn limit reached",
+      "trace": "D:\\Projects\\TurboJev\\other\\TurboJev.Demos\\snake-python\\validation\\qwen-sensors-0292-seed-2.jsonl",
+      "latency_mean_ms": 765.8651800000371,
+      "latency_median_ms": 713.0383500007156,
+      "latency_p95_ms": 1199.213799998688,
+      "decisions_per_s": 1.3057128409989232
+    }
+  ],
+  "host_observation_preprocessing": "sensors derives relative food direction and immediate collision facts",
+  "host_selects_or_replaces_actions": false,
+  "limitations": "Sensors simplify perception; no optimal-path search or general spatial-reasoning qualification. Six small probes and three seeds are not a reliability guarantee.",
+  "timing_limitations": "An alternate-prompt inference experiment overlapped part of the games. Per-call timings are observations, not a controlled performance comparison.",
+  "alternate_prompt_probe": {
+    "correct": 7,
+    "total": 16,
+    "deployed": false,
+    "reason": "The more literal instruction regressed directional probes."
+  }
+}

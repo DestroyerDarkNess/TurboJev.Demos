@@ -109,9 +109,9 @@ is a small baseline, not a recommended autonomous navigation policy.
 when a published TurboJev package supporting those fields is installed. It is
 off by default, consumes extra model tokens and can return an explicit budget
 error. This demo still imports TurboJev from PyPI, with no local engine override.
-The pinned PyPI package 0.29.2 supports this optional native text mode.
+The pinned PyPI package 0.30.1 supports this optional native text mode.
 
-## Simplified-input results with 0.29.2
+## Simplified-input results with 0.30.1
 
 The [registry-package report](validation/qwen-sensors-0292.json) uses Qwen3
 0.6B Q4_K_M on Windows x64, CPU, `n_seq_max=4`, single-pass scoring and `thinking=False`.

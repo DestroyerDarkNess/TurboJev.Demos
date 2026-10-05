@@ -1,0 +1,276 @@
+{
+  "version": "0.30.1",
+  "checked_utc": "2026-10-05T20:52:25Z",
+  "records": [
+    {
+      "registry": "cargo",
+      "name": "turbojev",
+      "ok": true,
+      "evidence": {
+        "name": "turbojev",
+        "version": "0.30.1",
+        "checksum": "e5953fc288b4dee6edfe90419b8251b0229a313d73ccb2ec234c860b49bc5dd1"
+      }
+    },
+    {
+      "registry": "cargo",
+      "name": "turbojev-backend",
+      "ok": true,
+      "evidence": {
+        "name": "turbojev-backend",
+        "version": "0.30.1",
+        "checksum": "0773bc547d110196375ecce8ac0b80d5e3737ffcd3646715d6be589dff9c9ee9"
+      }
+    },
+    {
+      "registry": "cargo",
+      "name": "turbojev-backend-custom",
+      "ok": true,
+      "evidence": {
+        "name": "turbojev-backend-custom",
+        "version": "0.30.1",
+        "checksum": "318be92fbddf291b5ab89e535979a82246be0a065589a247771f0264dba94019"
+      }
+    },
+    {
+      "registry": "cargo",
+      "name": "turbojev-backend-mock",
+      "ok": true,
+      "evidence": {
+        "name": "turbojev-backend-mock",
+        "version": "0.30.1",
+        "checksum": "38697941e2996113aea85c27b59b5d4f6053f65431a9f0a9d6173693d4b72d55"
+      }
+    },
+    {
+      "registry": "cargo",
+      "name": "turbojev-benchmark",
+      "ok": true,
+      "evidence": {
+        "name": "turbojev-benchmark",
+        "version": "0.30.1",
+        "checksum": "ba5d4fac6f351e90bbafe4fa3dcef9b9f3c7cf3ab3ffe8554c3307b869511663"
+      }
+    },
+    {
+      "registry": "cargo",
+      "name": "turbojev-calibration",
+      "ok": true,
+      "evidence": {
+        "name": "turbojev-calibration",
+        "version": "0.30.1",
+        "checksum": "e08e72173a9992e35c27afbb12b9540d7f840022f3c4cc511ede7f8173781225"
+      }
+    },
+    {
+      "registry": "cargo",
+      "name": "turbojev-compat",
+      "ok": true,
+      "evidence": {
+        "name": "turbojev-compat",
+        "version": "0.30.1",
+        "checksum": "9c0d6f46549e4c43c0f520faf47cc0699ba57a10d080a3f5236f331098012d47"
+      }
+    },
+    {
+      "registry": "cargo",
+      "name": "turbojev-conformance",
+      "ok": true,
+      "evidence": {
+        "name": "turbojev-conformance",
+        "version": "0.30.1",
+        "checksum": "bdaaa1edb8d434352e7a0252faa16291b7ce32a7983b73054c05cc20a49f2e18"
+      }
+    },
+    {
+      "registry": "cargo",
+      "name": "turbojev-core",
+      "ok": true,
+      "evidence": {
+        "name": "turbojev-core",
+        "version": "0.30.1",
+        "checksum": "f20fd6f8e175b7e9ddb334fa0d1b4a0d21c03d0f75c61d8342ee22199ef57067"
+      }
+    },
+    {
+      "registry": "cargo",
+      "name": "turbojev-engine",
+      "ok": true,
+      "evidence": {
+        "name": "turbojev-engine",
+        "version": "0.30.1",
+        "checksum": "1169e9a76da1ded378bfc52a93272f8c911025547ffd8bebbd4286fcbc3f7ebf"
+      }
+    },
+    {
+      "registry": "cargo",
+      "name": "turbojev-host-native",
+      "ok": true,
+      "evidence": {
+        "name": "turbojev-host-native",
+        "version": "0.30.1",
+        "checksum": "8894edeb4b91fa4620747d99100c9a1a16e8e15c7124b543983d11de6f3fa35a"
+      }
+    },
+    {
+      "registry": "cargo",
+      "name": "turbojev-model",
+      "ok": true,
+      "evidence": {
+        "name": "turbojev-model",
+        "version": "0.30.1",
+        "checksum": "28b621754d7e78e16561fe017aaddbebce80219e2947b02996d508fdcb2ebae0"
+      }
+    },
+    {
+      "registry": "cargo",
+      "name": "turbojev-projection",
+      "ok": true,
+      "evidence": {
+        "name": "turbojev-projection",
+        "version": "0.30.1",
+        "checksum": "6589766adc7b5afe170892280cba84f6e164f95015c8848889c26c9c3ce3c46d"
+      }
+    },
+    {
+      "registry": "cargo",
+      "name": "turbojev-prompt",
+      "ok": true,
+      "evidence": {
+        "name": "turbojev-prompt",
+        "version": "0.30.1",
+        "checksum": "b4ba67282c32a10cf79eaffbdb47159c7611fdf94d226178b3bcaa60a3945e5a"
+      }
+    },
+    {
+      "registry": "cargo",
+      "name": "turbojev-runtime",
+      "ok": true,
+      "evidence": {
+        "name": "turbojev-runtime",
+        "version": "0.30.1",
+        "checksum": "406f551417cf8a4f483c39b99cbcd50622e765c28df68a209cb3c81e256c29dd"
+      }
+    },
+    {
+      "registry": "cargo",
+      "name": "turbojev-runtime-conformance",
+      "ok": true,
+      "evidence": {
+        "name": "turbojev-runtime-conformance",
+        "version": "0.30.1",
+        "checksum": "bccb521531e0ea1bb7cae1fa8770826df77f937eee6705b9234499f27e8127d9"
+      }
+    },
+    {
+      "registry": "cargo",
+      "name": "turbojev-runtime-llamacpp",
+      "ok": true,
+      "evidence": {
+        "name": "turbojev-runtime-llamacpp",
+        "version": "0.30.1",
+        "checksum": "00d5bcf377a69771d917b3547ecd65ff01a8743689fe8357820db083f5e4289b"
+      }
+    },
+    {
+      "registry": "cargo",
+      "name": "turbojev-runtime-projection",
+      "ok": true,
+      "evidence": {
+        "name": "turbojev-runtime-projection",
+        "version": "0.30.1",
+        "checksum": "5695d088246ecd0708295931acccb5d00c94e7e52946492d77d0466a0a336a28"
+      }
+    },
+    {
+      "registry": "cargo",
+      "name": "turbojev-runtime-qualification",
+      "ok": true,
+      "evidence": {
+        "name": "turbojev-runtime-qualification",
+        "version": "0.30.1",
+        "checksum": "2dd77de605fc8e769aafaa5a6b0eceee8e6e1ff0740ab78b45d3ce79f5030272"
+      }
+    },
+    {
+      "registry": "cargo",
+      "name": "turbojev-schema",
+      "ok": true,
+      "evidence": {
+        "name": "turbojev-schema",
+        "version": "0.30.1",
+        "checksum": "25ba98a126b70988c928971fb445000ea76ea6e9cb5a3aab03aad70f9b013bfd"
+      }
+    },
+    {
+      "registry": "cargo",
+      "name": "turbojev-sequence",
+      "ok": true,
+      "evidence": {
+        "name": "turbojev-sequence",
+        "version": "0.30.1",
+        "checksum": "7f98cd0bc0d8c29ae0289bf2c181f38eb7b0dd505c044ea0a724bac5197845ee"
+      }
+    },
+    {
+      "registry": "cargo",
+      "name": "turbojev-specialized",
+      "ok": true,
+      "evidence": {
+        "name": "turbojev-specialized",
+        "version": "0.30.1",
+        "checksum": "761470fc7f61ec4b6c184024c025f1d8aff81c5b0e7cf6758b6fada313eab8a0"
+      }
+    },
+    {
+      "registry": "cargo",
+      "name": "turbojev-specialized-artifact",
+      "ok": true,
+      "evidence": {
+        "name": "turbojev-specialized-artifact",
+        "version": "0.30.1",
+        "checksum": "b61aafe0df47532ad66762667f8a236a9d9503764899e2521468b79e36bbec69"
+      }
+    },
+    {
+      "registry": "cargo",
+      "name": "turbojev-specialized-eval",
+      "ok": true,
+      "evidence": {
+        "name": "turbojev-specialized-eval",
+        "version": "0.30.1",
+        "checksum": "f93ed88c72d54e6b3b7f6b66e5794dfb973086bf1056a54570b879cd35b648f4"
+      }
+    },
+    {
+      "registry": "cargo",
+      "name": "turbojev-tokenizer",
+      "ok": true,
+      "evidence": {
+        "name": "turbojev-tokenizer",
+        "version": "0.30.1",
+        "checksum": "ba6b629767e005b428c0374d196adde04ec6beffe7ce8eee40314d1c57613326"
+      }
+    },
+    {
+      "registry": "cargo",
+      "name": "turbojev-training-data",
+      "ok": true,
+      "evidence": {
+        "name": "turbojev-training-data",
+        "version": "0.30.1",
+        "checksum": "ff51206903627509d27a7904b4999e9a838d525a73b107d3c94cc84381fa9bc9"
+      }
+    },
+    {
+      "registry": "cargo",
+      "name": "turbojev-wire",
+      "ok": true,
+      "evidence": {
+        "name": "turbojev-wire",
+        "version": "0.30.1",
+        "checksum": "751bce938cf9af9211ebd371e92311cb646d1f8b5d1469542d9f01237e079690"
+      }
+    }
+  ]
+}

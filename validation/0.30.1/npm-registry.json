@@ -1,0 +1,86 @@
+{
+  "version": "0.30.1",
+  "checked_utc": "2026-10-05T20:24:10Z",
+  "records": [
+    {
+      "registry": "npm",
+      "name": "@turbojev/wasm",
+      "ok": true,
+      "evidence": {
+        "name": "@turbojev/wasm",
+        "version": "0.30.1",
+        "integrity": "sha512-1FNVxAfZLvsmFPInvgJ92uOq1lOuglLp85VRzprHcJZ5uYEOPk8qjIzQaAQKilsrqVAJfqH/5+3keZUQgnV1xw=="
+      }
+    },
+    {
+      "registry": "npm",
+      "name": "@turbojev/web",
+      "ok": true,
+      "evidence": {
+        "name": "@turbojev/web",
+        "version": "0.30.1",
+        "integrity": "sha512-SIHXfWvRBXDmjkYpQXrymvbV86dVBY8xSz65H1qrbD9mUbzo3z7DYvcTeg5b7nl3GslVtdhKuO/QO9azCDPUUQ=="
+      }
+    },
+    {
+      "registry": "npm",
+      "name": "@turbojev/runtime-transformersjs",
+      "ok": true,
+      "evidence": {
+        "name": "@turbojev/runtime-transformersjs",
+        "version": "0.30.1",
+        "integrity": "sha512-DT9kiFiIfEjzwdxAWAGc5wvCC9beRIzJILntpi6cA+dIvVH+0OQCQe4hfdOLAhnwPzcZt3hUrsFkyfqKH0pC7w=="
+      }
+    },
+    {
+      "registry": "npm",
+      "name": "@turbojev/runtime-llamacpp-wasm",
+      "ok": true,
+      "evidence": {
+        "name": "@turbojev/runtime-llamacpp-wasm",
+        "version": "0.30.1",
+        "integrity": "sha512-/Jx/EAROtL2euNZFPDyN/cxQyJWPFtFmbKWsDiB3YPt0tkv3nWSUt19hAxSxvfnQoSA7N4/cgtFzgrAggLZDnQ=="
+      }
+    },
+    {
+      "registry": "npm",
+      "name": "@turbojev/node",
+      "ok": true,
+      "evidence": {
+        "name": "@turbojev/node",
+        "version": "0.30.1",
+        "integrity": "sha512-zmChZGcLJSYfD1XcDh4PNJOug7lymzWWyGJPr8Gq2t7r6bB9XchRDhjR0Xk4nu3pApieQc2+W4zmQ1vZmPtlmg=="
+      }
+    },
+    {
+      "registry": "npm",
+      "name": "@turbojev/node-win32-ia32",
+      "ok": true,
+      "evidence": {
+        "name": "@turbojev/node-win32-ia32",
+        "version": "0.30.1",
+        "integrity": "sha512-POlRN32uuZqyp1CFCVS4out2ULNxClQTI2Sn85jIl9sJXactxAndbdZDcyUqFt+gpH39a5PrXsSpNUjxIaWNfw=="
+      }
+    },
+    {
+      "registry": "npm",
+      "name": "@turbojev/node-win32-x64",
+      "ok": true,
+      "evidence": {
+        "name": "@turbojev/node-win32-x64",
+        "version": "0.30.1",
+        "integrity": "sha512-CSkjsxafB7AfYuX5mzoKPzYmb/+WrAUbuDvwsrBFtBSU/elw3mXuxUl5N5ZwtVWvUehZPOk9X6V+CI2MDyxMCg=="
+      }
+    },
+    {
+      "registry": "npm",
+      "name": "@turbojev/node-win32-arm64",
+      "ok": true,
+      "evidence": {
+        "name": "@turbojev/node-win32-arm64",
+        "version": "0.30.1",
+        "integrity": "sha512-cGbV1YST6xPwtNctkwFRLg0CYw25whymW/szZtctkRkdfp8FUafTxLSk8MnmuauuY3jmklPKW7Wio2rOp3ujWw=="
+      }
+    }
+  ]
+}

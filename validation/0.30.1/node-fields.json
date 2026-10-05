@@ -1,0 +1,48 @@
+{
+  "registry": "npm",
+  "package": "@turbojev/node",
+  "version": "0.30.1",
+  "request": {
+    "context": "There are exactly seven items.",
+    "questions": {
+      "count": {
+        "type": "integer",
+        "instructions": "How many items?"
+      },
+      "greater": {
+        "type": "boolean",
+        "depends_on": [
+          "count"
+        ],
+        "instructions": "Is count greater than five?"
+      },
+      "note": {
+        "type": "string",
+        "when": {
+          "count": {
+            "lt": 5
+          }
+        },
+        "instructions": "Write a note."
+      }
+    }
+  },
+  "response": {
+    "result": {
+      "count": 7,
+      "greater": true
+    },
+    "thinking": {},
+    "thinking_effort": {},
+    "skipped": [
+      "note"
+    ],
+    "usage": {
+      "decisions": 2,
+      "input_tokens": 162,
+      "generated_tokens": 6
+    }
+  },
+  "device": "gpu",
+  "seconds": 5.158253799999999
+}

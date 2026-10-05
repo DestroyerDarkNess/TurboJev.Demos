@@ -19,10 +19,10 @@ Open <http://localhost:4174>. Select **Load model**, wait for the file progress 
 
 ## CDN sources
 
-- `@turbojev/web@0.29.2/worker.js` from jsDelivr
-- `@turbojev/runtime-transformersjs@0.29.2` and Transformers.js from esm.sh
-- `@turbojev/runtime-llamacpp-wasm@0.29.2` and its pinned `@wllama/wllama@3.8.1` from jsDelivr
-- `@turbojev/wasm@0.29.2/turbojev_wasm.js` from jsDelivr (the module loads its adjacent WASM binary)
+- `@turbojev/web@0.30.1/worker.js` from jsDelivr
+- `@turbojev/runtime-transformersjs@0.30.1` and Transformers.js from esm.sh
+- `@turbojev/runtime-llamacpp-wasm@0.30.1` and its pinned `@wllama/wllama@3.8.1` from jsDelivr
+- `@turbojev/wasm@0.30.1/turbojev_wasm.js` from jsDelivr (the module loads its adjacent WASM binary)
 - `@wllama/wllama@3.6.1` from jsDelivr for the SemIf direct-readout reference
 
 The two example prompts and the SemIf scoring procedure are based on the independent [SemIf browser lab](https://openjev.com/) and its [published implementation](https://github.com/TheoLeeCJ/SemIf-OpenJev). The comparison uses Qwen3-0.6B-Q8_0 at Hugging Face revision `23749fefcc72300e3a2ad315e1317431b06b590a` for both paths. Quantized candidate probabilities are conditional on the listed choices and are not calibrated confidence.

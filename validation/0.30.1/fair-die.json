@@ -1,0 +1,181 @@
+{
+  "turbojev": "0.30.1",
+  "model": "C:\\Users\\Administrator\\.cache\\turbojev\\Qwen3-0.6B-Q4_K_M.gguf",
+  "model_sha256": "9acfc1e001311f34b4252001b626f2e466d592a42065f66571bff3790d4e1b14",
+  "platform": "Windows-11-10.0.26100-SP0",
+  "architecture": "AMD64",
+  "device": "gpu",
+  "seed": 42,
+  "ground_truth": {
+    "one": 0.16666666666666666,
+    "two": 0.16666666666666666,
+    "three": 0.16666666666666666,
+    "four": 0.16666666666666666,
+    "five": 0.16666666666666666,
+    "six": 0.16666666666666666
+  },
+  "runs": {
+    "1": {
+      "response": {
+        "result": {
+          "roll": {
+            "confidence": 0.9917978410325617,
+            "distribution": [
+              {
+                "probability": 6.798302666883861e-05,
+                "value": "one"
+              },
+              {
+                "probability": 2.5044595609028043e-05,
+                "value": "two"
+              },
+              {
+                "probability": 3.129771523793754e-05,
+                "value": "three"
+              },
+              {
+                "probability": 6.661168105709213e-05,
+                "value": "four"
+              },
+              {
+                "probability": 0.008011221948865346,
+                "value": "five"
+              },
+              {
+                "probability": 0.9917978410325617,
+                "value": "six"
+              }
+            ],
+            "probabilities": {
+              "five": 0.008011221948865346,
+              "four": 6.661168105709213e-05,
+              "one": 6.798302666883861e-05,
+              "six": 0.9917978410325617,
+              "three": 3.129771523793754e-05,
+              "two": 2.5044595609028043e-05
+            },
+            "value": "six"
+          }
+        },
+        "thinking": {},
+        "thinking_effort": {},
+        "skipped": [],
+        "usage": {
+          "decisions": 1,
+          "input_tokens": 108,
+          "generated_tokens": 0
+        }
+      },
+      "seconds": 1.370913599999767,
+      "kl_uniform_to_prediction": 5.710715365973348
+    },
+    "auto": {
+      "response": {
+        "result": {
+          "roll": {
+            "confidence": 0.3154822605726871,
+            "distribution": [
+              {
+                "probability": 0.1541435639319053,
+                "value": "one"
+              },
+              {
+                "probability": 0.059399432580522056,
+                "value": "two"
+              },
+              {
+                "probability": 0.14821721957824155,
+                "value": "three"
+              },
+              {
+                "probability": 0.12257605348219457,
+                "value": "four"
+              },
+              {
+                "probability": 0.3154822605726871,
+                "value": "five"
+              },
+              {
+                "probability": 0.2001814698544495,
+                "value": "six"
+              }
+            ],
+            "probabilities": {
+              "five": 0.3154822605726871,
+              "four": 0.12257605348219457,
+              "one": 0.1541435639319053,
+              "six": 0.2001814698544495,
+              "three": 0.14821721957824155,
+              "two": 0.059399432580522056
+            },
+            "value": "five"
+          }
+        },
+        "thinking": {},
+        "thinking_effort": {},
+        "skipped": [],
+        "usage": {
+          "decisions": 1,
+          "input_tokens": 648,
+          "generated_tokens": 0
+        }
+      },
+      "seconds": 2.7908351000005496,
+      "kl_uniform_to_prediction": 0.11884474085237552
+    },
+    "8": {
+      "response": {
+        "result": {
+          "roll": {
+            "confidence": 0.4957033742884497,
+            "distribution": [
+              {
+                "probability": 0.006930883927639757,
+                "value": "one"
+              },
+              {
+                "probability": 0.010100938506707118,
+                "value": "two"
+              },
+              {
+                "probability": 0.20906842996899633,
+                "value": "three"
+              },
+              {
+                "probability": 0.19498633222359038,
+                "value": "four"
+              },
+              {
+                "probability": 0.08321004108461671,
+                "value": "five"
+              },
+              {
+                "probability": 0.4957033742884497,
+                "value": "six"
+              }
+            ],
+            "probabilities": {
+              "five": 0.08321004108461671,
+              "four": 0.19498633222359038,
+              "one": 0.006930883927639757,
+              "six": 0.4957033742884497,
+              "three": 0.20906842996899633,
+              "two": 0.010100938506707118
+            },
+            "value": "six"
+          }
+        },
+        "thinking": {},
+        "thinking_effort": {},
+        "skipped": [],
+        "usage": {
+          "decisions": 1,
+          "input_tokens": 864,
+          "generated_tokens": 0
+        }
+      },
+      "seconds": 4.058529100000669,
+      "kl_uniform_to_prediction": 0.8674037238937905
+    }
+  }
+}

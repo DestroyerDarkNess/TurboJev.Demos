@@ -1,0 +1,45 @@
+{
+  "scope": "Public CDN asset retrieval; not browser inference validation",
+  "records": [
+    {
+      "url": "https://cdn.jsdelivr.net/npm/@turbojev/web@0.30.1/worker.js",
+      "ok": true,
+      "status": 200,
+      "mime": "application/javascript; charset=utf-8",
+      "bytes": 1451,
+      "sha256": "f0e3457d74dcbf4d5b18cb93ffd7cc95f80fb57c82f6a53ef06c1bbf39ecd666"
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/@turbojev/wasm@0.30.1/turbojev_wasm.js",
+      "ok": true,
+      "status": 200,
+      "mime": "application/javascript; charset=utf-8",
+      "bytes": 18109,
+      "sha256": "0c7703a244ad0679fabaeda32c43bd1f324918186c194826d38ad472b842379e"
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/@turbojev/wasm@0.30.1/turbojev_wasm_bg.wasm",
+      "ok": true,
+      "status": 200,
+      "mime": "application/wasm",
+      "bytes": 873604,
+      "sha256": "203ffe7d7a9628aad111fd5aac46345bd6357e95e8676656167e77227b9fde40"
+    },
+    {
+      "url": "https://cdn.jsdelivr.net/npm/@turbojev/runtime-llamacpp-wasm@0.30.1/+esm",
+      "ok": true,
+      "status": 200,
+      "mime": "application/javascript; charset=utf-8",
+      "bytes": 9659,
+      "sha256": "e783c211901030478e81eb6d01a695127077ffaed419a86efdd39c76b0905a47"
+    },
+    {
+      "url": "https://esm.sh/@turbojev/runtime-transformersjs@0.30.1?deps=@huggingface/transformers@4.3.0",
+      "ok": true,
+      "status": 200,
+      "mime": "application/javascript; charset=utf-8",
+      "bytes": 193,
+      "sha256": "c33fef6ca6354654968e306a50bbf29ec2abb5deede72e20d5020eaedf38fa78"
+    }
+  ]
+}

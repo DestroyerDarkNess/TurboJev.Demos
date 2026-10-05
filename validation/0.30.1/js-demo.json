@@ -1,0 +1,64 @@
+{
+  "package": "@turbojev/node",
+  "version": "0.30.1",
+  "registry": "npm",
+  "device": "cpu",
+  "model": "Qwen3-0.6B-Q4_K_M.gguf",
+  "evaluation_seconds": 14.46,
+  "response": {
+    "model": "qwen3 0.6B Q4_K - Medium",
+    "answers": {
+      "team": {
+        "type": "choice",
+        "choice": "shipping",
+        "confidence": 0.9999740273191144,
+        "probabilities": {
+          "billing": 1.6010914344135798e-06,
+          "technical": 2.4371589451198197e-05,
+          "shipping": 0.9999740273191144
+        }
+      },
+      "urgency": {
+        "type": "score",
+        "score": 1.9984260804727818,
+        "confidence": 0.9984532882988856,
+        "probabilities": {
+          "0": 2.7207826103648445e-05,
+          "1": 0.0015195038750107491,
+          "2": 0.9984532882988856
+        },
+        "legend": {
+          "0": "Can wait",
+          "1": "This week",
+          "2": "Today"
+        }
+      },
+      "wantsRefund": {
+        "type": "noul",
+        "noul": 0.9994637790691991
+      }
+    },
+    "usage": {
+      "decisions": 3,
+      "input_tokens": 199,
+      "generated_tokens": 0
+    },
+    "_turbojev": {
+      "backend": "llamacpp",
+      "calibration": "softmax",
+      "calibrated": false,
+      "confidence_method": "selected-candidate-probability",
+      "contract": "turbojev.core.v4",
+      "order_robustness": "none",
+      "order_evaluations": 0,
+      "execution": {
+        "prefix_reuse": "shared",
+        "scheduling": "parallel",
+        "parallel_task_limit": 3,
+        "projection": "full-vocabulary"
+      }
+    }
+  },
+  "log_sha256": "598cb11f48098355c8b87deae891f47e4de4eda11f658921688f519943357d2c",
+  "timing_limitation": "Native compilation and other machine activity overlapped; functional validation, not an isolated latency benchmark"
+}

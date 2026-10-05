@@ -13,7 +13,7 @@ python -m pip install --upgrade -r requirements.txt
 python main.py
 ```
 
-The demo installs TurboJev 0.29.2 from PyPI. It does not build TurboJev or import
+The demo installs TurboJev 0.30.1 from PyPI. It does not build TurboJev or import
 its local source. The default Qwen3-0.6B Q4_K_M GGUF downloads with a progress
 bar on first run and is reused from `~/.cache/turbojev/` afterwards. CPU is the
 default; model loading happens before the printed evaluation timer starts.
@@ -47,7 +47,7 @@ so it may be fractional. The demo prints the actual values and full response;
 it does not promise or substitute the original example's 1.00/2.00 results.
 Candidate probabilities are not calibrated confidence.
 
-One real Windows x64 CPU run with the PyPI 0.29.2 wheel and Qwen3-0.6B Q4_K_M
+One real Windows x64 CPU run with the PyPI 0.30.1 wheel and Qwen3-0.6B Q4_K_M
 returned `urgent=0.9776`, `team="outage"` (relative confidence `0.9952`), and
 `tone=1.0023`. Evaluating all three questions took 12.309 seconds, excluding
 model loading. These are observed results from one run, not expected outputs
@@ -59,6 +59,6 @@ cost, or enable native thinking when using a suitable model and token budget.
 
 ## Platforms
 
-The Python source is portable. PyPI 0.29.2 supplies Windows x86, x64, and ARM64
+The Python source is portable. PyPI 0.30.1 supplies Windows x86, x64, and ARM64
 wheels; use Python matching the desired architecture. Linux and macOS require
 matching published native wheels and are not validated by this example.

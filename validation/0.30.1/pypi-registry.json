@@ -1,0 +1,29 @@
+{
+  "version": "0.30.1",
+  "checked_utc": "2026-10-05T20:42:08Z",
+  "records": [
+    {
+      "registry": "python",
+      "name": "turbojev",
+      "ok": true,
+      "evidence": {
+        "name": "turbojev",
+        "version": "0.30.1",
+        "wheels": [
+          {
+            "filename": "turbojev-0.30.1-cp39-abi3-win32.whl",
+            "sha256": "2afe9337af24f6b0c9d60bb4318dadc24836e1aeb342792cfa3c1ef711d27775"
+          },
+          {
+            "filename": "turbojev-0.30.1-cp39-abi3-win_amd64.whl",
+            "sha256": "9dab7018fbacff32c4ea6cd28be7f56a17bff9f6652c96c46e50f4a99c7b7cef"
+          },
+          {
+            "filename": "turbojev-0.30.1-cp39-abi3-win_arm64.whl",
+            "sha256": "fe5a2a7dafb7b8a414ab2f479a62d76556a25cdd01a6edce500f59f38c85d728"
+          }
+        ]
+      }
+    }
+  ]
+}

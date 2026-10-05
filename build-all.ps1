@@ -47,5 +47,5 @@ foreach ($project in @('TurboJev-js-native', 'TurboJev-TS-node')) {
 Push-Location (Join-Path $PSScriptRoot "TurboJev-rust")
 try { Invoke-Checked cargo @('check', '--locked') } finally { Pop-Location }
 
-Invoke-Checked py @('-m', 'py_compile', (Join-Path $PSScriptRoot 'TurboJev-Python/main.py'), (Join-Path $PSScriptRoot 'snake-python/snake.py'), (Join-Path $PSScriptRoot 'snake-python/benchmark.py'))
+Invoke-Checked py @('-m', 'py_compile', (Join-Path $PSScriptRoot 'TurboJev-Python/main.py'), (Join-Path $PSScriptRoot 'simple/main.py'), (Join-Path $PSScriptRoot 'snake-python/snake.py'), (Join-Path $PSScriptRoot 'snake-python/benchmark.py'))
 Write-Host "Package checks/builds completed for Windows x86, x64, and ARM64 where the registry publishes native artifacts."

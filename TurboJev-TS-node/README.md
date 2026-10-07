@@ -1,6 +1,6 @@
 # TurboJev — TypeScript / Node.js
 
-Uses **@turbojev/node 0.30.1 from npm**. The TypeScript entry point imports `EvaluationRequest` and `GenerateRequest`, then calls the published engine methods. Shared CLI/download/report code lives in `../node_demo_common.mjs` with declarations in `../node_demo_common.d.mts`; it does not implement model inference. Keep the repository layout.
+Uses **@turbojev/node 0.31.0 from npm**. The TypeScript entry point imports `EvaluationRequest` and `GenerateRequest`, then calls the published engine methods. Shared CLI/download/report code lives in `../node_demo_common.mjs` with declarations in `../node_demo_common.d.mts`; it does not implement model inference. Keep the repository layout.
 
 ```powershell
 npm install

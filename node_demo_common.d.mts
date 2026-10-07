@@ -1,7 +1,7 @@
 export interface DemoLoadOptions {
   model: string; mmproj?: string; device: "cpu" | "gpu";
   nCtx: number; nSeqMax: number; nThreads: number; nThreadsBatch: number;
-  execution: { orderRobustness: "none" | "cyclic" };
+  execution: { orderRobustness: "none" | "cyclic" | "balanced" };
 }
 export interface DemoEngine {
   evaluate(request: unknown): Promise<unknown>;

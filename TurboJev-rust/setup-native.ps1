@@ -1,4 +1,4 @@
-param([string]$Version = '0.30.1')
+param([string]$Version = '0.31.0')
 $ErrorActionPreference = 'Stop'
 $destination = Join-Path $PSScriptRoot "../.artifacts/rust-native/$Version"
 $rids = @('win-x86','win-x64','win-arm64')

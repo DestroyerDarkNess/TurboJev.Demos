@@ -1,7 +1,7 @@
 # TurboJev demos
 
 Small, idiomatic examples built against the latest published TurboJev packages,
-currently **0.30.1**. The introductory examples show `choice`, a boolean (`noul`),
+currently **0.31.0**. The introductory examples show `choice`, a boolean (`noul`),
 and an ordered `score`. Snake demonstrates repeated directional decisions.
 
 ## Model
@@ -32,11 +32,11 @@ The Rust checks install the selected toolchain's three standard-library targets.
 Set `TURBOJEV_DEMO_BUILD_DIR` to a directory on a disk with free space to relocate
 Rust build artifacts when running that script.
 
-The npm, PyPI, and NuGet packages contain native artifacts for Windows x86, x64, and ARM64. Run each project using a matching Node/Python/.NET architecture to select its corresponding native binary. Cross-architecture execution requires a matching host or emulator. The Python Snake source is OS-independent, but PyPI 0.30.1 currently publishes Windows x86, x64, and ARM64 wheels; Linux and macOS need matching TurboJev wheels before the demo can run there.
+The npm, PyPI, and NuGet packages contain native artifacts for Windows x86, x64, and ARM64. Run each project using a matching Node/Python/.NET architecture to select its corresponding native binary. Cross-architecture execution requires a matching host or emulator. The Python Snake source is OS-independent, but PyPI 0.31.0 currently publishes Windows x86, x64, and ARM64 wheels; Linux and macOS need matching TurboJev wheels before the demo can run there.
 
 The browser example needs no package installation or build step. It loads the published TurboJev browser package plus the selected model runtime from public CDNs, downloads ONNX or GGUF model files from Hugging Face, and runs inference in a browser worker. Serve it over localhost or HTTPS; browsers block module workers from `file://` pages. Its new `typed.html` page covers typed fields, fair die and both image receipt definitions. Native Node, TypeScript, Python, .NET and Rust examples all execute the published GGUF runtime.
 
-The native inference demos set `orderRobustness` to `none` for one evaluation pass. Set it to `cyclic` in the engine options to average candidate-order rotations; this can improve order consistency, but requires additional model evaluations and is slower. New `generate` enum fields have a separate per-field `permutations` budget, demonstrated by fair die.
+The native inference demos set `orderRobustness` to `none` for one evaluation pass. Set it to `balanced` for canonical option layouts with probability averaging, or `cyclic` for legacy rotation/logit averaging. These policies apply to unordered `choice` questions and preserve ordered `score` scales. Balanced takes K evaluations for an even number of options, 2K for an odd number, and supports at most 32 options. It costs additional inference and cannot guarantee correct reasoning. New `generate` enum fields have a separate per-field `permutations` budget, demonstrated by fair die.
 
 The Rust example installs its contract crate from crates.io and dynamically loads
 the stable C ABI from the public NuGet package. Its Windows installer downloads

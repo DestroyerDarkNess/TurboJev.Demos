@@ -1,6 +1,6 @@
 # TurboJev — C# / .NET
 
-Five examples using **TurboJev 0.30.1 from nuget.org**, with no project reference or local engine build. Requires .NET 8 or later. Run the commands from this directory.
+Five examples using **TurboJev 0.31.0 from nuget.org**, with no project reference or local engine build. Requires .NET 8 or later. Run the commands from this directory.
 
 ```powershell
 dotnet restore
@@ -45,7 +45,7 @@ var responseJson = await engine.GenerateJsonAsync(JsonSerializer.Serialize(reque
 // Original choice/noul/score requests still use EvaluateJsonAsync.
 ```
 
-`fair-die --all-permutations` additionally evaluates all **720** orderings; this is intentionally opt-in. `evaluate` uses `orderRobustness = "none"`; the comment in `Program.cs` explains the slower `"cyclic"` alternative. The new `generate` API uses its separate per-field `permutations` setting.
+`fair-die --all-permutations` additionally evaluates all **720** orderings; this is intentionally opt-in. `evaluate` uses `orderRobustness = "none"`; `Program.cs` documents the optional `"balanced"` canonical probability mean and `"cyclic"` rotation logit mean. Both cost extra inference and preserve score scales. The `generate` API uses its separate per-field `permutations` setting.
 
 ## Results and architecture
 

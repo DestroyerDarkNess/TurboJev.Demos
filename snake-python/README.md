@@ -109,7 +109,11 @@ is a small baseline, not a recommended autonomous navigation policy.
 when a published TurboJev package supporting those fields is installed. It is
 off by default, consumes extra model tokens and can return an explicit budget
 error. This demo still imports TurboJev from PyPI, with no local engine override.
-The pinned PyPI package 0.30.1 supports this optional native text mode.
+The pinned PyPI package 0.31.0 supports this optional native text mode.
+
+The 0.31.0 package also accepts `--order-robustness balanced`. It averages
+probabilities from canonical option layouts at extra inference cost. This is
+optional and does not select, replace or simulate moves on the host.
 
 ## Simplified-input results with 0.30.1
 

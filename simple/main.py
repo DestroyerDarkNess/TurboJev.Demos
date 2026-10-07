@@ -79,7 +79,8 @@ def main():
     }
 
     # CPU by default. Use device="gpu" to explicitly request GPU offload.
-    # "none" scores once; "cyclic" averages choice rotations at extra cost.
+    # "none" scores once; "balanced" averages canonical choice probabilities;
+    # "cyclic" averages rotation logits. Extra passes apply only to choices.
     with TurboJev.load(
         model_path(),
         device="cpu",

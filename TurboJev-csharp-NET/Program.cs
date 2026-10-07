@@ -18,7 +18,7 @@ catch (ArgumentException error) {
 var report = new JsonObject {
     ["example"] = options.Example,
     ["turbojev"] = typeof(TurboJevEngine).Assembly.GetName().Version?.ToString(),
-    ["package_version"] = "0.30.1",
+    ["package_version"] = "0.31.0",
     ["platform"] = RuntimeInformation.OSDescription,
     ["architecture"] = RuntimeInformation.ProcessArchitecture.ToString(),
     ["device"] = options.Device,
@@ -33,12 +33,13 @@ try {
         report["mmproj"] = projector;
         report["mmproj_sha256"] = Models.Hash(projector);
     }
-    Console.WriteLine($"TurboJev 0.30.1 | {options.Example} | {Path.GetFileName(model)} | {options.Device}");
+    Console.WriteLine($"TurboJev 0.31.0 | {options.Example} | {Path.GetFileName(model)} | {options.Device}");
     var timer = Stopwatch.StartNew();
     await using var engine = await TurboJevEngine.LoadAsync(new {
         model, mmproj = projector, device = options.Device,
         nCtx = 8192, nSeqMax = 1, nThreads = 4, nThreadsBatch = 4,
-        // "none": one ordering. "cyclic": average rotations, with extra inference.
+        // "none": one pass. "balanced": canonical probability mean; "cyclic": rotation logit mean.
+        // Both corrected modes cost extra inference and preserve ordered score scales.
         // generate enums use their own permutations budget; see fair-die.
         execution = new { orderRobustness = "none" },
     });

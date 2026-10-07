@@ -142,7 +142,7 @@ export async function runDemo(load, args, language) {
   if (args.includes('--help') || args.includes('-h')) { console.log(help); return; }
   let options;
   try { options = parseOptions([...args]); } catch (error) { console.error(`${error.message}\n${help}`); process.exitCode = 2; return; }
-  const record = { example: options.example, package_version: '0.30.1', language, platform: platform(), architecture: arch(), device: options.device };
+  const record = { example: options.example, package_version: '0.31.0', language, platform: platform(), architecture: arch(), device: options.device };
   let engine;
   try {
     const request = makeRequest(options, record);
@@ -151,7 +151,8 @@ export async function runDemo(load, args, language) {
     if (models.mmproj) record.mmproj_sha256 = await hashFile(models.mmproj);
     let started = performance.now();
     engine = await load({ ...models, device: options.device, nCtx: 8192, nSeqMax: 1, nThreads: 4, nThreadsBatch: 4,
-      // evaluate: "cyclic" averages extra order rotations. generate: use permutations.
+      // evaluate: "balanced" averages canonical choice probabilities; "cyclic" averages rotation logits.
+      // Both cost extra passes and preserve ordered scores. generate: use permutations.
       execution: { orderRobustness: 'none' } });
     record.load_seconds = (performance.now()-started)/1000;
     if (options.example === 'fair-die') {

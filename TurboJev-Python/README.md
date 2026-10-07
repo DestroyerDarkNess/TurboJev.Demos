@@ -1,6 +1,6 @@
 # TurboJev — Python
 
-Uses **turbojev 0.30.1 from PyPI**, not local SDK source. Install with the same Python interpreter you use to run the demo.
+Uses **turbojev 0.31.0 from PyPI**, not local SDK source. Install with the same Python interpreter you use to run the demo.
 
 ```powershell
 python -m pip install -r requirements.txt

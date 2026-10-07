@@ -13,7 +13,7 @@ python -m pip install --upgrade -r requirements.txt
 python main.py
 ```
 
-The demo installs TurboJev 0.30.1 from PyPI. It does not build TurboJev or import
+The demo installs TurboJev 0.31.0 from PyPI. It does not build TurboJev or import
 its local source. The default Qwen3-0.6B Q4_K_M GGUF downloads with a progress
 bar on first run and is reused from `~/.cache/turbojev/` afterwards. CPU is the
 default; model loading happens before the printed evaluation timer starts.
@@ -54,11 +54,12 @@ model loading. These are observed results from one run, not expected outputs
 or a latency guarantee.
 
 `thinking=False` and `orderRobustness="none"` keep the normal scoring path.
-Change robustness to `"cyclic"` to average choice rotations at extra inference
-cost, or enable native thinking when using a suitable model and token budget.
+Change robustness to `"balanced"` to average canonical choice probabilities,
+or `"cyclic"` to average rotation logits, at extra inference cost. Neither
+reorders score levels. Native thinking requires a suitable model and token budget.
 
 ## Platforms
 
-The Python source is portable. PyPI 0.30.1 supplies Windows x86, x64, and ARM64
+The Python source is portable. PyPI 0.31.0 supplies Windows x86, x64, and ARM64
 wheels; use Python matching the desired architecture. Linux and macOS require
 matching published native wheels and are not validated by this example.

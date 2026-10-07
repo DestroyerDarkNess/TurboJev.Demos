@@ -44,7 +44,7 @@ $('load').addEventListener('click',async()=>{
   try{
     if($('device').value==='webgpu'&&(!navigator.gpu||!await navigator.gpu.requestAdapter()))throw Error('WebGPU unavailable; select CPU explicitly.');
     const started=performance.now();
-    const descriptor=await call('load',{model:$('model-url').value,runtimeModuleUrl:new URL('./runtime.js',import.meta.url).href,wasmModuleUrl:'https://cdn.jsdelivr.net/npm/@turbojev/wasm@0.30.1/turbojev_wasm.js',runtimeOptions:{backend:$('runtime').value,modality:vision()?'image':'text',device:$('device').value,dtype:'q4',nThreads:4,...($('runtime').value==='llamacpp'?{modelUrl:$('model-url').value,modelLabel:vision()?'Qwen3.5 2B':'Qwen3 0.6B',...(vision()?{mmprojUrl:$('projector-url').value}:{})}:{})}});
+    const descriptor=await call('load',{model:$('model-url').value,runtimeModuleUrl:new URL('./runtime.js',import.meta.url).href,wasmModuleUrl:'https://cdn.jsdelivr.net/npm/@turbojev/wasm@0.31.0/turbojev_wasm.js',runtimeOptions:{backend:$('runtime').value,modality:vision()?'image':'text',device:$('device').value,dtype:'q4',nThreads:4,...($('runtime').value==='llamacpp'?{modelUrl:$('model-url').value,modelLabel:vision()?'Qwen3.5 2B':'Qwen3 0.6B',...(vision()?{mmprojUrl:$('projector-url').value}:{})}:{})}});
     loadSeconds=(performance.now()-started)/1000;
     ready=true;$('status').textContent='Ready';$('details').textContent=`${descriptor.name} · ${descriptor.modalities.join(', ')}`;$('load-progress').hidden=true;
   }catch(error){fail(error);}finally{setBusy(false);}
@@ -54,7 +54,7 @@ async function imageBytes(){const file=$('image').files[0];if(file)return file.a
 function base64(buffer){const bytes=new Uint8Array(buffer);let binary='';for(let offset=0;offset<bytes.length;offset+=32768)binary+=String.fromCharCode(...bytes.subarray(offset,offset+32768));return btoa(binary);}
 $('generate').addEventListener('click',async()=>{
   if(!ready||busy)return;clear();setBusy(true);$('status').textContent='Generating';$('empty').hidden=true;$('result').hidden=true;$('save').disabled=true;
-  report={example:$('example').value,package_version:'0.30.1',runtime:$('runtime').value,device:$('device').value,model:$('model-url').value,platform:navigator.userAgent,thinking:false,load_seconds:loadSeconds};
+  report={example:$('example').value,package_version:'0.31.0',runtime:$('runtime').value,device:$('device').value,model:$('model-url').value,platform:navigator.userAgent,thinking:false,load_seconds:loadSeconds};
   try{
     let questions=JSON.parse($('questions').value);if(!questions||Array.isArray(questions)||typeof questions!=='object')throw Error('Field definitions must be a JSON object.');
     if(vision()&&$('fields').value.trim()){

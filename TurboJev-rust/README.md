@@ -1,6 +1,6 @@
 # TurboJev — Rust
 
-Real model-backed examples using the **turbojev 0.30.1 contract from crates.io** and the **0.30.1 native C ABI from the public NuGet package**. No local TurboJev or llama.cpp source is compiled. The small `native.rs` owner invokes that stable ABI on its creating thread, frees returned strings and closes the engine; all inference and decision logic stays in the published library.
+Real model-backed examples using the **turbojev 0.31.0 contract from crates.io** and the **0.31.0 native C ABI from the public NuGet package**. No local TurboJev or llama.cpp source is compiled. The small `native.rs` owner invokes that stable ABI on its creating thread, frees returned strings and closes the engine; all inference and decision logic stays in the published library.
 
 Rust 1.97.1 is selected by `rust-toolchain.toml`. On Windows, the first run reuses the demo repository's isolated nuget.org cache, or `setup-native.ps1` downloads/extracts the public package with all three Windows architectures. No .NET SDK or NuGet token is required by the installer. The Rust process selects x86/x64/ARM64 automatically.
 
@@ -27,6 +27,6 @@ cargo check --locked --target aarch64-pc-windows-msvc
 cargo run --release --target-dir C:/temp/turbojev-demo-build -- fields
 ```
 
-Compilation for an architecture is not execution on it; use a matching host/emulator. Published 0.30.1 native assets cover Windows only. `--native-dir` accepts the matching library directory from a public package when available for another OS; missing runtime support is an error, not a fabricated answer. Request data is shared with the other examples, so keep this repository layout.
+Compilation for an architecture is not execution on it; use a matching host/emulator. Published 0.31.0 native assets cover Windows only. `--native-dir` accepts the matching library directory from a public package when available for another OS; missing runtime support is an error, not a fabricated answer. Request data is shared with the other examples, so keep this repository layout.
 
 Question definitions are adapted from TypeLLM (Apache-2.0; [license](../fair-die-python/TYPELLM-LICENSE)). The CORD photograph has its separate CC BY 4.0 attribution in the [receipt README](../receipt-python/README.md).

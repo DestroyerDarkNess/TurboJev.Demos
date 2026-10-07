@@ -1,6 +1,6 @@
 # TurboJev — Node.js
 
-Run from this folder with Node.js 20 or later. Install **@turbojev/node 0.30.1 from npm**, including the native package matching your Node process architecture.
+Run from this folder with Node.js 20 or later. Install **@turbojev/node 0.31.0 from npm**, including the native package matching your Node process architecture.
 
 ```powershell
 npm install

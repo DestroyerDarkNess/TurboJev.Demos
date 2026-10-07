@@ -3,6 +3,6 @@
   "private": true,
   "type": "module",
   "scripts": { "build": "tsc -p tsconfig.json", "start": "npm run build && node dist/main.js" },
-  "dependencies": { "@turbojev/node": "0.30.1" },
+  "dependencies": { "@turbojev/node": "0.31.0" },
   "devDependencies": { "@types/node": "22.15.0", "typescript": "5.9.2" }
 }

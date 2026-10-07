@@ -62,7 +62,7 @@ fn runtime(options: &Options) -> Result<PathBuf> {
         return Ok(directory.join(name).canonicalize()?);
     }
     if !cfg!(windows) {
-        return Err("No Linux/macOS native package published for 0.30.1; provide --native-dir from a matching registry package".into());
+        return Err("No Linux/macOS native package published for 0.31.0; provide --native-dir from a matching registry package".into());
     }
     let rid = match std::env::consts::ARCH {
         "x86" => "win-x86",
@@ -71,8 +71,8 @@ fn runtime(options: &Options) -> Result<PathBuf> {
         _ => return Err("No matching published architecture".into()),
     };
     for folder in [
-        ".artifacts/nuget-registry/turbojev/0.30.1",
-        ".artifacts/rust-native/0.30.1",
+        ".artifacts/nuget-registry/turbojev/0.31.0",
+        ".artifacts/rust-native/0.31.0",
     ] {
         let path = Path::new(ROOT)
             .join(folder)
@@ -92,7 +92,7 @@ fn runtime(options: &Options) -> Result<PathBuf> {
         return Err("Registry runtime installation failed".into());
     }
     Ok(Path::new(ROOT)
-        .join(".artifacts/rust-native/0.30.1/runtimes")
+        .join(".artifacts/rust-native/0.31.0/runtimes")
         .join(rid)
         .join("native")
         .join(name)
@@ -339,7 +339,7 @@ fn run(options: &Options, report: &mut Value) -> Result<()> {
 }
 fn main() -> Result<()> {
     let options = Options::parse();
-    let mut report = json!({"example":options.example,"package_version":"0.30.1","language":"Rust","platform":std::env::consts::OS,"architecture":std::env::consts::ARCH,"device":options.device});
+    let mut report = json!({"example":options.example,"package_version":"0.31.0","language":"Rust","platform":std::env::consts::OS,"architecture":std::env::consts::ARCH,"device":options.device});
     let outcome = run(&options, &mut report);
     report["ok"] = json!(outcome.is_ok());
     report["error"] = outcome

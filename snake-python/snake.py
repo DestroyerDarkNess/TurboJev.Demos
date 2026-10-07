@@ -432,8 +432,8 @@ def main() -> None:
     parser.add_argument("--max-turns", type=int, default=100, help="Maximum turns before the benchmark (default: 100).")
     parser.add_argument("--seed", type=int, default=0, help="Seed for reproducible food placement (default: 0).")
     parser.add_argument(
-        "--order-robustness", choices=("none", "cyclic"), default="none",
-        help="Option-order scoring mode (default: none; cyclic reduces order bias at extra cost).",
+        "--order-robustness", choices=("none", "cyclic", "balanced"), default="none",
+        help="Option-order mode: none (one pass), cyclic (rotations), balanced (canonical probability mean; extra passes).",
     )
     parser.add_argument("--trace", type=Path, help="JSONL audit file; defaults to a timestamped file under .artifacts/.")
     parser.add_argument("--state-format", choices=["sensors", "grid", "coordinates"], default="sensors", help="sensors derives food direction and collision facts; grid/coordinates expose the board directly")

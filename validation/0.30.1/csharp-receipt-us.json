@@ -1,0 +1,54 @@
+{
+  "example": "receipt-us",
+  "turbojev": "0.30.1.0",
+  "package_version": "0.30.1",
+  "platform": "Microsoft Windows 10.0.26100",
+  "architecture": "X64",
+  "device": "gpu",
+  "fields": [
+    "guests",
+    "total",
+    "currency",
+    "per_person"
+  ],
+  "subset": true,
+  "max_tokens": 64,
+  "thinking": false,
+  "image": "D:\\Projects\\TurboJev\\other\\TypeLLM\\examples\\receipt_us\\receipt.jpg",
+  "image_sha256": "4e695befbe854630152452e1dc3c013f910b859b062863295b6ebce532814aab",
+  "model": "C:\\Users\\Administrator\\.cache\\turbojev\\Qwen3.5-2B-Q4_K_M.gguf",
+  "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+  "mmproj": "C:\\Users\\Administrator\\.cache\\turbojev\\Qwen3.5-2B-mmproj-F16.gguf",
+  "mmproj_sha256": "7035e9cb8d7c6a9681d07eef9a364783e86ea4cd73faab2eabb4f43a101830c7",
+  "load_seconds": 14.642593,
+  "evaluation_seconds": 56.0438788,
+  "response": {
+    "result": {
+      "guests": 2,
+      "total": 285.8,
+      "currency": "JPY",
+      "per_person": 285.8
+    },
+    "thinking": {},
+    "thinking_effort": {},
+    "skipped": [],
+    "usage": {
+      "decisions": 4,
+      "generated_tokens": 39
+    }
+  },
+  "expected": {
+    "guests": 2,
+    "total": 285.8,
+    "currency": "USD",
+    "per_person": 142.9
+  },
+  "matches": {
+    "guests": true,
+    "total": true,
+    "currency": false,
+    "per_person": false
+  },
+  "ok": true,
+  "error": null
+}

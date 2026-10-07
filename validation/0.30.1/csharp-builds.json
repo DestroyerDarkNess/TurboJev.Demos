@@ -1,0 +1,103 @@
+{
+  "package": "TurboJev",
+  "version": "0.30.1",
+  "source": "https://api.nuget.org/v3/index.json",
+  "cross_builds": [
+    {
+      "rid": "win-x86",
+      "compiled": true,
+      "native": [
+        {
+          "name": "turbojev_capi.dll",
+          "pe_machine": "0x14c",
+          "sha256": "b596ce7851ce270ec7bb0fc4fa4bf9f2594b3b67d2e9653d3445ce38a9412874",
+          "matches_registry": true
+        },
+        {
+          "name": "turbojev_llama_shim.dll",
+          "pe_machine": "0x14c",
+          "sha256": "4c33fb52a12e9d9f51d986f078cac888f134ea74b00e0ab543b588e931e24d89",
+          "matches_registry": true
+        },
+        {
+          "name": "llama.dll",
+          "pe_machine": "0x14c",
+          "sha256": "8c07f77470818d45f2afe3c809ccfd72db095a37bf32d5295c0f775b02fb372e",
+          "matches_registry": true
+        },
+        {
+          "name": "mtmd.dll",
+          "pe_machine": "0x14c",
+          "sha256": "893ccffd0656dde20e95c7ba8daf8efa7736d28712c8114b9da706ef9f3f6472",
+          "matches_registry": true
+        }
+      ],
+      "receipt_data_present": true
+    },
+    {
+      "rid": "win-x64",
+      "compiled": true,
+      "native": [
+        {
+          "name": "turbojev_capi.dll",
+          "pe_machine": "0x8664",
+          "sha256": "d2b3fbaaa89bdeff3d2f20e9bd55cb2f2d1894647aa11bd4687af6d29ab4e488",
+          "matches_registry": true
+        },
+        {
+          "name": "turbojev_llama_shim.dll",
+          "pe_machine": "0x8664",
+          "sha256": "f87269b8e590f880252fbeb8d2e89f5eb489655991527cf6d9a71c8886945bda",
+          "matches_registry": true
+        },
+        {
+          "name": "llama.dll",
+          "pe_machine": "0x8664",
+          "sha256": "a311d54a4371ae713b1f7a04123805d63f7b16ddd833b649cb7a9a23fda329b1",
+          "matches_registry": true
+        },
+        {
+          "name": "mtmd.dll",
+          "pe_machine": "0x8664",
+          "sha256": "3e8a2cb0cd9d6f50f56d73237fd1f547864473cf428f2de601761048e2e31002",
+          "matches_registry": true
+        }
+      ],
+      "receipt_data_present": true
+    },
+    {
+      "rid": "win-arm64",
+      "compiled": true,
+      "native": [
+        {
+          "name": "turbojev_capi.dll",
+          "pe_machine": "0xaa64",
+          "sha256": "16f6d627ea9cf89da7d3022df9c87a9c101d4e3459690eb5c824e82b0f2c4ad0",
+          "matches_registry": true
+        },
+        {
+          "name": "turbojev_llama_shim.dll",
+          "pe_machine": "0xaa64",
+          "sha256": "e4020d1feff99bee2ea817b06f7d2323583bfddf479f20867c272909e5f349a7",
+          "matches_registry": true
+        },
+        {
+          "name": "llama.dll",
+          "pe_machine": "0xaa64",
+          "sha256": "1f53a6c5eaa3741bbdc8e6dfab36f609bde7b8e96ebf7c6f5f142edb553be467",
+          "matches_registry": true
+        },
+        {
+          "name": "mtmd.dll",
+          "pe_machine": "0xaa64",
+          "sha256": "54416b80069e72d4ce17535cd105b4437e7c787548581dd8f5ab0d6bb2abfd18",
+          "matches_registry": true
+        }
+      ],
+      "receipt_data_present": true
+    }
+  ],
+  "runtime_execution": "Portable net8.0 application on Windows X64; x86/ARM64 not executed",
+  "cli_validation_cases": 4,
+  "download_check": "Cached models reused; network download not exercised in this run"
+}

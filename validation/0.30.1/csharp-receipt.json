@@ -1,0 +1,50 @@
+{
+  "example": "receipt",
+  "turbojev": "0.30.1.0",
+  "package_version": "0.30.1",
+  "platform": "Microsoft Windows 10.0.26100",
+  "architecture": "X64",
+  "device": "gpu",
+  "fields": [
+    "first_item",
+    "total",
+    "paid_in_cash"
+  ],
+  "subset": true,
+  "max_tokens": 64,
+  "thinking": false,
+  "image": "D:\\Projects\\TurboJev\\other\\TurboJev.Demos\\TurboJev-csharp-NET\\bin\\Release\\net8.0\\data\\receipt\\receipt.jpg",
+  "image_sha256": "b4261949b52af19e53c27526fc8c4230b10eed207101bf51741c428b4c055c01",
+  "model": "C:\\Users\\Administrator\\.cache\\turbojev\\Qwen3.5-2B-Q4_K_M.gguf",
+  "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+  "mmproj": "C:\\Users\\Administrator\\.cache\\turbojev\\Qwen3.5-2B-mmproj-F16.gguf",
+  "mmproj_sha256": "7035e9cb8d7c6a9681d07eef9a364783e86ea4cd73faab2eabb4f43a101830c7",
+  "load_seconds": 12.8021703,
+  "evaluation_seconds": 149.1441646,
+  "response": {
+    "result": {
+      "first_item": "ICE BLACKCOFFE",
+      "total": 174600,
+      "paid_in_cash": true
+    },
+    "thinking": {},
+    "thinking_effort": {},
+    "skipped": [],
+    "usage": {
+      "decisions": 3,
+      "generated_tokens": 29
+    }
+  },
+  "expected": {
+    "first_item": "ICE BLACKCOFFE",
+    "total": 174600,
+    "paid_in_cash": true
+  },
+  "matches": {
+    "first_item": true,
+    "total": true,
+    "paid_in_cash": true
+  },
+  "ok": true,
+  "error": null
+}

@@ -1,0 +1,87 @@
+{
+  "store": {
+    "type": "string",
+    "instructions": "Name of the restaurant."
+  },
+  "date": {
+    "type": "string",
+    "instructions": "Date printed on the receipt, exactly as printed."
+  },
+  "first_item": {
+    "type": "string",
+    "instructions": "Name of the first line item, without its quantity."
+  },
+  "second_item": {
+    "type": "string",
+    "instructions": "Name of the second line item, without its quantity."
+  },
+  "third_item": {
+    "type": "string",
+    "instructions": "Name of the third line item, without its quantity."
+  },
+  "table": {
+    "type": "string",
+    "instructions": "Table number."
+  },
+  "item_lines": {
+    "type": "integer",
+    "instructions": "How many line items are listed?"
+  },
+  "guests": {
+    "type": "integer",
+    "instructions": "Number of customers on the check."
+  },
+  "subtotal": {
+    "type": "number",
+    "instructions": "Subtotal in US dollars as a plain number, e.g. 12.50."
+  },
+  "tax": {
+    "type": "number",
+    "instructions": "Sales tax in US dollars as a plain number, e.g. 12.50."
+  },
+  "total": {
+    "type": "number",
+    "instructions": "Total due in US dollars as a plain number, e.g. 12.50."
+  },
+  "currency": {
+    "type": "string",
+    "enum": [
+      "USD",
+      "EUR",
+      "JPY",
+      "other"
+    ],
+    "instructions": "Currency of the amounts."
+  },
+  "tips_accepted": {
+    "type": "boolean",
+    "instructions": "Does the restaurant accept tips?"
+  },
+  "tax_rate_percent": {
+    "type": "number",
+    "depends_on": [
+      "subtotal",
+      "tax"
+    ],
+    "instructions": "Sales tax as a percentage of the subtotal, rounded to two decimals."
+  },
+  "per_person": {
+    "type": "number",
+    "depends_on": [
+      "total",
+      "guests"
+    ],
+    "instructions": "Total due per customer in US dollars, rounded to two decimals."
+  },
+  "expense_note": {
+    "type": "string",
+    "depends_on": [
+      "store",
+      "date",
+      "guests",
+      "total",
+      "tips_accepted"
+    ],
+    "instructions": "One short sentence for an expense report describing this meal."
+  }
+}

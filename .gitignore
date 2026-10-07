@@ -10,3 +10,4 @@
 .cache/
 .artifacts/
 .vs/
+TurboJev-csharp-NET/result-*.json

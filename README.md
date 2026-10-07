@@ -23,7 +23,7 @@ First-time downloads show a progress bar and are cached under the user's home di
 | Python receipt | PyPI: `turbojev` | `cd receipt-python && py -m pip install -r requirements.txt && py main.py` |
 | Python US receipt | PyPI: `turbojev` | `cd receipt-us-python && py -m pip install -r requirements.txt && py main.py --image receipt.jpg` |
 | Python Snake | PyPI: `turbojev` | `cd snake-python && py -m pip install -r requirements.txt && py snake.py` |
-| C# / .NET | NuGet: `TurboJev` | `cd TurboJev-csharp-NET && dotnet run -c Release` |
+| [C# / .NET](TurboJev-csharp-NET/README.md): ticket, typed fields, fair die, image receipts | NuGet: `TurboJev` | `cd TurboJev-csharp-NET && dotnet run -c Release -- ticket` |
 | Rust | crates.io: `turbojev` | `cd TurboJev-rust && cargo run --release` |
 
 On Windows, run `.\build-all.ps1` to check the three npm native packages and PyPI wheels, publish .NET builds for x86/x64/ARM64, and compile the TypeScript and Rust examples. It requires Node.js, Python, Rust, and .NET 8.

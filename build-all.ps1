@@ -45,7 +45,15 @@ foreach ($project in @('TurboJev-js-native', 'TurboJev-TS-node')) {
 }
 
 Push-Location (Join-Path $PSScriptRoot "TurboJev-rust")
-try { Invoke-Checked cargo @('check', '--locked') } finally { Pop-Location }
+try {
+    $rustTargets = @('i686-pc-windows-msvc','x86_64-pc-windows-msvc','aarch64-pc-windows-msvc')
+    Invoke-Checked rustup (@('target', 'add', '--toolchain', '1.97.1') + $rustTargets)
+    $cargoArgs = @('check', '--locked')
+    if ($env:TURBOJEV_DEMO_BUILD_DIR) { $cargoArgs += @('--target-dir', $env:TURBOJEV_DEMO_BUILD_DIR) }
+    foreach ($target in $rustTargets) {
+        Invoke-Checked cargo ($cargoArgs + @('--target', $target))
+    }
+} finally { Pop-Location }
 
 Invoke-Checked py @('-m', 'py_compile', (Join-Path $PSScriptRoot 'TurboJev-Python/main.py'), (Join-Path $PSScriptRoot 'simple/main.py'), (Join-Path $PSScriptRoot 'snake-python/snake.py'), (Join-Path $PSScriptRoot 'snake-python/benchmark.py'), (Join-Path $PSScriptRoot 'fair-die-python/main.py'), (Join-Path $PSScriptRoot 'receipt-python/main.py'), (Join-Path $PSScriptRoot 'receipt-us-python/main.py'), (Join-Path $PSScriptRoot 'demos_common.py'), (Join-Path $PSScriptRoot 'receipt_demo.py'))
 Write-Host "Package checks/builds completed for Windows x86, x64, and ARM64 where the registry publishes native artifacts."

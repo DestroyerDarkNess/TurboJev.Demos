@@ -1,0 +1,42 @@
+{
+  "example": "receipt-us",
+  "package_version": "0.30.1",
+  "language": "TypeScript / Node",
+  "platform": "win32",
+  "architecture": "x64",
+  "device": "gpu",
+  "image": "D:\\Projects\\TurboJev\\other\\TypeLLM\\examples\\receipt_us\\receipt.jpg",
+  "fields": [
+    "currency"
+  ],
+  "subset": true,
+  "max_tokens": 64,
+  "thinking": false,
+  "model": "C:\\Users\\Administrator\\.cache\\turbojev\\Qwen3.5-2B-Q4_K_M.gguf",
+  "mmproj": "C:\\Users\\Administrator\\.cache\\turbojev\\Qwen3.5-2B-mmproj-F16.gguf",
+  "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+  "mmproj_sha256": "7035e9cb8d7c6a9681d07eef9a364783e86ea4cd73faab2eabb4f43a101830c7",
+  "load_seconds": 31.6212875,
+  "response": {
+    "result": {
+      "currency": "JPY"
+    },
+    "thinking": {},
+    "thinking_effort": {},
+    "skipped": [],
+    "usage": {
+      "decisions": 1,
+      "generated_tokens": 0
+    }
+  },
+  "evaluation_seconds": 12.2314352,
+  "image_sha256": "4e695befbe854630152452e1dc3c013f910b859b062863295b6ebce532814aab",
+  "expected": {
+    "currency": "USD"
+  },
+  "matches": {
+    "currency": false
+  },
+  "ok": true,
+  "error": null
+}

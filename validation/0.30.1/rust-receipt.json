@@ -1,0 +1,44 @@
+{
+  "example": "receipt",
+  "package_version": "0.30.1",
+  "language": "Rust",
+  "platform": "windows",
+  "architecture": "x86_64",
+  "device": "gpu",
+  "image": "\\\\?\\D:\\Projects\\TurboJev\\other\\TurboJev.Demos\\receipt-python\\receipt.jpg",
+  "image_sha256": "b4261949b52af19e53c27526fc8c4230b10eed207101bf51741c428b4c055c01",
+  "fields": [
+    "total"
+  ],
+  "subset": true,
+  "max_tokens": 64,
+  "thinking": false,
+  "model": "C:\\Users\\Administrator\\.cache/turbojev\\Qwen3.5-2B-Q4_K_M.gguf",
+  "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+  "mmproj": "C:\\Users\\Administrator\\.cache/turbojev\\Qwen3.5-2B-mmproj-F16.gguf",
+  "mmproj_sha256": "7035e9cb8d7c6a9681d07eef9a364783e86ea4cd73faab2eabb4f43a101830c7",
+  "native_library": "\\\\?\\D:\\Projects\\TurboJev\\other\\TurboJev.Demos\\.artifacts\\nuget-registry\\turbojev\\0.30.1\\runtimes\\win-x64\\native\\turbojev_capi.dll",
+  "native_sha256": "d2b3fbaaa89bdeff3d2f20e9bd55cb2f2d1894647aa11bd4687af6d29ab4e488",
+  "load_seconds": 32.4580504,
+  "response": {
+    "result": {
+      "total": 174600
+    },
+    "thinking": {},
+    "thinking_effort": {},
+    "skipped": [],
+    "usage": {
+      "decisions": 1,
+      "generated_tokens": 15
+    }
+  },
+  "evaluation_seconds": 75.9770352,
+  "expected": {
+    "total": 174600
+  },
+  "matches": {
+    "total": true
+  },
+  "ok": true,
+  "error": null
+}

@@ -1,21 +1,21 @@
 const $ = (id) => document.getElementById(id);
 const modelCatalog = {
   transformers: [
-    { id: "onnx-community/Qwen3-0.6B-ONNX", name: "Qwen3 · 0.6B · ONNX" },
-    { id: "onnx-community/Qwen2.5-0.5B-Instruct", name: "Qwen2.5 · 0.5B · ONNX" },
+    { id: "onnx-community/Qwen3-0.6B-ONNX", name: "Qwen3 Â· 0.6B Â· ONNX" },
+    { id: "onnx-community/Qwen2.5-0.5B-Instruct", name: "Qwen2.5 Â· 0.5B Â· ONNX" },
   ],
   llamacpp: [
-    { id: "Qwen/Qwen3-0.6B-GGUF", name: "Qwen3 · 0.6B · Q8_0 · GGUF", url: "https://huggingface.co/Qwen/Qwen3-0.6B-GGUF/resolve/23749fefcc72300e3a2ad315e1317431b06b590a/Qwen3-0.6B-Q8_0.gguf" },
+    { id: "Qwen/Qwen3-0.6B-GGUF", name: "Qwen3 Â· 0.6B Â· Q8_0 Â· GGUF", url: "https://huggingface.co/Qwen/Qwen3-0.6B-GGUF/resolve/23749fefcc72300e3a2ad315e1317431b06b590a/Qwen3-0.6B-Q8_0.gguf" },
   ],
 };
 const examples = {
   account: {
-    state: "A customer says a password reset succeeded, but every login attempt still returns ‘account locked’. Two unlock emails were requested and neither arrived.",
+    state: "A customer says a password reset succeeded, but every login attempt still returns â€˜account lockedâ€™. Two unlock emails were requested and neither arrived.",
     question: "Which queue should handle this request?",
     options: ["Account access support", "Billing support", "Close as resolved"],
   },
   email: {
-    state: "An email claims to be from the payroll team and says the recipient’s salary payment will be suspended today. It comes from payroll-review@outlook.com and links to a non-company sign-in page asking for a password and verification code.",
+    state: "An email claims to be from the payroll team and says the recipientâ€™s salary payment will be suspended today. It comes from payroll-review@outlook.com and links to a non-company sign-in page asking for a password and verification code.",
     question: "How should this email be classified?",
     options: ["Legitimate", "Spam", "Phishing"],
   },
@@ -37,8 +37,8 @@ function updateModelChoices() {
     return option;
   }));
   $("runtime-detail").textContent = runtime === "llamacpp"
-    ? "GGUF models · llama.cpp WebAssembly, with optional WebGPU."
-    : "ONNX models · Transformers.js WebAssembly or WebGPU.";
+    ? "GGUF models Â· llama.cpp WebAssembly, with optional WebGPU."
+    : "ONNX models Â· Transformers.js WebAssembly or WebGPU.";
 }
 
 // Load the published wasm-bindgen module directly; its default initializer
@@ -128,7 +128,7 @@ $("load").addEventListener("click", async () => {
     const descriptor = await call("load", {
       model,
       runtimeModuleUrl: new URL("./runtime.js", import.meta.url).href,
-      wasmModuleUrl: `${wasmCdn}/wasm.mjs`,
+      wasmModuleUrl: wasmCdn,
       workerUrl: new URL("./worker-bootstrap.js", import.meta.url).href,
       runtimeOptions: {
         backend: runtime,
@@ -140,7 +140,7 @@ $("load").addEventListener("click", async () => {
     });
     engineReady = true;
     $("runtime-state").textContent = "Ready";
-    $("runtime-detail").textContent = `${descriptor.model} · ${runtime === "llamacpp" ? "llama.cpp WASM" : "Transformers.js"} · ${device === "wasm" ? "CPU" : "WebGPU"}`;
+    $("runtime-detail").textContent = `${descriptor.model} Â· ${runtime === "llamacpp" ? "llama.cpp WASM" : "Transformers.js"} Â· ${device === "wasm" ? "CPU" : "WebGPU"}`;
     $("load-progress").hidden = true;
     $("empty").hidden = false;
     $("result").hidden = true;
@@ -186,7 +186,7 @@ $("evaluate").addEventListener("click", async () => {
   $("empty").hidden = true;
   $("result").hidden = true;
   $("runtime-state").textContent = "Evaluating";
-  $("runtime-detail").textContent = "Scoring the supplied choices…";
+  $("runtime-detail").textContent = "Scoring the supplied choicesâ€¦";
   const started = performance.now();
   try {
     const criteria = Object.fromEntries(options.map((option) => [option, option]));
@@ -220,11 +220,11 @@ $("compare").addEventListener("click", async () => {
   if (!input) return;
   setBusy(true);
   $("comparison").hidden = false;
-  $("comparison-status").textContent = "Running TurboJev, then the SemIf direct-readout reference…";
-  $("turbo-result").textContent = "Running…";
-  $("semif-result").textContent = "Waiting…";
-  $("turbo-time").textContent = "—";
-  $("semif-time").textContent = "—";
+  $("comparison-status").textContent = "Running TurboJev, then the SemIf direct-readout referenceâ€¦";
+  $("turbo-result").textContent = "Runningâ€¦";
+  $("semif-result").textContent = "Waitingâ€¦";
+  $("turbo-time").textContent = "â€”";
+  $("semif-time").textContent = "â€”";
   const device = $("device").value;
   let referenceWorker;
   try {
@@ -236,7 +236,7 @@ $("compare").addEventListener("click", async () => {
     }
     const turboMs = median(turboRuns.map((run) => run.elapsedMs));
     renderComparisonSide("turbo", turboRuns.at(-1).response, turboMs);
-    $("comparison-status").textContent = "TurboJev finished; releasing its model before loading SemIf’s reference runtime…";
+    $("comparison-status").textContent = "TurboJev finished; releasing its model before loading SemIfâ€™s reference runtimeâ€¦";
     await call("close");
     engineReady = false;
     referenceWorker = new Worker("./semif-worker.js", { type: "module" });
@@ -246,8 +246,8 @@ $("compare").addEventListener("click", async () => {
     renderComparisonSide("semif", reference, reference.elapsedMs);
     const ratio = turboMs / reference.elapsedMs;
     $("comparison-ratio").textContent = ratio >= 1
-      ? `SemIf direct readout was ${ratio.toFixed(2)}× faster.`
-      : `TurboJev was ${(1 / ratio).toFixed(2)}× faster than SemIf’s direct readout.`;
+      ? `SemIf direct readout was ${ratio.toFixed(2)}Ã— faster.`
+      : `TurboJev was ${(1 / ratio).toFixed(2)}Ã— faster than SemIfâ€™s direct readout.`;
     $("comparison-status").textContent = "Median of 3 runs per engine. Same Qwen3 0.6B Q8_0 GGUF, state, question, options, and device; each engine formats its own prompt. Model load and warmup are excluded. TurboJev ran first.";
     await loadTurboAgain();
     $("comparison-status").textContent += " TurboJev is ready again.";
@@ -292,12 +292,12 @@ function runSemIfReference(referenceWorker, input, modelUrl, device, runCount) {
       if (data.type === "progress") {
         $("comparison-status").textContent = `Loading SemIf reference model: ${Math.round(data.progress)}%`;
       } else if (data.type === "ready") {
-        $("comparison-status").textContent = `SemIf model ready; measuring ${runCount} direct readouts…`;
+        $("comparison-status").textContent = `SemIf model ready; measuring ${runCount} direct readoutsâ€¦`;
         referenceWorker.postMessage({ type: "evaluate", input });
       } else if (data.type === "result") {
         runs.push(data.result);
         if (runs.length < runCount) {
-          $("comparison-status").textContent = `SemIf direct readout ${runs.length + 1} of ${runCount}…`;
+          $("comparison-status").textContent = `SemIf direct readout ${runs.length + 1} of ${runCount}â€¦`;
           referenceWorker.postMessage({ type: "evaluate", input });
         } else {
           clearTimeout(timeout);
@@ -338,12 +338,12 @@ function renderComparisonSide(side, response, elapsed) {
 }
 
 async function loadTurboAgain() {
-  $("comparison-status").textContent += " Reloading TurboJev model…";
+  $("comparison-status").textContent += " Reloading TurboJev modelâ€¦";
   const selectedModel = $("model").selectedOptions[0];
   await call("load", {
     model: selectedModel.value,
     runtimeModuleUrl: new URL("./runtime.js", import.meta.url).href,
-    wasmModuleUrl: `${wasmCdn}/wasm.mjs`,
+    wasmModuleUrl: wasmCdn,
     workerUrl: new URL("./worker-bootstrap.js", import.meta.url).href,
     runtimeOptions: {
       backend: "llamacpp", modality: "text", device: $("device").value, dtype: "q4",
@@ -353,7 +353,7 @@ async function loadTurboAgain() {
   engineReady = true;
   $("load-progress").hidden = true;
   $("runtime-state").textContent = "Ready";
-  $("runtime-detail").textContent = `${selectedModel.textContent} · llama.cpp WASM · ${$("device").value === "wasm" ? "CPU" : "WebGPU"}`;
+  $("runtime-detail").textContent = `${selectedModel.textContent} Â· llama.cpp WASM Â· ${$("device").value === "wasm" ? "CPU" : "WebGPU"}`;
 }
 
 document.querySelectorAll("[data-example]").forEach((button) => button.addEventListener("click", () => {

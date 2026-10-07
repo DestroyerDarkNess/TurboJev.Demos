@@ -7,7 +7,7 @@ import time
 from urllib.request import Request, urlopen
 
 CACHE = Path.home() / ".cache" / "turbojev"
-TEXT_MODEL_URL = "https://huggingface.co/bartowski/Qwen_Qwen3-0.6B-GGUF/resolve/main/Qwen_Qwen3-0.6B-Q4_K_M.gguf"
+TEXT_MODEL_URL = "https://huggingface.co/bartowski/Qwen_Qwen3-0.6B-GGUF/resolve/60b85c0e3d8fe0f6474f406922a26d12aca4550d/Qwen_Qwen3-0.6B-Q4_K_M.gguf"
 VISION_REVISION = "f6d5376be1edb4d416d56da11e5397a961aca8ae"
 VISION_BASE = f"https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/{VISION_REVISION}/"
 

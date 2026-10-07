@@ -1,0 +1,42 @@
+{
+  "example": "receipt",
+  "package_version": "0.30.1",
+  "language": "JavaScript / Node",
+  "platform": "win32",
+  "architecture": "x64",
+  "device": "gpu",
+  "image": "D:\\Projects\\TurboJev\\other\\TurboJev.Demos\\receipt-python\\receipt.jpg",
+  "fields": [
+    "total"
+  ],
+  "subset": true,
+  "max_tokens": 64,
+  "thinking": false,
+  "model": "C:\\Users\\Administrator\\.cache\\turbojev\\Qwen3.5-2B-Q4_K_M.gguf",
+  "mmproj": "C:\\Users\\Administrator\\.cache\\turbojev\\Qwen3.5-2B-mmproj-F16.gguf",
+  "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+  "mmproj_sha256": "7035e9cb8d7c6a9681d07eef9a364783e86ea4cd73faab2eabb4f43a101830c7",
+  "load_seconds": 24.977113199999998,
+  "response": {
+    "result": {
+      "total": 174600
+    },
+    "thinking": {},
+    "thinking_effort": {},
+    "skipped": [],
+    "usage": {
+      "decisions": 1,
+      "generated_tokens": 15
+    }
+  },
+  "evaluation_seconds": 71.0551996,
+  "image_sha256": "b4261949b52af19e53c27526fc8c4230b10eed207101bf51741c428b4c055c01",
+  "expected": {
+    "total": 174600
+  },
+  "matches": {
+    "total": true
+  },
+  "ok": true,
+  "error": null
+}

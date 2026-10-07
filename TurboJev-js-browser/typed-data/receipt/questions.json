@@ -1,0 +1,73 @@
+{
+  "first_item": {
+    "type": "string",
+    "instructions": "Name of the first line item, exactly as printed, including any misspellings."
+  },
+  "second_item": {
+    "type": "string",
+    "instructions": "Name of the second line item, exactly as printed."
+  },
+  "third_item": {
+    "type": "string",
+    "instructions": "Name of the third line item, exactly as printed."
+  },
+  "item_lines": {
+    "type": "integer",
+    "instructions": "How many line items are listed?"
+  },
+  "first_item_quantity": {
+    "type": "integer",
+    "instructions": "Quantity of the first line item."
+  },
+  "subtotal": {
+    "type": "number",
+    "instructions": "Subtotal in rupiah as a plain number; the receipt uses commas as thousands separators, so 12,500 is 12500."
+  },
+  "discount": {
+    "type": "number",
+    "instructions": "Discount in rupiah as a plain number; the receipt uses commas as thousands separators, so 12,500 is 12500."
+  },
+  "total": {
+    "type": "number",
+    "instructions": "Total in rupiah as a plain number; the receipt uses commas as thousands separators, so 12,500 is 12500."
+  },
+  "cash": {
+    "type": "number",
+    "instructions": "Cash tendered in rupiah as a plain number; the receipt uses commas as thousands separators, so 12,500 is 12500."
+  },
+  "change": {
+    "type": "number",
+    "instructions": "Change given in rupiah as a plain number; the receipt uses commas as thousands separators, so 12,500 is 12500."
+  },
+  "paid_in_cash": {
+    "type": "boolean",
+    "instructions": "Was the bill paid in cash?"
+  },
+  "discount_percent": {
+    "type": "number",
+    "depends_on": [
+      "subtotal",
+      "discount"
+    ],
+    "instructions": "Discount as a percentage of the subtotal."
+  },
+  "change_is_correct": {
+    "type": "boolean",
+    "depends_on": [
+      "total",
+      "cash",
+      "change"
+    ],
+    "instructions": "Does change equal cash minus total?"
+  },
+  "expense_note": {
+    "type": "string",
+    "depends_on": [
+      "first_item",
+      "second_item",
+      "third_item",
+      "total"
+    ],
+    "instructions": "One short sentence for an expense report describing this purchase and its total."
+  }
+}

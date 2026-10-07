@@ -1,0 +1,49 @@
+{
+  "example": "fields",
+  "package_version": "0.30.1",
+  "architecture": "AMD64",
+  "platform": "Windows-11-10.0.26100-SP0",
+  "device": "gpu",
+  "model": "C:\\Users\\Administrator\\.cache\\turbojev\\Qwen3-0.6B-Q4_K_M.gguf",
+  "model_sha256": "9acfc1e001311f34b4252001b626f2e466d592a42065f66571bff3790d4e1b14",
+  "load_seconds": 22.556530500005465,
+  "response": {
+    "result": {
+      "count": 7,
+      "total": 324.5,
+      "overdue": {
+        "confidence": 0.9802190204752766,
+        "distribution": [
+          {
+            "probability": 0.9802190204752766,
+            "value": true
+          },
+          {
+            "probability": 0.019780979524723248,
+            "value": false
+          }
+        ],
+        "probabilities": {
+          "false": 0.019780979524723248,
+          "true": 0.9802190204752766
+        },
+        "value": true
+      },
+      "reference": null,
+      "reminder": "Please pay the overdue invoices of 324.50 GBP."
+    },
+    "thinking": {},
+    "thinking_effort": {},
+    "skipped": [
+      "large_account_note"
+    ],
+    "usage": {
+      "decisions": 5,
+      "input_tokens": 490,
+      "generated_tokens": 42
+    }
+  },
+  "evaluation_seconds": 20.379316600010497,
+  "ok": true,
+  "error": null
+}

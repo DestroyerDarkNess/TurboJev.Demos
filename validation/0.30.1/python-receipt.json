@@ -1,0 +1,39 @@
+{
+  "turbojev": "0.30.1",
+  "model": "C:\\Users\\Administrator\\.cache\\turbojev\\Qwen3.5-2B-Q4_K_M.gguf",
+  "mmproj": "C:\\Users\\Administrator\\.cache\\turbojev\\Qwen3.5-2B-mmproj-F16.gguf",
+  "device": "gpu",
+  "model_sha256": "aaf42c8b7c3cab2bf3d69c355048d4a0ee9973d48f16c731c0520ee914699223",
+  "mmproj_sha256": "7035e9cb8d7c6a9681d07eef9a364783e86ea4cd73faab2eabb4f43a101830c7",
+  "platform": "Windows-11-10.0.26100-SP0",
+  "architecture": "AMD64",
+  "image_sha256": "b4261949b52af19e53c27526fc8c4230b10eed207101bf51741c428b4c055c01",
+  "fields": [
+    "paid_in_cash"
+  ],
+  "subset": true,
+  "max_tokens": 64,
+  "thinking": false,
+  "load_seconds": 111.58013780000329,
+  "evaluation_seconds": 47.11295080000127,
+  "response": {
+    "result": {
+      "paid_in_cash": true
+    },
+    "thinking": {},
+    "thinking_effort": {},
+    "skipped": [],
+    "usage": {
+      "decisions": 1,
+      "generated_tokens": 0
+    }
+  },
+  "expected": {
+    "paid_in_cash": true
+  },
+  "matches": {
+    "paid_in_cash": true
+  },
+  "ok": true,
+  "error": null
+}

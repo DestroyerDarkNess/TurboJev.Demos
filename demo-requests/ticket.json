@@ -15,11 +15,7 @@
     "urgency": {
       "type": "score",
       "instructions": "How urgent is this ticket?",
-      "criteria": [
-        "Can wait",
-        "This week",
-        "Today"
-      ]
+      "criteria": ["Can wait", "This week", "Today"]
     },
     "wantsRefund": {
       "type": "noul",

@@ -1,4 +1,5 @@
 """Self-contained published-package ticket, fields, fair-die and receipt examples."""
+
 from pathlib import Path
 import hashlib
 import os
@@ -28,9 +29,9 @@ VISION_BASE = f"https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/{VISION_R
 
 
 def file_sha256(path):
-    digest=hashlib.sha256()
+    digest = hashlib.sha256()
     with Path(path).open("rb") as stream:
-        while chunk:=stream.read(2**20):
+        while chunk := stream.read(2**20):
             digest.update(chunk)
     return digest.hexdigest()
 
@@ -57,15 +58,17 @@ def download(url, destination):
                 output.write(chunk)
                 received += len(chunk)
                 now = time.monotonic()
-                if now-previous < .2 and (not total or received < total):
+                if now - previous < 0.2 and (not total or received < total):
                     continue
                 previous = now
-                speed = (received-offset)/max(.001,now-started)
-                ratio = min(1,received/total) if total else 0
-                filled = round(ratio*26)
-                eta = (total-received)/speed if total and speed else 0
+                speed = (received - offset) / max(0.001, now - started)
+                ratio = min(1, received / total) if total else 0
+                filled = round(ratio * 26)
+                eta = (total - received) / speed if total and speed else 0
                 percent = f"{ratio:5.1%}" if total else "      "
-                sys.stdout.write(f"\r{destination.name} [{'#'*filled}{'-'*(26-filled)}] {percent} {received/2**20:.0f} MB {speed/2**20:.1f} MB/s ETA {eta:.0f}s    ")
+                sys.stdout.write(
+                    f"\r{destination.name} [{'#' * filled}{'-' * (26 - filled)}] {percent} {received / 2**20:.0f} MB {speed / 2**20:.1f} MB/s ETA {eta:.0f}s    "
+                )
                 sys.stdout.flush()
     print()
     if not received or total and received != total:
@@ -84,121 +87,239 @@ def text_model(model=None):
         if not path.is_file():
             raise FileNotFoundError(path)
         return path
-    return download(TEXT_MODEL_URL, CACHE/"Qwen3-0.6B-Q4_K_M.gguf")
+    return download(TEXT_MODEL_URL, CACHE / "Qwen3-0.6B-Q4_K_M.gguf")
 
 
 def vision_models(model=None, mmproj=None):
-    model = Path(model).expanduser().resolve() if model else download(VISION_BASE+"Qwen3.5-2B-Q4_K_M.gguf",CACHE/"Qwen3.5-2B-Q4_K_M.gguf")
-    projector = Path(mmproj).expanduser().resolve() if mmproj else download(VISION_BASE+"mmproj-F16.gguf",CACHE/"Qwen3.5-2B-mmproj-F16.gguf")
+    model = (
+        Path(model).expanduser().resolve()
+        if model
+        else download(VISION_BASE + "Qwen3.5-2B-Q4_K_M.gguf", CACHE / "Qwen3.5-2B-Q4_K_M.gguf")
+    )
+    projector = (
+        Path(mmproj).expanduser().resolve()
+        if mmproj
+        else download(VISION_BASE + "mmproj-F16.gguf", CACHE / "Qwen3.5-2B-mmproj-F16.gguf")
+    )
     if not model.is_file() or not projector.is_file():
         raise FileNotFoundError("Provide an existing model and matching projector.")
-    return model,projector
+    return model, projector
 
-LABELS = ["one","two","three","four","five","six"]
+
+LABELS = ["one", "two", "three", "four", "five", "six"]
+
 
 def matched(actual, expected):
-    if isinstance(expected,bool):
+    if isinstance(expected, bool):
         return type(actual) is bool and actual is expected
-    if isinstance(expected,(int,float)):
-        return type(actual) in (int,float) and math.isclose(actual,expected,abs_tol=1e-6,rel_tol=1e-6)
-    return type(actual) is type(expected) and actual==expected
+    if isinstance(expected, (int, float)):
+        return type(actual) in (int, float) and math.isclose(
+            actual, expected, abs_tol=1e-6, rel_tol=1e-6
+        )
+    return type(actual) is type(expected) and actual == expected
+
 
 def run_receipt(folder, bundled=False, argv=None):
-    parser=argparse.ArgumentParser(description="Extract a photographed receipt with the published TurboJev GGUF runtime.")
-    parser.add_argument("--image",type=Path,default=folder/"receipt.jpg" if bundled else None,required=not bundled)
-    parser.add_argument("--model",help="Vision GGUF model; default Qwen3.5 2B Q4_K_M")
-    parser.add_argument("--mmproj",help="Matching vision projector; default Qwen3.5 2B F16")
-    parser.add_argument("--device",choices=["cpu","gpu"],default="cpu")
-    parser.add_argument("--fields",help="Comma-separated subset; dependencies are included")
-    parser.add_argument("--reference-labels",action="store_true",help="Compare with the original example's labels only when using that exact reference image")
-    parser.add_argument("--max-tokens",type=int,default=64)
-    parser.add_argument("--output",type=Path,default=FOLDER / ("result-receipt.json" if bundled else "result-receipt-us.json"))
-    args=parser.parse_args(argv)
-    if not args.image.is_file() or not 0<args.image.stat().st_size<=24*2**20:
+    parser = argparse.ArgumentParser(
+        description="Extract a photographed receipt with the published TurboJev GGUF runtime."
+    )
+    parser.add_argument(
+        "--image",
+        type=Path,
+        default=folder / "receipt.jpg" if bundled else None,
+        required=not bundled,
+    )
+    parser.add_argument("--model", help="Vision GGUF model; default Qwen3.5 2B Q4_K_M")
+    parser.add_argument("--mmproj", help="Matching vision projector; default Qwen3.5 2B F16")
+    parser.add_argument("--device", choices=["cpu", "gpu"], default="cpu")
+    parser.add_argument("--fields", help="Comma-separated subset; dependencies are included")
+    parser.add_argument(
+        "--reference-labels",
+        action="store_true",
+        help="Compare with the original example's labels only when using that exact reference image",
+    )
+    parser.add_argument("--max-tokens", type=int, default=64)
+    parser.add_argument(
+        "--output",
+        type=Path,
+        default=FOLDER / ("result-receipt.json" if bundled else "result-receipt-us.json"),
+    )
+    args = parser.parse_args(argv)
+    if not args.image.is_file() or not 0 < args.image.stat().st_size <= 24 * 2**20:
         parser.error("Provide a nonempty image of at most 24 MiB.")
-    if not 1<=args.max_tokens<=32768:
+    if not 1 <= args.max_tokens <= 32768:
         parser.error("max-tokens must be between 1 and 32768")
-    questions=json.loads((folder/"questions.json").read_text(encoding="utf-8"))
+    questions = json.loads((folder / "questions.json").read_text(encoding="utf-8"))
     if args.fields:
-        names=set(args.fields.split(','))
-        if names-set(questions):
-            parser.error("Unknown field names: "+', '.join(sorted(names-set(questions))))
+        names = set(args.fields.split(","))
+        if names - set(questions):
+            parser.error("Unknown field names: " + ", ".join(sorted(names - set(questions))))
         while True:
-            expanded=names|{dep for name in names for dep in questions[name].get('depends_on',[])}
-            if expanded==names: break
-            names=expanded
-        questions={name:field for name,field in questions.items() if name in names}
-    use_labels=args.reference_labels or bundled and args.image.resolve()==(folder/"receipt.jpg").resolve()
-    expected=json.loads((folder/"expected.json").read_text(encoding="utf-8")) if use_labels else {}
-    expected={name:value for name,value in expected.items() if name in questions}
-    model,mmproj=vision_models(args.model,args.mmproj)
-    print(f"TurboJev {importlib.metadata.version('turbojev')} | {model.name} + {mmproj.name} | {args.device}")
-    print(f"Reading {args.image.name}: {len(questions)} fields; values and dependent calculations are model-generated.",flush=True)
-    evidence=args.image.read_bytes()
-    request={"context":{"contract":"turbojev.media.v1","modality":"image","text":"Read the attached photo of a restaurant receipt.","base64":base64.b64encode(evidence).decode()},
-             "questions":questions,"thinking":False,"text_max_tokens":args.max_tokens,"numeric_max_tokens":args.max_tokens}
-    load_started=time.perf_counter()
-    response=None
-    failure=None
-    load_seconds=None
-    started=load_started
+            expanded = names | {
+                dep for name in names for dep in questions[name].get("depends_on", [])
+            }
+            if expanded == names:
+                break
+            names = expanded
+        questions = {name: field for name, field in questions.items() if name in names}
+    use_labels = (
+        args.reference_labels
+        or bundled
+        and args.image.resolve() == (folder / "receipt.jpg").resolve()
+    )
+    expected = (
+        json.loads((folder / "expected.json").read_text(encoding="utf-8")) if use_labels else {}
+    )
+    expected = {name: value for name, value in expected.items() if name in questions}
+    model, mmproj = vision_models(args.model, args.mmproj)
+    print(
+        f"TurboJev {importlib.metadata.version('turbojev')} | {model.name} + {mmproj.name} | {args.device}"
+    )
+    print(
+        f"Reading {args.image.name}: {len(questions)} fields; values and dependent calculations are model-generated.",
+        flush=True,
+    )
+    evidence = args.image.read_bytes()
+    request = {
+        "context": {
+            "contract": "turbojev.media.v1",
+            "modality": "image",
+            "text": "Read the attached photo of a restaurant receipt.",
+            "base64": base64.b64encode(evidence).decode(),
+        },
+        "questions": questions,
+        "thinking": False,
+        "text_max_tokens": args.max_tokens,
+        "numeric_max_tokens": args.max_tokens,
+    }
+    load_started = time.perf_counter()
+    response = None
+    failure = None
+    load_seconds = None
+    started = load_started
     try:
-        with TurboJev.load(str(model),mmproj=str(mmproj),device=args.device,n_ctx=8192,n_seq_max=1,n_threads=4,n_threads_batch=4) as client:
-            load_seconds=time.perf_counter()-load_started
-            started=time.perf_counter()
-            response=client.generate(request)
+        with TurboJev.load(
+            str(model),
+            mmproj=str(mmproj),
+            device=args.device,
+            n_ctx=8192,
+            n_seq_max=1,
+            n_threads=4,
+            n_threads_batch=4,
+        ) as client:
+            load_seconds = time.perf_counter() - load_started
+            started = time.perf_counter()
+            response = client.generate(request)
     except Exception as error:
-        failure=str(error)
-    seconds=time.perf_counter()-started
-    result=response["result"] if response is not None else {}
-    checks={name:matched(result.get(name),value) for name,value in expected.items()}
-    record={"turbojev":importlib.metadata.version("turbojev"),"model":str(model),"mmproj":str(mmproj),"device":args.device,
-            "model_sha256":file_sha256(model),"mmproj_sha256":file_sha256(mmproj),
-            "platform":platform.platform(),"architecture":platform.machine(),"image_sha256":hashlib.sha256(evidence).hexdigest(),
-            "fields":list(questions),"subset":bool(args.fields),"max_tokens":args.max_tokens,"thinking":False,
-            "load_seconds":load_seconds,"evaluation_seconds":seconds,"response":response,"expected":expected,"matches":checks,
-            "ok":failure is None,"error":failure}
-    args.output.parent.mkdir(parents=True,exist_ok=True)
-    args.output.write_text(json.dumps(record,indent=2,ensure_ascii=False)+"\n",encoding="utf-8")
+        failure = str(error)
+    seconds = time.perf_counter() - started
+    result = response["result"] if response is not None else {}
+    checks = {name: matched(result.get(name), value) for name, value in expected.items()}
+    record = {
+        "turbojev": importlib.metadata.version("turbojev"),
+        "model": str(model),
+        "mmproj": str(mmproj),
+        "device": args.device,
+        "model_sha256": file_sha256(model),
+        "mmproj_sha256": file_sha256(mmproj),
+        "platform": platform.platform(),
+        "architecture": platform.machine(),
+        "image_sha256": hashlib.sha256(evidence).hexdigest(),
+        "fields": list(questions),
+        "subset": bool(args.fields),
+        "max_tokens": args.max_tokens,
+        "thinking": False,
+        "load_seconds": load_seconds,
+        "evaluation_seconds": seconds,
+        "response": response,
+        "expected": expected,
+        "matches": checks,
+        "ok": failure is None,
+        "error": failure,
+    }
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    args.output.write_text(
+        json.dumps(record, indent=2, ensure_ascii=False) + "\n", encoding="utf-8"
+    )
     if failure is not None:
         print(f"Generation failed: {failure}\nBenchmark saved: {args.output}")
         raise SystemExit(2)
-    print(json.dumps(result,indent=2,ensure_ascii=False))
-    if checks: print(f"Reference labels: {sum(checks.values())}/{len(checks)} fields match")
-    print(f"Load: {load_seconds:.3f}s | Evaluation: {seconds:.3f}s | {seconds/len(result):.3f}s per returned field (aggregate)")
+    print(json.dumps(result, indent=2, ensure_ascii=False))
+    if checks:
+        print(f"Reference labels: {sum(checks.values())}/{len(checks)} fields match")
+    print(
+        f"Load: {load_seconds:.3f}s | Evaluation: {seconds:.3f}s | {seconds / len(result):.3f}s per returned field (aggregate)"
+    )
     print(f"Benchmark saved: {args.output}")
 
+
 def run_fair_die(argv=None):
-    parser=argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--model")
-    parser.add_argument("--device",choices=["cpu","gpu"],default="cpu")
-    parser.add_argument("--all-permutations",action="store_true",help="Include 720 real evaluations; potentially very slow")
-    parser.add_argument("--output",type=Path,default=FOLDER / "result-fair-die.json")
-    args=parser.parse_args(argv)
-    model=text_model(args.model)
+    parser.add_argument("--device", choices=["cpu", "gpu"], default="cpu")
+    parser.add_argument(
+        "--all-permutations",
+        action="store_true",
+        help="Include 720 real evaluations; potentially very slow",
+    )
+    parser.add_argument("--output", type=Path, default=FOLDER / "result-fair-die.json")
+    args = parser.parse_args(argv)
+    model = text_model(args.model)
     print(f"TurboJev {importlib.metadata.version('turbojev')} | model: {model} | {args.device}")
-    runs={}
-    with TurboJev.load(str(model),device=args.device,n_ctx=8192,n_seq_max=1,n_threads=4,n_threads_batch=4) as client:
-        for budget in [1,"auto",8]+(["all"] if args.all_permutations else []):
-            print(f"Evaluating permutation budget {budget}...",flush=True)
-            start=time.perf_counter()
-            response=client.generate(context="A single roll of a fair die.",seed=42,questions={"roll":{
-                "type":"string","enum":LABELS,"instructions":"What number will come up on a single roll of a fair six-sided die?",
-                "permutations":budget,"return_probabilities":True,
-            }})
-            answer=response["result"]["roll"]
-            probabilities=answer["probabilities"]
-            if set(probabilities)!=set(LABELS) or any(not math.isfinite(p) or not 0<=p<=1 for p in probabilities.values()) or not math.isclose(sum(probabilities.values()),1,abs_tol=1e-9):
+    runs = {}
+    with TurboJev.load(
+        str(model), device=args.device, n_ctx=8192, n_seq_max=1, n_threads=4, n_threads_batch=4
+    ) as client:
+        for budget in [1, "auto", 8] + (["all"] if args.all_permutations else []):
+            print(f"Evaluating permutation budget {budget}...", flush=True)
+            start = time.perf_counter()
+            response = client.generate(
+                context="A single roll of a fair die.",
+                seed=42,
+                questions={
+                    "roll": {
+                        "type": "string",
+                        "enum": LABELS,
+                        "instructions": "What number will come up on a single roll of a fair six-sided die?",
+                        "permutations": budget,
+                        "return_probabilities": True,
+                    }
+                },
+            )
+            answer = response["result"]["roll"]
+            probabilities = answer["probabilities"]
+            if (
+                set(probabilities) != set(LABELS)
+                or any(not math.isfinite(p) or not 0 <= p <= 1 for p in probabilities.values())
+                or not math.isclose(sum(probabilities.values()), 1, abs_tol=1e-9)
+            ):
                 raise ValueError("Invalid model distribution")
-            divergence=sum(math.log((1/6)/p)/6 for p in probabilities.values()) if all(probabilities.values()) else None
-            runs[str(budget)]={"response":response,"seconds":time.perf_counter()-start,"kl_uniform_to_prediction":divergence}
-            print(json.dumps(runs[str(budget)],indent=2))
-    record={"turbojev":importlib.metadata.version("turbojev"),"model":str(model),"model_sha256":file_sha256(model),
-            "platform":platform.platform(),"architecture":platform.machine(),"device":args.device,"seed":42,
-            "ground_truth":dict.fromkeys(LABELS,1/6),"runs":runs}
-    args.output.parent.mkdir(parents=True,exist_ok=True)
-    args.output.write_text(json.dumps(record,indent=2)+"\n",encoding="utf-8")
+            divergence = (
+                sum(math.log((1 / 6) / p) / 6 for p in probabilities.values())
+                if all(probabilities.values())
+                else None
+            )
+            runs[str(budget)] = {
+                "response": response,
+                "seconds": time.perf_counter() - start,
+                "kl_uniform_to_prediction": divergence,
+            }
+            print(json.dumps(runs[str(budget)], indent=2))
+    record = {
+        "turbojev": importlib.metadata.version("turbojev"),
+        "model": str(model),
+        "model_sha256": file_sha256(model),
+        "platform": platform.platform(),
+        "architecture": platform.machine(),
+        "device": args.device,
+        "seed": 42,
+        "ground_truth": dict.fromkeys(LABELS, 1 / 6),
+        "runs": runs,
+    }
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    args.output.write_text(json.dumps(record, indent=2) + "\n", encoding="utf-8")
     print(f"Benchmark saved: {args.output}")
+
 
 def main():
     if len(sys.argv) > 1 and sys.argv[1] == "fair-die":
@@ -206,11 +327,17 @@ def main():
         return
     if len(sys.argv) > 1 and sys.argv[1] in {"receipt", "receipt-us"}:
         bundled = sys.argv[1] == "receipt"
-        run_receipt(FOLDER / "receipts" / ("cord" if bundled else "us"),
-                    bundled=bundled, argv=sys.argv[2:])
+        run_receipt(
+            FOLDER / "receipts" / ("cord" if bundled else "us"), bundled=bundled, argv=sys.argv[2:]
+        )
         return
     parser = argparse.ArgumentParser(description=__doc__)
-    parser.add_argument("example", choices=["ticket", "fields", "fair-die", "receipt", "receipt-us"], nargs="?", default="ticket")
+    parser.add_argument(
+        "example",
+        choices=["ticket", "fields", "fair-die", "receipt", "receipt-us"],
+        nargs="?",
+        default="ticket",
+    )
     parser.add_argument("--device", choices=["cpu", "gpu"], default="cpu")
     parser.add_argument("--model")
     parser.add_argument("--max-tokens", type=int, default=64)
@@ -221,19 +348,33 @@ def main():
     request = json.loads((FOLDER / "requests" / f"{args.example}.json").read_text())
     if args.example == "fields":
         request.update(text_max_tokens=args.max_tokens, numeric_max_tokens=args.max_tokens)
-    record = dict(example=args.example, package_version=importlib.metadata.version("turbojev"),
-                  architecture=platform.machine(), platform=platform.platform(), device=args.device)
+    record = dict(
+        example=args.example,
+        package_version=importlib.metadata.version("turbojev"),
+        architecture=platform.machine(),
+        platform=platform.platform(),
+        device=args.device,
+    )
     try:
         model = text_model(args.model)
         record.update(model=str(model), model_sha256=file_sha256(model))
         start = time.perf_counter()
         # evaluate: balanced averages canonical probabilities; cyclic averages rotation logits.
         # Both cost extra choice passes. generate: permutations is per field.
-        with TurboJev.load(str(model), device=args.device, n_ctx=8192, n_seq_max=1, n_threads=4,
-                           n_threads_batch=4, execution={"orderRobustness": "none"}) as engine:
+        with TurboJev.load(
+            str(model),
+            device=args.device,
+            n_ctx=8192,
+            n_seq_max=1,
+            n_threads=4,
+            n_threads_batch=4,
+            execution={"orderRobustness": "none"},
+        ) as engine:
             record["load_seconds"] = time.perf_counter() - start
             start = time.perf_counter()
-            record["response"] = engine.evaluate(request) if args.example == "ticket" else engine.generate(request)
+            record["response"] = (
+                engine.evaluate(request) if args.example == "ticket" else engine.generate(request)
+            )
             record["evaluation_seconds"] = time.perf_counter() - start
         record.update(ok=True, error=None)
         print(json.dumps(record["response"], indent=2))

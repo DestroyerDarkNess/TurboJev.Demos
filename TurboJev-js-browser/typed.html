@@ -1,31 +1,129 @@
 <!doctype html>
 <html lang="en">
-<head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>TurboJev — typed fields and receipts</title><link rel="stylesheet" href="styles.css"></head>
-<body>
-<header class="topbar"><a class="brand" href="index.html">turbo<span>jev</span></a><span class="topbar-note">Typed fields &amp; image receipts</span><a class="source-link" href="index.html">Decision demo ↗</a></header>
-<main>
-  <section class="intro"><div><h1>Extract typed answers.</h1><p class="lede">Run fields, permutation comparisons or photographed receipts with the published TurboJev browser package. Answers come from the model.</p></div><div class="runtime-card" aria-live="polite"><strong id="status">Not loaded</strong><span id="details">Select an example, then load its model.</span></div></section>
-  <section class="demo" aria-label="Typed-field examples">
-    <div class="controls">
-      <h2>Model &amp; example</h2>
-      <label for="example">Example</label><select id="example"><option value="fields">Typed invoice fields</option><option value="fair-die">Fair die · permutations</option><option value="receipt">Receipt · CORD photo</option><option value="receipt-us">US receipt · your photo</option></select>
-      <label for="runtime">Runtime</label><select id="runtime"><option value="llamacpp">llama.cpp · GGUF / WASM</option><option value="transformers">Transformers.js · ONNX (text)</option></select>
-      <label for="model-url">Model URL or ONNX identifier</label><input id="model-url">
-      <div id="projector-controls" hidden><label for="projector-url">Matching GGUF projector URL</label><input id="projector-url"></div>
-      <label for="device">Run on</label><select id="device"><option value="wasm">CPU · WebAssembly</option><option value="webgpu">GPU · WebGPU</option></select>
-      <div class="button-row"><button id="load" class="button primary">Load model</button><button id="unload" class="button quiet" disabled>Unload</button></div>
-      <div id="load-progress" class="progress-wrap" hidden><div class="progress-copy"><span id="progress-label">Downloading</span><span id="progress-value">0%</span></div><progress id="progress" max="100" value="0"></progress><span id="progress-file" class="file-name"></span></div>
-      <p class="fine-print">Text: Qwen3 0.6B Q4_K_M. Images: Qwen3.5 2B plus its F16 projector (~1.95 GB total). CPU is the default; GPU requires browser support. Memory and architecture support depend on the browser runtime.</p>
-    </div>
-    <div class="decision">
-      <h2>Request</h2>
-      <div id="text-controls"><label for="context">Context</label><textarea id="context" rows="5"></textarea></div>
-      <div id="image-controls" hidden><label for="image">Photo (optional for CORD, required for US)</label><input id="image" type="file" accept="image/*"><img id="preview" alt="Receipt input" hidden style="max-width:100%;max-height:220px;object-fit:contain"><label for="fields">Fields (comma-separated; empty means all)</label><input id="fields" placeholder="first_item,total"><p class="fine-print">Dependencies are included automatically. Full image extraction repeats image processing per field and may take several minutes.</p></div>
-      <div id="die-controls" hidden><label for="budget">Permutation budget</label><select id="budget"><option value="1">1 · one ordering</option><option value="auto">auto · 6 balanced orderings</option><option value="8">8 · sampled orderings</option><option value="all">all · 720 evaluations (very slow)</option></select><p class="fine-print">The distribution is model-scored. Uniform probabilities are a reference for comparison, never replacement answers.</p></div>
-      <label for="questions">Field definitions (editable JSON)</label><textarea id="questions" rows="9" spellcheck="false"></textarea>
-      <button id="generate" class="button dark" disabled>Generate</button>
-    </div>
-    <section class="output" aria-live="polite"><div class="output-head"><h2>Result</h2><span id="elapsed" class="elapsed">—</span></div><p id="empty" class="empty">Your result will appear here.</p><pre id="result" hidden style="white-space:pre-wrap;overflow-wrap:anywhere;font-size:12px"></pre><p id="error" class="error" role="alert" hidden></p><button id="save" class="button quiet" disabled>Save JSON report</button><p class="fine-print">Typed output is not a guarantee of OCR, arithmetic or reasoning accuracy. Returned probabilities are conditional, not calibrated confidence.</p></section>
-  </section>
-</main><script type="module" src="typed.js"></script>
-</body></html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width,initial-scale=1" />
+    <title>TurboJev — typed fields and receipts</title>
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <a class="brand" href="index.html">turbo<span>jev</span></a
+      ><span class="topbar-note">Typed fields &amp; image receipts</span
+      ><a class="source-link" href="index.html">Decision demo ↗</a>
+    </header>
+    <main>
+      <section class="intro">
+        <div>
+          <h1>Extract typed answers.</h1>
+          <p class="lede">
+            Run fields, permutation comparisons or photographed receipts with the published TurboJev
+            browser package. Answers come from the model.
+          </p>
+        </div>
+        <div class="runtime-card" aria-live="polite">
+          <strong id="status">Not loaded</strong
+          ><span id="details">Select an example, then load its model.</span>
+        </div>
+      </section>
+      <section class="demo" aria-label="Typed-field examples">
+        <div class="controls">
+          <h2>Model &amp; example</h2>
+          <label for="example">Example</label
+          ><select id="example">
+            <option value="fields">Typed invoice fields</option>
+            <option value="fair-die">Fair die · permutations</option>
+            <option value="receipt">Receipt · CORD photo</option>
+            <option value="receipt-us">US receipt · your photo</option>
+          </select>
+          <label for="runtime">Runtime</label
+          ><select id="runtime">
+            <option value="llamacpp">llama.cpp · GGUF / WASM</option>
+            <option value="transformers">Transformers.js · ONNX (text)</option>
+          </select>
+          <label for="model-url">Model URL or ONNX identifier</label><input id="model-url" />
+          <div id="projector-controls" hidden>
+            <label for="projector-url">Matching GGUF projector URL</label
+            ><input id="projector-url" />
+          </div>
+          <label for="device">Run on</label
+          ><select id="device">
+            <option value="wasm">CPU · WebAssembly</option>
+            <option value="webgpu">GPU · WebGPU</option>
+          </select>
+          <div class="button-row">
+            <button id="load" class="button primary">Load model</button
+            ><button id="unload" class="button quiet" disabled>Unload</button>
+          </div>
+          <div id="load-progress" class="progress-wrap" hidden>
+            <div class="progress-copy">
+              <span id="progress-label">Downloading</span><span id="progress-value">0%</span>
+            </div>
+            <progress id="progress" max="100" value="0"></progress
+            ><span id="progress-file" class="file-name"></span>
+          </div>
+          <p class="fine-print">
+            Text: Qwen3 0.6B Q4_K_M. Images: Qwen3.5 2B plus its F16 projector (~1.95 GB total). CPU
+            is the default; GPU requires browser support. Memory and architecture support depend on
+            the browser runtime.
+          </p>
+        </div>
+        <div class="decision">
+          <h2>Request</h2>
+          <div id="text-controls">
+            <label for="context">Context</label><textarea id="context" rows="5"></textarea>
+          </div>
+          <div id="image-controls" hidden>
+            <label for="image">Photo (optional for CORD, required for US)</label
+            ><input id="image" type="file" accept="image/*" /><img
+              id="preview"
+              alt="Receipt input"
+              hidden
+              style="max-width: 100%; max-height: 220px; object-fit: contain"
+            /><label for="fields">Fields (comma-separated; empty means all)</label
+            ><input id="fields" placeholder="first_item,total" />
+            <p class="fine-print">
+              Dependencies are included automatically. Full image extraction repeats image
+              processing per field and may take several minutes.
+            </p>
+          </div>
+          <div id="die-controls" hidden>
+            <label for="budget">Permutation budget</label
+            ><select id="budget">
+              <option value="1">1 · one ordering</option>
+              <option value="auto">auto · 6 balanced orderings</option>
+              <option value="8">8 · sampled orderings</option>
+              <option value="all">all · 720 evaluations (very slow)</option>
+            </select>
+            <p class="fine-print">
+              The distribution is model-scored. Uniform probabilities are a reference for
+              comparison, never replacement answers.
+            </p>
+          </div>
+          <label for="questions">Field definitions (editable JSON)</label
+          ><textarea id="questions" rows="9" spellcheck="false"></textarea>
+          <button id="generate" class="button dark" disabled>Generate</button>
+        </div>
+        <section class="output" aria-live="polite">
+          <div class="output-head">
+            <h2>Result</h2>
+            <span id="elapsed" class="elapsed">—</span>
+          </div>
+          <p id="empty" class="empty">Your result will appear here.</p>
+          <pre
+            id="result"
+            hidden
+            style="white-space: pre-wrap; overflow-wrap: anywhere; font-size: 12px"
+          ></pre>
+          <p id="error" class="error" role="alert" hidden></p>
+          <button id="save" class="button quiet" disabled>Save JSON report</button>
+          <p class="fine-print">
+            Typed output is not a guarantee of OCR, arithmetic or reasoning accuracy. Returned
+            probabilities are conditional, not calibrated confidence.
+          </p>
+        </section>
+      </section>
+    </main>
+    <script type="module" src="typed.js"></script>
+  </body>
+</html>

@@ -16,10 +16,7 @@
       "return_probabilities": true
     },
     "reference": {
-      "type": [
-        "string",
-        "null"
-      ],
+      "type": ["string", "null"],
       "instructions": "Return the payment reference, or null if absent."
     },
     "reminder": {
@@ -27,9 +24,7 @@
       "when": {
         "overdue": true
       },
-      "depends_on": [
-        "total"
-      ],
+      "depends_on": ["total"],
       "instructions": "Write one short payment reminder including the total."
     },
     "large_account_note": {

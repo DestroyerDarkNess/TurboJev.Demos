@@ -1,4 +1,5 @@
 """Integrity regressions using scripted responses, not model-quality tests."""
+
 import json
 import tempfile
 import unittest
@@ -15,14 +16,24 @@ class ScriptedEngine:
 
     def evaluate(self, request):
         self.requests.append(request)
-        return {"answers": {"move": {"type": "choice", "choice": self.choice,
-                "probabilities": {"left": 0.9, "right": 0.1}}}}
+        return {
+            "answers": {
+                "move": {
+                    "type": "choice",
+                    "choice": self.choice,
+                    "probabilities": {"left": 0.9, "right": 0.1},
+                }
+            }
+        }
 
 
 class DecisionIntegrityTests(unittest.TestCase):
     def test_sensors_report_immediate_collisions_without_selecting_a_move(self):
         req = snake.make_move_request([(6, 0), (6, 1)], "up", (11, 0), "sensors")
-        self.assertEqual(req["state"], "Food direction: right.\nBlocked directions: up, down.\nClear directions: left, right.")
+        self.assertEqual(
+            req["state"],
+            "Food direction: right.\nBlocked directions: up, down.\nClear directions: left, right.",
+        )
         self.assertEqual(set(req["questions"]["move"]["criteria"]), set(snake.DIRECTIONS))
 
     def test_sensors_keep_the_vacating_tail_clear(self):
@@ -46,18 +57,24 @@ class DecisionIntegrityTests(unittest.TestCase):
         criteria = engine.requests[0]["questions"]["move"]["criteria"]
         self.assertEqual(set(criteria), {"up", "down", "left", "right"})
         self.assertEqual(move, "up")
-        self.assertEqual(snake.apply_move([(0, 0), (1, 0)], "left", (4, 2), move)[2], "model hit a wall")
+        self.assertEqual(
+            snake.apply_move([(0, 0), (1, 0)], "left", (4, 2), move)[2], "model hit a wall"
+        )
 
     def test_invalid_choice_fails_instead_of_falling_back(self):
         with self.assertRaisesRegex(RuntimeError, "No fallback"):
             snake.jev_choose_move(ScriptedEngine("diagonal"), [(6, 5), (5, 5)], "right", (2, 5))
 
     def test_reversal_is_a_failure_not_a_host_selected_move(self):
-        self.assertEqual(snake.apply_move([(6, 5), (5, 5)], "right", (2, 5), "left")[2],
-                         "model selected a direct reversal")
+        self.assertEqual(
+            snake.apply_move([(6, 5), (5, 5)], "right", (2, 5), "left")[2],
+            "model selected a direct reversal",
+        )
 
     def test_vacating_tail_is_not_a_collision(self):
-        after, ate, collision = snake.apply_move([(1, 1), (1, 2), (0, 2), (0, 1)], "up", (4, 4), "left")
+        after, ate, collision = snake.apply_move(
+            [(1, 1), (1, 2), (0, 2), (0, 1)], "up", (4, 4), "left"
+        )
         self.assertEqual(after[0], (0, 1))
         self.assertFalse(ate)
         self.assertIsNone(collision)
@@ -66,9 +83,14 @@ class DecisionIntegrityTests(unittest.TestCase):
         engine = ScriptedEngine("up")
         with tempfile.TemporaryDirectory() as directory:
             trace = Path(directory) / "trace.jsonl"
-            with patch.object(snake, "HAS_RICH", False), patch.object(snake, "console", None), \
-                    patch.object(snake, "draw_legacy"), patch.object(snake.time, "sleep"), \
-                    patch.object(snake, "spawn_food", return_value=(8, 5)), patch("builtins.print"):
+            with (
+                patch.object(snake, "HAS_RICH", False),
+                patch.object(snake, "console", None),
+                patch.object(snake, "draw_legacy"),
+                patch.object(snake.time, "sleep"),
+                patch.object(snake, "spawn_food", return_value=(8, 5)),
+                patch("builtins.print"),
+            ):
                 summary = snake.play(engine, "scripted-test", 1, 0, "none", 0, trace)
             entry = json.loads(trace.read_text().splitlines()[1])
             self.assertEqual(entry["model_choice"], entry["applied_choice"])

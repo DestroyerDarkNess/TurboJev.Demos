@@ -45,29 +45,17 @@
   },
   "discount_percent": {
     "type": "number",
-    "depends_on": [
-      "subtotal",
-      "discount"
-    ],
+    "depends_on": ["subtotal", "discount"],
     "instructions": "Discount as a percentage of the subtotal."
   },
   "change_is_correct": {
     "type": "boolean",
-    "depends_on": [
-      "total",
-      "cash",
-      "change"
-    ],
+    "depends_on": ["total", "cash", "change"],
     "instructions": "Does change equal cash minus total?"
   },
   "expense_note": {
     "type": "string",
-    "depends_on": [
-      "first_item",
-      "second_item",
-      "third_item",
-      "total"
-    ],
+    "depends_on": ["first_item", "second_item", "third_item", "total"],
     "instructions": "One short sentence for an expense report describing this purchase and its total."
   }
 }

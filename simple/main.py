@@ -1,4 +1,5 @@
 """Three typed questions over one state, using the published TurboJev package."""
+
 import json
 import os
 from pathlib import Path
@@ -39,7 +40,9 @@ def model_path():
                     ratio = min(1.0, received / total)
                     filled = round(ratio * 28)
                     bar = "#" * filled + "-" * (28 - filled)
-                    progress = f"[{bar}] {ratio:5.1%}  {received / 2**20:.0f}/{total / 2**20:.0f} MB"
+                    progress = (
+                        f"[{bar}] {ratio:5.1%}  {received / 2**20:.0f}/{total / 2**20:.0f} MB"
+                    )
                 else:
                     progress = f"{received / 2**20:.0f} MB downloaded"
                 sys.stdout.write(f"\rQwen3 0.6B {progress}")

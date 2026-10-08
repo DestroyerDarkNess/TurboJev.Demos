@@ -1,4 +1,5 @@
 """Standalone fair-die demo using the published TurboJev package."""
+
 from pathlib import Path
 import hashlib
 import os
@@ -19,9 +20,9 @@ TEXT_MODEL_URL = "https://huggingface.co/bartowski/Qwen_Qwen3-0.6B-GGUF/resolve/
 
 
 def file_sha256(path):
-    digest=hashlib.sha256()
+    digest = hashlib.sha256()
     with Path(path).open("rb") as stream:
-        while chunk:=stream.read(2**20):
+        while chunk := stream.read(2**20):
             digest.update(chunk)
     return digest.hexdigest()
 
@@ -48,15 +49,17 @@ def download(url, destination):
                 output.write(chunk)
                 received += len(chunk)
                 now = time.monotonic()
-                if now-previous < .2 and (not total or received < total):
+                if now - previous < 0.2 and (not total or received < total):
                     continue
                 previous = now
-                speed = (received-offset)/max(.001,now-started)
-                ratio = min(1,received/total) if total else 0
-                filled = round(ratio*26)
-                eta = (total-received)/speed if total and speed else 0
+                speed = (received - offset) / max(0.001, now - started)
+                ratio = min(1, received / total) if total else 0
+                filled = round(ratio * 26)
+                eta = (total - received) / speed if total and speed else 0
                 percent = f"{ratio:5.1%}" if total else "      "
-                sys.stdout.write(f"\r{destination.name} [{'#'*filled}{'-'*(26-filled)}] {percent} {received/2**20:.0f} MB {speed/2**20:.1f} MB/s ETA {eta:.0f}s    ")
+                sys.stdout.write(
+                    f"\r{destination.name} [{'#' * filled}{'-' * (26 - filled)}] {percent} {received / 2**20:.0f} MB {speed / 2**20:.1f} MB/s ETA {eta:.0f}s    "
+                )
                 sys.stdout.flush()
     print()
     if not received or total and received != total:
@@ -75,43 +78,79 @@ def text_model(model=None):
         if not path.is_file():
             raise FileNotFoundError(path)
         return path
-    return download(TEXT_MODEL_URL, CACHE/"Qwen3-0.6B-Q4_K_M.gguf")
+    return download(TEXT_MODEL_URL, CACHE / "Qwen3-0.6B-Q4_K_M.gguf")
 
-LABELS = ["one","two","three","four","five","six"]
+
+LABELS = ["one", "two", "three", "four", "five", "six"]
 
 
 def main():
-    parser=argparse.ArgumentParser(description=__doc__)
+    parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument("--model")
-    parser.add_argument("--device",choices=["cpu","gpu"],default="cpu")
-    parser.add_argument("--all-permutations",action="store_true",help="Include 720 real evaluations; potentially very slow")
-    parser.add_argument("--output",type=Path,default=Path(__file__).with_name("result.json"))
-    args=parser.parse_args()
-    model=text_model(args.model)
+    parser.add_argument("--device", choices=["cpu", "gpu"], default="cpu")
+    parser.add_argument(
+        "--all-permutations",
+        action="store_true",
+        help="Include 720 real evaluations; potentially very slow",
+    )
+    parser.add_argument("--output", type=Path, default=Path(__file__).with_name("result.json"))
+    args = parser.parse_args()
+    model = text_model(args.model)
     print(f"TurboJev {importlib.metadata.version('turbojev')} | model: {model} | {args.device}")
-    runs={}
-    with TurboJev.load(str(model),device=args.device,n_ctx=8192,n_seq_max=1,n_threads=4,n_threads_batch=4) as client:
-        for budget in [1,"auto",8]+(["all"] if args.all_permutations else []):
-            print(f"Evaluating permutation budget {budget}...",flush=True)
-            start=time.perf_counter()
-            response=client.generate(context="A single roll of a fair die.",seed=42,questions={"roll":{
-                "type":"string","enum":LABELS,"instructions":"What number will come up on a single roll of a fair six-sided die?",
-                "permutations":budget,"return_probabilities":True,
-            }})
-            answer=response["result"]["roll"]
-            probabilities=answer["probabilities"]
-            if set(probabilities)!=set(LABELS) or any(not math.isfinite(p) or not 0<=p<=1 for p in probabilities.values()) or not math.isclose(sum(probabilities.values()),1,abs_tol=1e-9):
+    runs = {}
+    with TurboJev.load(
+        str(model), device=args.device, n_ctx=8192, n_seq_max=1, n_threads=4, n_threads_batch=4
+    ) as client:
+        for budget in [1, "auto", 8] + (["all"] if args.all_permutations else []):
+            print(f"Evaluating permutation budget {budget}...", flush=True)
+            start = time.perf_counter()
+            response = client.generate(
+                context="A single roll of a fair die.",
+                seed=42,
+                questions={
+                    "roll": {
+                        "type": "string",
+                        "enum": LABELS,
+                        "instructions": "What number will come up on a single roll of a fair six-sided die?",
+                        "permutations": budget,
+                        "return_probabilities": True,
+                    }
+                },
+            )
+            answer = response["result"]["roll"]
+            probabilities = answer["probabilities"]
+            if (
+                set(probabilities) != set(LABELS)
+                or any(not math.isfinite(p) or not 0 <= p <= 1 for p in probabilities.values())
+                or not math.isclose(sum(probabilities.values()), 1, abs_tol=1e-9)
+            ):
                 raise ValueError("Invalid model distribution")
-            divergence=sum(math.log((1/6)/p)/6 for p in probabilities.values()) if all(probabilities.values()) else None
-            runs[str(budget)]={"response":response,"seconds":time.perf_counter()-start,"kl_uniform_to_prediction":divergence}
-            print(json.dumps(runs[str(budget)],indent=2))
-    record={"turbojev":importlib.metadata.version("turbojev"),"model":str(model),"model_sha256":file_sha256(model),
-            "platform":platform.platform(),"architecture":platform.machine(),"device":args.device,"seed":42,
-            "ground_truth":dict.fromkeys(LABELS,1/6),"runs":runs}
-    args.output.parent.mkdir(parents=True,exist_ok=True)
-    args.output.write_text(json.dumps(record,indent=2)+"\n",encoding="utf-8")
+            divergence = (
+                sum(math.log((1 / 6) / p) / 6 for p in probabilities.values())
+                if all(probabilities.values())
+                else None
+            )
+            runs[str(budget)] = {
+                "response": response,
+                "seconds": time.perf_counter() - start,
+                "kl_uniform_to_prediction": divergence,
+            }
+            print(json.dumps(runs[str(budget)], indent=2))
+    record = {
+        "turbojev": importlib.metadata.version("turbojev"),
+        "model": str(model),
+        "model_sha256": file_sha256(model),
+        "platform": platform.platform(),
+        "architecture": platform.machine(),
+        "device": args.device,
+        "seed": 42,
+        "ground_truth": dict.fromkeys(LABELS, 1 / 6),
+        "runs": runs,
+    }
+    args.output.parent.mkdir(parents=True, exist_ok=True)
+    args.output.write_text(json.dumps(record, indent=2) + "\n", encoding="utf-8")
     print(f"Benchmark saved: {args.output}")
 
 
-if __name__=="__main__":
+if __name__ == "__main__":
     main()

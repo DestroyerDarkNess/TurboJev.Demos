@@ -1,4 +1,5 @@
-internal sealed record Options {
+internal sealed record Options
+{
     public string Example { get; init; } = "ticket";
     public string Device { get; init; } = "cpu";
     public string? Model { get; init; }
@@ -23,17 +24,20 @@ internal sealed record Options {
           --output PATH        JSON report (default result-<example>.json)
           --help               Show commands
         """;
-    public static Options Parse(string[] args) {
+    public static Options Parse(string[] args)
+    {
         var result = new Options();
         var position = 0;
         if (args.Length > 0 && !args[0].StartsWith('-')) result = result with { Example = args[position++] };
-        while (position < args.Length) {
+        while (position < args.Length)
+        {
             var name = args[position++];
             if (name == "--reference-labels") { result = result with { ReferenceLabels = true }; continue; }
             if (name == "--all-permutations") { result = result with { AllPermutations = true }; continue; }
             if (position == args.Length || args[position].StartsWith("--")) throw new ArgumentException($"Missing value for {name}.");
             var value = args[position++];
-            result = name switch {
+            result = name switch
+            {
                 "--device" => result with { Device = value },
                 "--model" => result with { Model = value },
                 "--mmproj" => result with { Projector = value },

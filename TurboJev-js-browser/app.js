@@ -5,17 +5,23 @@ const modelCatalog = {
     { id: "onnx-community/Qwen2.5-0.5B-Instruct", name: "Qwen2.5 Â· 0.5B Â· ONNX" },
   ],
   llamacpp: [
-    { id: "Qwen/Qwen3-0.6B-GGUF", name: "Qwen3 Â· 0.6B Â· Q8_0 Â· GGUF", url: "https://huggingface.co/Qwen/Qwen3-0.6B-GGUF/resolve/23749fefcc72300e3a2ad315e1317431b06b590a/Qwen3-0.6B-Q8_0.gguf" },
+    {
+      id: "Qwen/Qwen3-0.6B-GGUF",
+      name: "Qwen3 Â· 0.6B Â· Q8_0 Â· GGUF",
+      url: "https://huggingface.co/Qwen/Qwen3-0.6B-GGUF/resolve/23749fefcc72300e3a2ad315e1317431b06b590a/Qwen3-0.6B-Q8_0.gguf",
+    },
   ],
 };
 const examples = {
   account: {
-    state: "A customer says a password reset succeeded, but every login attempt still returns â€˜account lockedâ€™. Two unlock emails were requested and neither arrived.",
+    state:
+      "A customer says a password reset succeeded, but every login attempt still returns â€˜account lockedâ€™. Two unlock emails were requested and neither arrived.",
     question: "Which queue should handle this request?",
     options: ["Account access support", "Billing support", "Close as resolved"],
   },
   email: {
-    state: "An email claims to be from the payroll team and says the recipientâ€™s salary payment will be suspended today. It comes from payroll-review@outlook.com and links to a non-company sign-in page asking for a password and verification code.",
+    state:
+      "An email claims to be from the payroll team and says the recipientâ€™s salary payment will be suspended today. It comes from payroll-review@outlook.com and links to a non-company sign-in page asking for a password and verification code.",
     question: "How should this email be classified?",
     options: ["Legitimate", "Spam", "Phishing"],
   },
@@ -31,14 +37,17 @@ let benchmark = null;
 function updateModelChoices() {
   const runtime = $("runtime").value;
   const models = modelCatalog[runtime];
-  $("model").replaceChildren(...models.map((model) => {
-    const option = new Option(model.name, model.id);
-    if (model.url) option.dataset.url = model.url;
-    return option;
-  }));
-  $("runtime-detail").textContent = runtime === "llamacpp"
-    ? "GGUF models Â· llama.cpp WebAssembly, with optional WebGPU."
-    : "ONNX models Â· Transformers.js WebAssembly or WebGPU.";
+  $("model").replaceChildren(
+    ...models.map((model) => {
+      const option = new Option(model.name, model.id);
+      if (model.url) option.dataset.url = model.url;
+      return option;
+    }),
+  );
+  $("runtime-detail").textContent =
+    runtime === "llamacpp"
+      ? "GGUF models Â· llama.cpp WebAssembly, with optional WebGPU."
+      : "ONNX models Â· Transformers.js WebAssembly or WebGPU.";
 }
 
 // Load the published wasm-bindgen module directly; its default initializer
@@ -61,7 +70,9 @@ worker.addEventListener("message", ({ data }) => {
   data.ok ? request.resolve(data.value) : request.reject(new Error(data.error));
 });
 
-worker.addEventListener("error", (event) => fail(new Error(event.message || "The browser worker stopped.")));
+worker.addEventListener("error", (event) =>
+  fail(new Error(event.message || "The browser worker stopped.")),
+);
 
 function call(op, args = {}) {
   const id = nextId++;
@@ -89,7 +100,8 @@ function showDownloadProgress(data = {}) {
   $("load-progress").hidden = false;
   $("progress").value = progress;
   $("progress-value").textContent = `${Math.round(progress)}%`;
-  $("progress-label").textContent = data.status === "initiate" ? "Starting download" : "Downloading model files";
+  $("progress-label").textContent =
+    data.status === "initiate" ? "Starting download" : "Downloading model files";
   $("progress-file").textContent = file;
 }
 
@@ -110,7 +122,11 @@ $("load").addEventListener("click", async () => {
   clearError();
   const device = $("device").value;
   if (device === "webgpu" && !navigator.gpu) {
-    fail(new Error("WebGPU is unavailable in this browser. Select CPU explicitly to run on WebAssembly."));
+    fail(
+      new Error(
+        "WebGPU is unavailable in this browser. Select CPU explicitly to run on WebAssembly.",
+      ),
+    );
     return;
   }
   setBusy(true);
@@ -135,12 +151,15 @@ $("load").addEventListener("click", async () => {
         modality: "text",
         device,
         dtype: "q4",
-        ...(runtime === "llamacpp" ? { modelUrl: selectedModel.dataset.url, modelLabel: selectedModel.textContent } : {}),
+        ...(runtime === "llamacpp"
+          ? { modelUrl: selectedModel.dataset.url, modelLabel: selectedModel.textContent }
+          : {}),
       },
     });
     engineReady = true;
     $("runtime-state").textContent = "Ready";
-    $("runtime-detail").textContent = `${descriptor.model} Â· ${runtime === "llamacpp" ? "llama.cpp WASM" : "Transformers.js"} Â· ${device === "wasm" ? "CPU" : "WebGPU"}`;
+    $("runtime-detail").textContent =
+      `${descriptor.model} Â· ${runtime === "llamacpp" ? "llama.cpp WASM" : "Transformers.js"} Â· ${device === "wasm" ? "CPU" : "WebGPU"}`;
     $("load-progress").hidden = true;
     $("empty").hidden = false;
     $("result").hidden = true;
@@ -176,11 +195,15 @@ $("evaluate").addEventListener("click", async () => {
   clearError();
   const state = $("state").value.trim();
   const question = $("question").value.trim();
-  const options = $("choices").value.split(/\r?\n/).map((value) => value.trim()).filter(Boolean);
+  const options = $("choices")
+    .value.split(/\r?\n/)
+    .map((value) => value.trim())
+    .filter(Boolean);
   if (!state) return fail(new Error("Enter the decision context."));
   if (!question) return fail(new Error("Enter a question for the model."));
   if (options.length < 2) return fail(new Error("Provide at least two possible answers."));
-  if (new Set(options).size !== options.length) return fail(new Error("Each possible answer must be unique."));
+  if (new Set(options).size !== options.length)
+    return fail(new Error("Each possible answer must be unique."));
 
   setBusy(true);
   $("empty").hidden = true;
@@ -220,7 +243,8 @@ $("compare").addEventListener("click", async () => {
   if (!input) return;
   setBusy(true);
   $("comparison").hidden = false;
-  $("comparison-status").textContent = "Running TurboJev, then the SemIf direct-readout referenceâ€¦";
+  $("comparison-status").textContent =
+    "Running TurboJev, then the SemIf direct-readout referenceâ€¦";
   $("turbo-result").textContent = "Runningâ€¦";
   $("semif-result").textContent = "Waitingâ€¦";
   $("turbo-time").textContent = "â€”";
@@ -236,26 +260,36 @@ $("compare").addEventListener("click", async () => {
     }
     const turboMs = median(turboRuns.map((run) => run.elapsedMs));
     renderComparisonSide("turbo", turboRuns.at(-1).response, turboMs);
-    $("comparison-status").textContent = "TurboJev finished; releasing its model before loading SemIfâ€™s reference runtimeâ€¦";
+    $("comparison-status").textContent =
+      "TurboJev finished; releasing its model before loading SemIfâ€™s reference runtimeâ€¦";
     await call("close");
     engineReady = false;
     referenceWorker = new Worker("./semif-worker.js", { type: "module" });
-    const reference = await runSemIfReference(referenceWorker, input, modelCatalog.llamacpp[0].url, device, 3);
+    const reference = await runSemIfReference(
+      referenceWorker,
+      input,
+      modelCatalog.llamacpp[0].url,
+      device,
+      3,
+    );
     referenceWorker.terminate();
     referenceWorker = undefined;
     renderComparisonSide("semif", reference, reference.elapsedMs);
     const ratio = turboMs / reference.elapsedMs;
-    $("comparison-ratio").textContent = ratio >= 1
-      ? `SemIf direct readout was ${ratio.toFixed(2)}Ã— faster.`
-      : `TurboJev was ${(1 / ratio).toFixed(2)}Ã— faster than SemIfâ€™s direct readout.`;
-    $("comparison-status").textContent = "Median of 3 runs per engine. Same Qwen3 0.6B Q8_0 GGUF, state, question, options, and device; each engine formats its own prompt. Model load and warmup are excluded. TurboJev ran first.";
+    $("comparison-ratio").textContent =
+      ratio >= 1
+        ? `SemIf direct readout was ${ratio.toFixed(2)}Ã— faster.`
+        : `TurboJev was ${(1 / ratio).toFixed(2)}Ã— faster than SemIfâ€™s direct readout.`;
+    $("comparison-status").textContent =
+      "Median of 3 runs per engine. Same Qwen3 0.6B Q8_0 GGUF, state, question, options, and device; each engine formats its own prompt. Model load and warmup are excluded. TurboJev ran first.";
     await loadTurboAgain();
     $("comparison-status").textContent += " TurboJev is ready again.";
   } catch (error) {
     referenceWorker?.terminate();
     if (engineReady) await call("close").catch(() => {});
     fail(error);
-    $("comparison-status").textContent = "Comparison stopped. See the error above; load TurboJev again before another run.";
+    $("comparison-status").textContent =
+      "Comparison stopped. See the error above; load TurboJev again before another run.";
     engineReady = false;
     $("load").disabled = false;
     $("unload").disabled = true;
@@ -269,35 +303,59 @@ $("compare").addEventListener("click", async () => {
 function readDecision() {
   const state = $("state").value.trim();
   const question = $("question").value.trim();
-  const options = $("choices").value.split(/\r?\n/).map((value) => value.trim()).filter(Boolean);
-  if (!state) { fail(new Error("Enter the decision context.")); return null; }
-  if (!question) { fail(new Error("Enter a question for the model.")); return null; }
-  if (options.length < 2) { fail(new Error("Provide at least two possible answers.")); return null; }
-  if (new Set(options).size !== options.length) { fail(new Error("Each possible answer must be unique.")); return null; }
+  const options = $("choices")
+    .value.split(/\r?\n/)
+    .map((value) => value.trim())
+    .filter(Boolean);
+  if (!state) {
+    fail(new Error("Enter the decision context."));
+    return null;
+  }
+  if (!question) {
+    fail(new Error("Enter a question for the model."));
+    return null;
+  }
+  if (options.length < 2) {
+    fail(new Error("Provide at least two possible answers."));
+    return null;
+  }
+  if (new Set(options).size !== options.length) {
+    fail(new Error("Each possible answer must be unique."));
+    return null;
+  }
   return { state, question, options };
 }
 
 async function evaluateDecision({ state, question, options }) {
   const criteria = Object.fromEntries(options.map((option) => [option, option]));
   return call("evaluate", {
-    request: { state: { message: state }, questions: { route: { type: "choice", instructions: question, criteria } } },
+    request: {
+      state: { message: state },
+      questions: { route: { type: "choice", instructions: question, criteria } },
+    },
   });
 }
 
 function runSemIfReference(referenceWorker, input, modelUrl, device, runCount) {
   return new Promise((resolve, reject) => {
-    const timeout = setTimeout(() => reject(new Error("SemIf reference runtime timed out.")), 180000);
+    const timeout = setTimeout(
+      () => reject(new Error("SemIf reference runtime timed out.")),
+      180000,
+    );
     const runs = [];
     referenceWorker.addEventListener("message", ({ data }) => {
       if (data.type === "progress") {
-        $("comparison-status").textContent = `Loading SemIf reference model: ${Math.round(data.progress)}%`;
+        $("comparison-status").textContent =
+          `Loading SemIf reference model: ${Math.round(data.progress)}%`;
       } else if (data.type === "ready") {
-        $("comparison-status").textContent = `SemIf model ready; measuring ${runCount} direct readoutsâ€¦`;
+        $("comparison-status").textContent =
+          `SemIf model ready; measuring ${runCount} direct readoutsâ€¦`;
         referenceWorker.postMessage({ type: "evaluate", input });
       } else if (data.type === "result") {
         runs.push(data.result);
         if (runs.length < runCount) {
-          $("comparison-status").textContent = `SemIf direct readout ${runs.length + 1} of ${runCount}â€¦`;
+          $("comparison-status").textContent =
+            `SemIf direct readout ${runs.length + 1} of ${runCount}â€¦`;
           referenceWorker.postMessage({ type: "evaluate", input });
         } else {
           clearTimeout(timeout);
@@ -346,22 +404,29 @@ async function loadTurboAgain() {
     wasmModuleUrl: wasmCdn,
     workerUrl: new URL("./worker-bootstrap.js", import.meta.url).href,
     runtimeOptions: {
-      backend: "llamacpp", modality: "text", device: $("device").value, dtype: "q4",
-      modelUrl: selectedModel.dataset.url, modelLabel: selectedModel.textContent,
+      backend: "llamacpp",
+      modality: "text",
+      device: $("device").value,
+      dtype: "q4",
+      modelUrl: selectedModel.dataset.url,
+      modelLabel: selectedModel.textContent,
     },
   });
   engineReady = true;
   $("load-progress").hidden = true;
   $("runtime-state").textContent = "Ready";
-  $("runtime-detail").textContent = `${selectedModel.textContent} Â· llama.cpp WASM Â· ${$("device").value === "wasm" ? "CPU" : "WebGPU"}`;
+  $("runtime-detail").textContent =
+    `${selectedModel.textContent} Â· llama.cpp WASM Â· ${$("device").value === "wasm" ? "CPU" : "WebGPU"}`;
 }
 
-document.querySelectorAll("[data-example]").forEach((button) => button.addEventListener("click", () => {
-  const example = examples[button.dataset.example];
-  $("state").value = example.state;
-  $("question").value = example.question;
-  $("choices").value = example.options.join("\n");
-}));
+document.querySelectorAll("[data-example]").forEach((button) =>
+  button.addEventListener("click", () => {
+    const example = examples[button.dataset.example];
+    $("state").value = example.state;
+    $("question").value = example.question;
+    $("choices").value = example.options.join("\n");
+  }),
+);
 
 function renderResult(response, elapsed) {
   const answer = response.answers?.route;
@@ -369,22 +434,24 @@ function renderResult(response, elapsed) {
   const probabilities = Object.entries(answer.probabilities || {}).sort((a, b) => b[1] - a[1]);
   $("selected").textContent = answer.choice;
   $("elapsed").textContent = `${(elapsed / 1000).toFixed(2)} s`;
-  $("scores").replaceChildren(...probabilities.map(([label, value]) => {
-    const row = document.createElement("div");
-    row.className = "score-line";
-    const name = document.createElement("span");
-    name.textContent = label;
-    const amount = document.createElement("b");
-    amount.textContent = `${(value * 100).toFixed(1)}%`;
-    const track = document.createElement("div");
-    track.className = "score-track";
-    const fill = document.createElement("div");
-    fill.className = "score-fill";
-    fill.style.width = `${Math.max(0, Math.min(100, value * 100))}%`;
-    track.append(fill);
-    row.append(name, amount, track);
-    return row;
-  }));
+  $("scores").replaceChildren(
+    ...probabilities.map(([label, value]) => {
+      const row = document.createElement("div");
+      row.className = "score-line";
+      const name = document.createElement("span");
+      name.textContent = label;
+      const amount = document.createElement("b");
+      amount.textContent = `${(value * 100).toFixed(1)}%`;
+      const track = document.createElement("div");
+      track.className = "score-track";
+      const fill = document.createElement("div");
+      fill.className = "score-fill";
+      fill.style.width = `${Math.max(0, Math.min(100, value * 100))}%`;
+      track.append(fill);
+      row.append(name, amount, track);
+      return row;
+    }),
+  );
   $("empty").hidden = true;
   $("result").hidden = false;
 }

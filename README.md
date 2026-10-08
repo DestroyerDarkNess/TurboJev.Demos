@@ -62,3 +62,19 @@ an explicit subset with dependency closure. Full receipt extraction can take
 minutes and can contain OCR/arithmetic mistakes; actual answers remain in reports.
 The browser's typed page offers the same new examples through editable JSON and
 a photo picker, with CPU/GPU and GGUF/ONNX controls where supported.
+
+## Source formatting
+
+Run these commands from this repository:
+
+```powershell
+npx --yes prettier@3.6.2 --write "**/*.{html,css,js,mjs,ts,json}"
+ruff format .
+dotnet format whitespace TurboJev-csharp-NET/TurboJev-csharp-NET.csproj --no-restore
+rustfmt --edition 2021 TurboJev-rust/src/main.rs TurboJev-rust/src/models.rs TurboJev-rust/src/native.rs
+```
+
+Use Prettier `--check` and `ruff format --check` to verify formatting. The local
+configuration excludes dependencies, generated output and saved benchmark
+reports. JavaScript, TypeScript, HTML and CSS use two-space indentation; Python,
+Rust and C# use four spaces.

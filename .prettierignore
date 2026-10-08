@@ -1,0 +1,9 @@
+**/node_modules/
+**/dist/
+**/bin/
+**/obj/
+**/target/
+**/package-lock.json
+**/.artifacts/
+**/.cache/
+**/validation/

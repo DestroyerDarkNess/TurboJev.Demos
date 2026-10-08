@@ -1,26 +1,35 @@
 <!doctype html>
 <html lang="en">
   <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="theme-color" content="#f3f2ee">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#f3f2ee" />
     <title>TurboJev in the browser</title>
-    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="styles.css" />
   </head>
   <body>
     <header class="topbar">
       <a class="brand" href="./">turbo<span>jev</span></a>
       <span class="topbar-note">Browser demo · JavaScript + WebAssembly</span>
       <a href="typed.html">Typed fields &amp; receipts</a>
-      <a class="source-link" href="https://www.npmjs.com/package/@turbojev/web" target="_blank" rel="noreferrer">npm package ↗</a>
+      <a
+        class="source-link"
+        href="https://www.npmjs.com/package/@turbojev/web"
+        target="_blank"
+        rel="noreferrer"
+        >npm package ↗</a
+      >
     </header>
 
     <main>
       <section class="intro">
         <div>
           <p class="kicker">No install · runs on localhost or HTTPS</p>
-          <h1>Give a small model<br>one clear decision.</h1>
-          <p class="lede">TurboJev scores the choices you provide and returns the same typed result each time. The model runs in your browser.</p>
+          <h1>Give a small model<br />one clear decision.</h1>
+          <p class="lede">
+            TurboJev scores the choices you provide and returns the same typed result each time. The
+            model runs in your browser.
+          </p>
         </div>
         <div class="runtime-card" aria-live="polite">
           <span class="runtime-label">RUNTIME</span>
@@ -33,27 +42,48 @@
         <div class="controls">
           <div class="controls-heading">
             <span class="step">01</span>
-            <div><h2>Load a model</h2><p>First load downloads model files from Hugging Face.</p></div>
+            <div>
+              <h2>Load a model</h2>
+              <p>First load downloads model files from Hugging Face.</p>
+            </div>
           </div>
           <label for="runtime">Runtime</label>
-          <select id="runtime"><option value="transformers">Transformers.js · ONNX</option><option value="llamacpp" selected>llama.cpp · GGUF / WASM</option></select>
+          <select id="runtime">
+            <option value="transformers">Transformers.js · ONNX</option>
+            <option value="llamacpp" selected>llama.cpp · GGUF / WASM</option>
+          </select>
           <label for="model">Model</label>
           <select id="model"></select>
           <label for="device">Run on</label>
-          <select id="device"><option value="wasm" selected>CPU · WebAssembly</option><option value="webgpu">GPU · WebGPU</option></select>
-          <div class="button-row"><button id="load" class="button primary">Load model <span aria-hidden="true">↗</span></button><button id="unload" class="button quiet" disabled>Unload</button></div>
+          <select id="device">
+            <option value="wasm" selected>CPU · WebAssembly</option>
+            <option value="webgpu">GPU · WebGPU</option>
+          </select>
+          <div class="button-row">
+            <button id="load" class="button primary">
+              Load model <span aria-hidden="true">↗</span></button
+            ><button id="unload" class="button quiet" disabled>Unload</button>
+          </div>
           <div id="load-progress" class="progress-wrap" hidden>
-            <div class="progress-copy"><span id="progress-label">Preparing model</span><span id="progress-value">0%</span></div>
+            <div class="progress-copy">
+              <span id="progress-label">Preparing model</span><span id="progress-value">0%</span>
+            </div>
             <progress id="progress" max="100" value="0"></progress>
             <span id="progress-file" class="file-name"></span>
           </div>
-          <p class="fine-print">CPU is the default. WebGPU is requested only when selected; unsupported browsers show an error instead of switching devices.</p>
+          <p class="fine-print">
+            CPU is the default. WebGPU is requested only when selected; unsupported browsers show an
+            error instead of switching devices.
+          </p>
         </div>
 
         <div class="decision">
           <div class="controls-heading">
             <span class="step">02</span>
-            <div><h2>Ask a question</h2><p>Provide the state, question, and allowed answers.</p></div>
+            <div>
+              <h2>Ask a question</h2>
+              <p>Provide the state, question, and allowed answers.</p>
+            </div>
           </div>
           <div class="example-row" aria-label="SemIf examples">
             <span>Examples</span>
@@ -61,40 +91,91 @@
             <button class="example" type="button" data-example="email">Email triage</button>
           </div>
           <label for="state">State</label>
-          <textarea id="state" rows="4">A customer says a password reset succeeded, but every login attempt still returns ‘account locked’. Two unlock emails were requested and neither arrived.</textarea>
+          <textarea id="state" rows="4">
+A customer says a password reset succeeded, but every login attempt still returns ‘account locked’. Two unlock emails were requested and neither arrived.</textarea
+          >
           <label for="question">Question</label>
-          <input id="question" value="Which queue should handle this request?">
-          <div class="label-row"><label for="choices">Possible answers</label><span>One answer per line</span></div>
-          <textarea id="choices" rows="4">Account access support
+          <input id="question" value="Which queue should handle this request?" />
+          <div class="label-row">
+            <label for="choices">Possible answers</label><span>One answer per line</span>
+          </div>
+          <textarea id="choices" rows="4">
+Account access support
 Billing support
-Close as resolved</textarea>
-          <button id="evaluate" class="button dark" disabled>Evaluate <span aria-hidden="true">↗</span></button>
+Close as resolved</textarea
+          >
+          <button id="evaluate" class="button dark" disabled>
+            Evaluate <span aria-hidden="true">↗</span>
+          </button>
           <button id="compare" class="button compare" disabled>Compare TurboJev with SemIf</button>
         </div>
 
         <section class="output" aria-live="polite" aria-label="Evaluation result">
-          <div class="output-head"><div><span class="step">03</span><h2>Result</h2></div><span id="elapsed" class="elapsed">—</span></div>
-          <div id="empty" class="empty"><span class="empty-mark">↗</span><p>Your result will appear here.</p></div>
+          <div class="output-head">
+            <div>
+              <span class="step">03</span>
+              <h2>Result</h2>
+            </div>
+            <span id="elapsed" class="elapsed">—</span>
+          </div>
+          <div id="empty" class="empty">
+            <span class="empty-mark">↗</span>
+            <p>Your result will appear here.</p>
+          </div>
           <div id="result" hidden>
             <p class="selected-label">SELECTED ANSWER</p>
             <strong id="selected" class="selected-answer"></strong>
             <div id="scores" class="scores"></div>
-            <p class="fine-print">Probabilities are relative to the supplied choices. They are not calibrated confidence.</p>
+            <p class="fine-print">
+              Probabilities are relative to the supplied choices. They are not calibrated
+              confidence.
+            </p>
           </div>
           <p id="error" class="error" role="alert" hidden></p>
         </section>
       </section>
 
       <section id="comparison" class="comparison" hidden aria-live="polite">
-        <div class="comparison-head"><div><span class="kicker">Same Qwen3 0.6B · Q8_0 · same input</span><h2>Median decision time · 3 runs</h2></div><strong id="comparison-ratio">—</strong></div>
-        <div class="comparison-grid">
-          <article><div class="comparison-title"><h3>TurboJev</h3><span id="turbo-time">—</span></div><div id="turbo-result" class="comparison-answer">Waiting…</div><p>Published @turbojev/web package</p></article>
-          <article><div class="comparison-title"><h3>SemIf direct readout</h3><span id="semif-time">—</span></div><div id="semif-result" class="comparison-answer">Waiting…</div><p>wllama 3.6.1 · one constrained candidate readout</p></article>
+        <div class="comparison-head">
+          <div>
+            <span class="kicker">Same Qwen3 0.6B · Q8_0 · same input</span>
+            <h2>Median decision time · 3 runs</h2>
+          </div>
+          <strong id="comparison-ratio">—</strong>
         </div>
-        <p id="comparison-status" class="fine-print">Model load and warmup are not included. Each engine runs three times, sequentially; TurboJev’s model is released before the SemIf reference loads, so they do not compete for memory.</p>
+        <div class="comparison-grid">
+          <article>
+            <div class="comparison-title">
+              <h3>TurboJev</h3>
+              <span id="turbo-time">—</span>
+            </div>
+            <div id="turbo-result" class="comparison-answer">Waiting…</div>
+            <p>Published @turbojev/web package</p>
+          </article>
+          <article>
+            <div class="comparison-title">
+              <h3>SemIf direct readout</h3>
+              <span id="semif-time">—</span>
+            </div>
+            <div id="semif-result" class="comparison-answer">Waiting…</div>
+            <p>wllama 3.6.1 · one constrained candidate readout</p>
+          </article>
+        </div>
+        <p id="comparison-status" class="fine-print">
+          Model load and warmup are not included. Each engine runs three times, sequentially;
+          TurboJev’s model is released before the SemIf reference loads, so they do not compete for
+          memory.
+        </p>
       </section>
 
-      <footer><span>TurboJev 0.31.0 · <a href="https://github.com/DestroyerDarkNess/TurboJev" target="_blank" rel="noreferrer">source</a></span><span>Model inference happens locally in this browser.</span></footer>
+      <footer>
+        <span
+          >TurboJev 0.31.0 ·
+          <a href="https://github.com/DestroyerDarkNess/TurboJev" target="_blank" rel="noreferrer"
+            >source</a
+          ></span
+        ><span>Model inference happens locally in this browser.</span>
+      </footer>
     </main>
     <script type="module" src="app.js"></script>
   </body>

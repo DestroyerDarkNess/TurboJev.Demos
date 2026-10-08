@@ -2,12 +2,14 @@
 
 Port of TypeLLM's photographed CORD receipt example. Uses the published `turbojev` wheel and a vision GGUF plus matching projector. Default: Qwen3.5 2B Q4_K_M and F16 projector from a pinned Unsloth revision. Both downloads have progress, speed and ETA; interrupted downloads can resume. There is no TypeLLM service or local TurboJev source dependency.
 
+Run from this folder. The model download and demo code are contained in `main.py`; no other demo folder is needed.
+
 ```powershell
-python -m pip install -r receipt-python/requirements.txt
-python receipt-python/main.py
-python receipt-python/main.py --device gpu
-python receipt-python/main.py --fields first_item,total
-python receipt-python/main.py --image C:/photos/my-receipt.jpg --model C:/models/vision.gguf --mmproj C:/models/mmproj.gguf
+python -m pip install -r requirements.txt
+python main.py
+python main.py --device gpu
+python main.py --fields first_item,total
+python main.py --image C:/photos/my-receipt.jpg --model C:/models/vision.gguf --mmproj C:/models/mmproj.gguf
 ```
 
 The 14 fields cover text, integer/decimal extraction, a boolean, dependent arithmetic and an expense note. Those calculations are decisions made by the model, not host arithmetic. Each generated field currently performs separate inference and repeats image preprocessing; a complete run can be slow on CPU. `--fields` is an explicitly recorded subset, with required dependencies included. `--max-tokens` bounds output per field (default 64). Media reasoning is disabled because that runtime mode is unsupported.

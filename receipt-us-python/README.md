@@ -2,12 +2,14 @@
 
 Port of TypeLLM's US receipt field definitions: store, date, items, table, guests, totals, currency, tips and model-computed dependent tax/per-person amounts. Uses only the published TurboJev wheel. Qwen3.5 2B GGUF plus its matching F16 projector downloads with progress by default; custom compatible vision model paths are supported.
 
+Run from this folder. The model download and demo code are contained in `main.py`; no other demo folder is needed.
+
 ```powershell
-python -m pip install -r receipt-us-python/requirements.txt
-python receipt-us-python/main.py --image C:/photos/restaurant-receipt.jpg
-python receipt-us-python/main.py --image C:/photos/restaurant-receipt.jpg --device gpu
-python receipt-us-python/main.py --image C:/photos/restaurant-receipt.jpg --fields store,total,currency
-python receipt-us-python/main.py --image C:/photos/original-sushi-yasuda.jpg --reference-labels
+python -m pip install -r requirements.txt
+python main.py --image C:/photos/restaurant-receipt.jpg
+python main.py --image C:/photos/restaurant-receipt.jpg --device gpu
+python main.py --image C:/photos/restaurant-receipt.jpg --fields store,total,currency
+python main.py --image C:/photos/original-sushi-yasuda.jpg --reference-labels
 ```
 
 Supply your own image. The original WildReceipt photograph is not redistributed here because its separate image license has not been established. `--reference-labels` is only for the exact original Sushi Yasuda example; other images do not use its labels. This is an after-inference comparison, with no expected values in the prompt. The JSON report records full actual results, model/projector/package identity, image hash, latency, hardware and any reference matches. Small models can misread receipts or compute incorrectly; no host calculation substitutes for their answers.

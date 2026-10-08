@@ -2,11 +2,13 @@
 
 Uses the published TurboJev package with Qwen3 0.6B GGUF (download progress included). Compares one order, a balanced `auto` design and eight sampled permutations. The optional full run evaluates all 720 permutations. Every option score comes from the model; there is no host-generated uniform answer.
 
+Run from this folder. The model download and demo code are contained in `main.py`; no other demo folder is needed.
+
 ```powershell
-python -m pip install -r fair-die-python/requirements.txt
-python fair-die-python/main.py
-python fair-die-python/main.py --model C:/models/model.gguf --device gpu
-python fair-die-python/main.py --all-permutations
+python -m pip install -r requirements.txt
+python main.py
+python main.py --model C:/models/model.gguf --device gpu
+python main.py --all-permutations
 ```
 
 CPU is the default. Only request GPU with a supported native package/backend. Output records the actual distribution, latency, package version and KL divergence from uniform; this is a permutation demonstration, not proof of calibrated confidence or reasoning accuracy. `result.json` is a local run artifact. Model paths can be supplied or set with `TURBOJEV_MODEL`.

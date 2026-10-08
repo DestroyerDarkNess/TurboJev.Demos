@@ -1,0 +1,15 @@
+{
+  "first_item": "ICE BLACKCOFFE",
+  "second_item": "AVOCADO COFFEE",
+  "third_item": "CHIKEN KATSU FF",
+  "item_lines": 3,
+  "first_item_quantity": 2,
+  "subtotal": 194000,
+  "discount": 19400,
+  "total": 174600,
+  "cash": 200000,
+  "change": 25400,
+  "paid_in_cash": true,
+  "discount_percent": 10,
+  "change_is_correct": true
+}

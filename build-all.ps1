@@ -55,5 +55,5 @@ try {
     }
 } finally { Pop-Location }
 
-Invoke-Checked py @('-m', 'py_compile', (Join-Path $PSScriptRoot 'TurboJev-Python/main.py'), (Join-Path $PSScriptRoot 'simple/main.py'), (Join-Path $PSScriptRoot 'snake-python/snake.py'), (Join-Path $PSScriptRoot 'snake-python/benchmark.py'), (Join-Path $PSScriptRoot 'fair-die-python/main.py'), (Join-Path $PSScriptRoot 'receipt-python/main.py'), (Join-Path $PSScriptRoot 'receipt-us-python/main.py'), (Join-Path $PSScriptRoot 'demos_common.py'), (Join-Path $PSScriptRoot 'receipt_demo.py'))
+Invoke-Checked py @('-m', 'py_compile', (Join-Path $PSScriptRoot 'TurboJev-Python/main.py'), (Join-Path $PSScriptRoot 'simple/main.py'), (Join-Path $PSScriptRoot 'snake-python/snake.py'), (Join-Path $PSScriptRoot 'snake-python/benchmark.py'), (Join-Path $PSScriptRoot 'fair-die-python/main.py'), (Join-Path $PSScriptRoot 'receipt-python/main.py'), (Join-Path $PSScriptRoot 'receipt-us-python/main.py'))
 Write-Host "Package checks/builds completed for Windows x86, x64, and ARM64 where the registry publishes native artifacts."

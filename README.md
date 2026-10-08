@@ -47,6 +47,10 @@ native assets; none are fabricated or built from workspace SDK source.
 
 All package versions are kept at the latest release when these demos are updated. They are declared in each project's manifest; no project links to this repository's source tree or builds TurboJev locally.
 
+Every Python demo folder contains its own implementation and required input data.
+Copy the desired folder, install its `requirements.txt`, and run it independently;
+Python demos do not import parent utilities or execute other demo projects.
+
 The root `NuGet.Config` uses only nuget.org and an isolated package cache so .NET demos cannot reuse a package installed by a local publishing test.
 
 The new TypeLLM example ports use `generate` for scalar JSON fields, probabilities and dependencies. See each folder's README for commands, model selection, CPU/GPU selection, attribution and measured output. Receipt demos run a real image through a matching GGUF/projector; they never put expected labels in a model request. The US receipt demo accepts your own photo because the reference image's redistribution license is not established.

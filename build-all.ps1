@@ -27,7 +27,7 @@ foreach ($target in @(
     if ($LASTEXITCODE -ne 0) { throw "PyPI wheel download failed for $($target.Name)" }
 }
 
-Push-Location (Join-Path $PSScriptRoot "dotnet/csharp")
+Push-Location (Join-Path $PSScriptRoot "dotnet/csharp/typed-workflows")
 try {
     foreach ($rid in $rids) {
         Invoke-Checked dotnet @('publish', '-c', 'Release', '-r', $rid, '--self-contained', 'false', '-o', (Join-Path $PSScriptRoot ".artifacts\dotnet\$rid"))

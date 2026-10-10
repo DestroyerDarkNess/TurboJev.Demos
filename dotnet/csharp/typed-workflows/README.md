@@ -65,13 +65,13 @@ The Windows x64 runs below used the public NuGet package and cached models. Thes
 
 | Run               | Evidence                                                                                                                                                                                     |
 | ----------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `ticket`, CPU     | [Actual response](../../validation/0.30.1/csharp-ticket.json): shipping selected; 17.849s evaluation                                                                                         |
-| `fields`, CPU     | [Actual response](../../validation/0.30.1/csharp-fields.json): integer 7, decimal 324.5, boolean probability wrapper, actual null, dependent reminder and skipped conditional field; 23.311s |
-| `fair-die`, GPU   | [Three distributions](../../validation/0.30.1/csharp-fair-die.json) for budgets 1/auto/8; all normalized                                                                                     |
-| `receipt`, GPU    | [Explicit three-field subset](../../validation/0.30.1/csharp-receipt.json): first item, total and cash boolean; 3/3 labels match, 149.144s                                                   |
-| `receipt-us`, GPU | [Explicit four-field subset](../../validation/0.30.1/csharp-receipt-us.json): selecting per-person and currency included total/guests dependencies; 2/4 labels match, about 56s              |
+| `ticket`, CPU     | [Actual response](../../../validation/0.30.1/csharp-ticket.json): shipping selected; 17.849s evaluation                                                                                         |
+| `fields`, CPU     | [Actual response](../../../validation/0.30.1/csharp-fields.json): integer 7, decimal 324.5, boolean probability wrapper, actual null, dependent reminder and skipped conditional field; 23.311s |
+| `fair-die`, GPU   | [Three distributions](../../../validation/0.30.1/csharp-fair-die.json) for budgets 1/auto/8; all normalized                                                                                     |
+| `receipt`, GPU    | [Explicit three-field subset](../../../validation/0.30.1/csharp-receipt.json): first item, total and cash boolean; 3/3 labels match, 149.144s                                                   |
+| `receipt-us`, GPU | [Explicit four-field subset](../../../validation/0.30.1/csharp-receipt-us.json): selecting per-person and currency included total/guests dependencies; 2/4 labels match, about 56s              |
 
-The US model output misidentified currency and failed the per-person division. Those answers remain unchanged in the report. Full 14/16-field C# receipt runs were not measured here; both complete question sets are available through the commands without `--fields`. [Build evidence](../../validation/0.30.1/csharp-builds.json) records the native payload checks.
+The US model output misidentified currency and failed the per-person division. Those answers remain unchanged in the report. Full 14/16-field C# receipt runs were not measured here; both complete question sets are available through the commands without `--fields`. [Build evidence](../../../validation/0.30.1/csharp-builds.json) records the native payload checks.
 
 ## Attribution
 

@@ -15,3 +15,5 @@ TurboJev-csharp-NET/result-*.json
 **/result.json
 .playwright-cli/
 output/playwright/
+
+.venv*/

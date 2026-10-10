@@ -18,7 +18,7 @@ const VISION: &str = "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d
 #[derive(Parser)]
 #[command(about = "Published TurboJev typed decisions and real GGUF inference; no local SDK build")]
 struct Options {
-    #[arg(default_value="ticket", value_parser=["ticket","fields","fair-die","receipt","receipt-us"])]
+    #[arg(default_value="ticket", value_parser=["ticket","fields","structured","hierarchical","discover-categories","dice","limits","fair-die","receipt","receipt-us"])]
     example: String,
     #[arg(long,default_value="cpu",value_parser=["cpu","gpu"])]
     device: String,
@@ -62,7 +62,7 @@ fn runtime(options: &Options) -> Result<PathBuf> {
         return Ok(directory.join(name).canonicalize()?);
     }
     if !cfg!(windows) {
-        return Err("No Linux/macOS native package published for 0.31.0; provide --native-dir from a matching registry package".into());
+        return Err("No Linux/macOS native package published for 0.33.0; provide --native-dir from a matching registry package".into());
     }
     let rid = match std::env::consts::ARCH {
         "x86" => "win-x86",
@@ -71,8 +71,8 @@ fn runtime(options: &Options) -> Result<PathBuf> {
         _ => return Err("No matching published architecture".into()),
     };
     for folder in [
-        ".artifacts/nuget-registry/turbojev/0.31.0",
-        ".artifacts/rust-native/0.31.0",
+        ".artifacts/nuget-registry/turbojev/0.33.0",
+        ".artifacts/rust-native/0.33.0",
     ] {
         let path = Path::new(ROOT)
             .join(folder)
@@ -92,7 +92,7 @@ fn runtime(options: &Options) -> Result<PathBuf> {
         return Err("Registry runtime installation failed".into());
     }
     Ok(Path::new(ROOT)
-        .join(".artifacts/rust-native/0.31.0/runtimes")
+        .join(".artifacts/rust-native/0.33.0/runtimes")
         .join(rid)
         .join("native")
         .join(name)
@@ -273,7 +273,11 @@ fn run(options: &Options, report: &mut Value) -> Result<()> {
         );
         for budget in budgets {
             println!("Evaluating permutation budget {budget}…");
-            let value = json!({"context":"A single roll of a fair die.","seed":42,"questions":{"roll":{"type":"string","enum":labels,"instructions":"What number will come up on a single roll of a fair six-sided die?","permutations":budget,"return_probabilities":true}}});
+            let die = turbojev::schema::fields::Dice {
+                permutations: budget.clone(),
+                return_probabilities: true,
+            };
+            let value = json!({"context":"A single roll of a fair die.","mode":"argmax","temperature":1,"seed":42,"questions":{"roll":die.to_schema()}});
             let _: turbojev::schema::fields::GenerateRequest =
                 serde_json::from_value(value.clone())?;
             let start = Instant::now();
@@ -339,7 +343,7 @@ fn run(options: &Options, report: &mut Value) -> Result<()> {
 }
 fn main() -> Result<()> {
     let options = Options::parse();
-    let mut report = json!({"example":options.example,"package_version":"0.31.0","language":"Rust","platform":std::env::consts::OS,"architecture":std::env::consts::ARCH,"device":options.device});
+    let mut report = json!({"example":options.example,"package_version":"0.33.0","language":"Rust","platform":std::env::consts::OS,"architecture":std::env::consts::ARCH,"device":options.device});
     let outcome = run(&options, &mut report);
     report["ok"] = json!(outcome.is_ok());
     report["error"] = outcome

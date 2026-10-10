@@ -10,7 +10,7 @@ import argparse
 import importlib.metadata
 import json
 import platform
-from turbojev import TurboJev
+from turbojev import Dice, TurboJev
 import math
 import base64
 
@@ -275,16 +275,10 @@ def run_fair_die(argv=None):
             start = time.perf_counter()
             response = client.generate(
                 context="A single roll of a fair die.",
+                mode="argmax",
+                temperature=1,
                 seed=42,
-                questions={
-                    "roll": {
-                        "type": "string",
-                        "enum": LABELS,
-                        "instructions": "What number will come up on a single roll of a fair six-sided die?",
-                        "permutations": budget,
-                        "return_probabilities": True,
-                    }
-                },
+                questions={"roll": Dice(permutations=budget).to_schema()},
             )
             answer = response["result"]["roll"]
             probabilities = answer["probabilities"]
@@ -334,7 +328,18 @@ def main():
     parser = argparse.ArgumentParser(description=__doc__)
     parser.add_argument(
         "example",
-        choices=["ticket", "fields", "fair-die", "receipt", "receipt-us"],
+        choices=[
+            "ticket",
+            "fields",
+            "structured",
+            "hierarchical",
+            "discover-categories",
+            "dice",
+            "limits",
+            "fair-die",
+            "receipt",
+            "receipt-us",
+        ],
         nargs="?",
         default="ticket",
     )

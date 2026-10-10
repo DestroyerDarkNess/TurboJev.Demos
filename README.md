@@ -1,7 +1,7 @@
 # TurboJev demos
 
 Small, idiomatic examples built against the latest published TurboJev packages,
-currently **0.31.0**. The introductory examples show `choice`, a boolean (`noul`),
+currently **0.33.0**. The introductory examples show `choice`, a boolean (`noul`),
 and an ordered `score`. Snake demonstrates repeated directional decisions.
 
 ## Model
@@ -32,7 +32,7 @@ The Rust checks install the selected toolchain's three standard-library targets.
 Set `TURBOJEV_DEMO_BUILD_DIR` to a directory on a disk with free space to relocate
 Rust build artifacts when running that script.
 
-The npm, PyPI, and NuGet packages contain native artifacts for Windows x86, x64, and ARM64. Run each project using a matching Node/Python/.NET architecture to select its corresponding native binary. Cross-architecture execution requires a matching host or emulator. The Python Snake source is OS-independent, but PyPI 0.31.0 currently publishes Windows x86, x64, and ARM64 wheels; Linux and macOS need matching TurboJev wheels before the demo can run there.
+The npm, PyPI, and NuGet packages contain native artifacts for Windows x86, x64, and ARM64. Run each project using a matching Node/Python/.NET architecture to select its corresponding native binary. Cross-architecture execution requires a matching host or emulator. The Python Snake source is OS-independent, but PyPI 0.33.0 currently publishes Windows x86, x64, and ARM64 wheels; Linux and macOS need matching TurboJev wheels before the demo can run there.
 
 The browser example needs no package installation or build step. It loads the published TurboJev browser package plus the selected model runtime from public CDNs, downloads ONNX or GGUF model files from Hugging Face, and runs inference in a browser worker. Serve it over localhost or HTTPS; browsers block module workers from `file://` pages. Its new `typed.html` page covers typed fields, fair die and both image receipt definitions. Native Node, TypeScript, Python, .NET and Rust examples all execute the published GGUF runtime.
 
@@ -78,3 +78,8 @@ Use Prettier `--check` and `ruff format --check` to verify formatting. The local
 configuration excludes dependencies, generated output and saved benchmark
 reports. JavaScript, TypeScript, HTML and CSS use two-space indentation; Python,
 Rust and C# use four spaces.
+
+
+Published-package checks for this update are in
+[validation/0.33.0](validation/0.33.0/README.md), including Dice, numeric limits,
+structured and hierarchical extraction, and the three-architecture build checks.

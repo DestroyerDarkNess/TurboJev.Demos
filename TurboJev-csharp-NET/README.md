@@ -1,6 +1,6 @@
 # TurboJev — C# / .NET
 
-Five examples using **TurboJev 0.31.0 from nuget.org**, with no project reference or local engine build. Requires .NET 8 or later. Run the commands from this directory.
+Five examples using **TurboJev 0.33.0 from nuget.org**, with no project reference or local engine build. Requires .NET 8 or later. Run the commands from this directory.
 
 ```powershell
 dotnet restore
@@ -78,3 +78,19 @@ The US model output misidentified currency and failed the per-person division. T
 Fair-die and receipt question/reference definitions are adapted from [TypeLLM](https://github.com/TypeLLM/TypeLLM/tree/main/examples), Apache-2.0; see `TYPELLM-LICENSE`.
 
 The included photo is CORD-v2 test receipt 4: Park et al., *CORD: A Consolidated Receipt Dataset for Post-OCR Parsing* (2019), NAVER/CLOVA, [CC BY 4.0](https://huggingface.co/datasets/naver-clova-ix/cord-v2). The image is retained unchanged and its separate license is [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), rather than the code license. The US receipt reference photo is not redistributed because its image license has not been established; supply your own photo.
+
+
+## Structured SDK examples (TurboJev 0.33.0)
+
+```sh
+dotnet run -- structured
+dotnet run -- hierarchical
+dotnet run -- discover-categories
+dotnet run -- dice
+dotnet run -- limits
+```
+
+All use the registry package, never a workspace build. Dice samples from the
+model distribution with seed 42; fair-die measures the distribution with greedy
+decoding and compares it with 1/6 per face. Auto costs six layouts, and all costs
+720. Numeric limits constrain generated digits, including fractional digits.

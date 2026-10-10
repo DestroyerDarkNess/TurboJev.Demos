@@ -52,7 +52,7 @@ function updateModelChoices() {
 
 // Load the published wasm-bindgen module directly; its default initializer
 // resolves the adjacent .wasm file on the same CDN.
-const wasmCdn = "https://cdn.jsdelivr.net/npm/@turbojev/wasm@0.31.0/turbojev_wasm.js";
+const wasmCdn = "https://cdn.jsdelivr.net/npm/@turbojev/wasm@0.33.0/turbojev_wasm.js";
 
 worker.addEventListener("message", ({ data }) => {
   if (data.type === "progress") {

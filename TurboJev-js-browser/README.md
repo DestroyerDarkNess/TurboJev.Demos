@@ -19,10 +19,10 @@ Open <http://localhost:4174>. Select **Load model**, wait for the file progress 
 
 ## CDN sources
 
-- `@turbojev/web@0.31.0/worker.js` from jsDelivr
-- `@turbojev/runtime-transformersjs@0.31.0` and Transformers.js from esm.sh
-- `@turbojev/runtime-llamacpp-wasm@0.31.0` and its pinned `@wllama/wllama@3.8.1` from jsDelivr
-- `@turbojev/wasm@0.31.0/turbojev_wasm.js` from jsDelivr (the module loads its adjacent WASM binary)
+- `@turbojev/web@0.33.0/worker.js` from jsDelivr
+- `@turbojev/runtime-transformersjs@0.33.0` and Transformers.js from esm.sh
+- `@turbojev/runtime-llamacpp-wasm@0.33.0` and its pinned `@wllama/wllama@3.8.1` from jsDelivr
+- `@turbojev/wasm@0.33.0/turbojev_wasm.js` from jsDelivr (the module loads its adjacent WASM binary)
 - `@wllama/wllama@3.6.1` from jsDelivr for the SemIf direct-readout reference
 
 The two example prompts and the SemIf scoring procedure are based on the independent [SemIf browser lab](https://openjev.com/) and its [published implementation](https://github.com/TheoLeeCJ/SemIf-OpenJev). The comparison uses Qwen3-0.6B-Q8_0 at Hugging Face revision `23749fefcc72300e3a2ad315e1317431b06b590a` for both paths. Quantized candidate probabilities are conditional on the listed choices and are not calibrated confidence.
@@ -60,3 +60,9 @@ NAVER/CLOVA, Park et al., *CORD: A Consolidated Receipt Dataset for Post-OCR Par
 (2019), [dataset source](https://huggingface.co/datasets/naver-clova-ix/cord-v2).
 The original US photograph is not redistributed. No browser inference result is
 claimed merely because the UI, schemas or native equivalents passed checks.
+
+
+The typed demo also offers nested objects/arrays, hierarchical routing, category
+discovery, seeded Dice sampling and numeric digit limits. Its selector loads each
+complete recipe, including its decoding options. All runtime/SDK imports use the
+published CDN packages. Open `typed.html` after starting the included server.

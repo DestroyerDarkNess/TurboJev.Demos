@@ -1,0 +1,30 @@
+{
+  "example": "limits",
+  "package_version": "0.33.0",
+  "language": "Rust",
+  "platform": "windows",
+  "architecture": "x86_64",
+  "device": "gpu",
+  "model": "C:\\Users\\Administrator\\.cache/turbojev\\Qwen3-0.6B-Q4_K_M.gguf",
+  "model_sha256": "9acfc1e001311f34b4252001b626f2e466d592a42065f66571bff3790d4e1b14",
+  "native_library": "\\\\?\\D:\\Projects\\TurboJev\\other\\TurboJev.Demos\\.artifacts\\nuget-registry\\turbojev\\0.33.0\\runtimes\\win-x64\\native\\turbojev_capi.dll",
+  "native_sha256": "9e54c7d3cda6ecb6eae90af71c7292a27eea6e3b253619c5f19cc5bf25b4eb73",
+  "load_seconds": 4.058641,
+  "response": {
+    "result": {
+      "reference": 12345,
+      "amount": 12.34
+    },
+    "thinking": {},
+    "thinking_effort": {},
+    "skipped": [],
+    "usage": {
+      "decisions": 2,
+      "input_tokens": 157,
+      "generated_tokens": 20
+    }
+  },
+  "evaluation_seconds": 4.0305501,
+  "ok": true,
+  "error": null
+}

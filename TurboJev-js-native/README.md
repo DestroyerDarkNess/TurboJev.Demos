@@ -1,6 +1,6 @@
 # TurboJev — Node.js
 
-Run from this folder with Node.js 20 or later. Install **@turbojev/node 0.31.0 from npm**, including the native package matching your Node process architecture.
+Run from this folder with Node.js 20 or later. Install **@turbojev/node 0.33.0 from npm**, including the native package matching your Node process architecture.
 
 ```powershell
 npm install
@@ -31,3 +31,27 @@ Text also accepts `TURBOJEV_MODEL`. Custom vision models require both paths. Gen
 Current native npm packages cover Windows ia32/x64/ARM64. Run with the matching Node architecture; CPU/GPU backend support and available memory still apply. A 32-bit process may not fit the default vision pair. Other OS targets require matching published native packages; no local SDK is built as a workaround.
 
 Fair die and receipt definitions are adapted from TypeLLM, Apache-2.0; see [its retained license](../fair-die-python/TYPELLM-LICENSE). The CORD photograph is separately CC BY 4.0, NAVER/CLOVA, Park et al. (2019); attribution and source are in the [receipt README](../receipt-python/README.md).
+
+
+## Structured SDK examples (TurboJev 0.33.0)
+
+```sh
+npm start -- structured
+npm start -- hierarchical
+npm start -- discover-categories
+npm start -- dice
+npm start -- limits
+```
+
+All use the registry package, never a workspace build. Dice samples from the
+model distribution with seed 42; fair-die measures the distribution with greedy
+decoding and compares it with 1/6 per face. Auto costs six layouts, and all costs
+720. Numeric limits constrain generated digits, including fractional digits.
+
+
+In PowerShell, pass options directly to Node if the npm shell wrapper consumes
+them. Alternatively use `npm.cmd start -- <example> <options>`.
+
+```powershell
+node main.js dice --device gpu
+```

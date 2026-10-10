@@ -23,7 +23,7 @@ const root = dirname(fileURLToPath(import.meta.url));
 const cache = join(homedir(), ".cache", "turbojev");
 const visionBase =
   "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/";
-const help = `Usage: npm start -- [ticket|fields|fair-die|receipt|receipt-us] [options]
+const help = `Usage: npm start -- [ticket|fields|structured|hierarchical|discover-categories|dice|limits|fair-die|receipt|receipt-us] [options]
   --device cpu|gpu       CPU by default; no device fallback
   --model PATH           Compatible GGUF (TURBOJEV_MODEL also works for text)
   --mmproj PATH          Matching vision projector; requires --model
@@ -68,7 +68,7 @@ export function parseOptions(args) {
   }
   options.maxTokens = Number(options.maxTokens);
   options.vision = ["receipt", "receipt-us"].includes(options.example);
-  if (!["ticket", "fields", "fair-die", "receipt", "receipt-us"].includes(options.example))
+  if (!["ticket", "fields", "structured", "hierarchical", "discover-categories", "dice", "limits", "fair-die", "receipt", "receipt-us"].includes(options.example))
     throw Error("Unknown example.");
   if (!["cpu", "gpu"].includes(options.device)) throw Error("Device must be cpu or gpu.");
   if (!Number.isInteger(options.maxTokens) || options.maxTokens < 1 || options.maxTokens > 32768)
@@ -268,7 +268,7 @@ export async function runDemo(load, args, language) {
   }
   const record = {
     example: options.example,
-    package_version: "0.31.0",
+    package_version: "0.33.0",
     language,
     platform: platform(),
     architecture: arch(),
@@ -305,6 +305,8 @@ export async function runDemo(load, args, language) {
         started = performance.now();
         const response = await engine.generate({
           context: "A single roll of a fair die.",
+          mode: "argmax",
+          temperature: 1,
           seed: 42,
           questions: {
             roll: {

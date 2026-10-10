@@ -1,3 +1,5 @@
+import { Dice } from "https://cdn.jsdelivr.net/npm/@turbojev/web@0.33.0/dist/index.js";
+
 const $ = (id) => document.getElementById(id);
 const textUrl =
   "https://huggingface.co/bartowski/Qwen_Qwen3-0.6B-GGUF/resolve/60b85c0e3d8fe0f6474f406922a26d12aca4550d/Qwen_Qwen3-0.6B-Q4_K_M.gguf";
@@ -10,7 +12,8 @@ let nextId = 1,
   ready = false,
   busy = false,
   report = null,
-  loadSeconds = null;
+  loadSeconds = null,
+  recipeOptions = {};
 function call(op, args = {}) {
   return new Promise((resolve, reject) => {
     const id = nextId++;
@@ -80,26 +83,24 @@ async function presets() {
         ? visionBase + "Qwen3.5-2B-Q4_K_M.gguf"
         : textUrl;
   $("projector-url").value = visionBase + "mmproj-F16.gguf";
+  recipeOptions = {};
   if (name === "fair-die") {
     $("context").value = "A single roll of a fair die.";
     $("questions").value = JSON.stringify(
-      {
-        roll: {
-          type: "string",
-          enum: labels,
-          instructions: "What number will come up on a single roll of a fair six-sided die?",
-          return_probabilities: true,
-        },
-      },
+      { roll: new Dice().toSchema() },
       null,
       2,
     );
   } else {
     const response = await fetch(
-      isVision ? `./typed-data/${name}/questions.json` : "./typed-data/fields.json",
+      isVision ? `./typed-data/${name}/questions.json` : name === "fields" ? "./typed-data/fields.json" : `./typed-data/recipes/${name}.json`,
     );
     if (!response.ok) throw Error("Could not read example definitions");
     const data = await response.json();
+    if (!isVision) {
+      const { context, questions, ...options } = data;
+      recipeOptions = options;
+    }
     $("context").value = data.context || "Read the attached photo of a restaurant receipt.";
     $("questions").value = JSON.stringify(isVision ? data : data.questions, null, 2);
   }
@@ -138,7 +139,7 @@ $("load").addEventListener("click", async () => {
     const descriptor = await call("load", {
       model: $("model-url").value,
       runtimeModuleUrl: new URL("./runtime.js", import.meta.url).href,
-      wasmModuleUrl: "https://cdn.jsdelivr.net/npm/@turbojev/wasm@0.31.0/turbojev_wasm.js",
+      wasmModuleUrl: "https://cdn.jsdelivr.net/npm/@turbojev/wasm@0.33.0/turbojev_wasm.js",
       runtimeOptions: {
         backend: $("runtime").value,
         modality: vision() ? "image" : "text",
@@ -202,7 +203,7 @@ $("generate").addEventListener("click", async () => {
   $("save").disabled = true;
   report = {
     example: $("example").value,
-    package_version: "0.31.0",
+    package_version: "0.33.0",
     runtime: $("runtime").value,
     device: $("device").value,
     model: $("model-url").value,
@@ -247,6 +248,7 @@ $("generate").addEventListener("click", async () => {
       report.subset = Boolean($("fields").value.trim());
     }
     const request = {
+      ...recipeOptions,
       context,
       questions,
       thinking: false,
@@ -257,6 +259,8 @@ $("generate").addEventListener("click", async () => {
     if ($("example").value === "fair-die") {
       const budget = $("budget").value;
       request.seed = 42;
+      request.mode = "argmax";
+      request.temperature = 1;
       questions.roll.permutations = /^\d+$/.test(budget) ? Number(budget) : budget;
       report.permutations = questions.roll.permutations;
     }

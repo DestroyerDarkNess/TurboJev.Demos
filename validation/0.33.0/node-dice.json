@@ -1,0 +1,65 @@
+{
+  "example": "dice",
+  "package_version": "0.33.0",
+  "language": "JavaScript / Node",
+  "platform": "win32",
+  "architecture": "x64",
+  "device": "cpu",
+  "model": "C:\\Users\\Administrator\\.cache\\turbojev\\Qwen3-0.6B-Q4_K_M.gguf",
+  "model_sha256": "9acfc1e001311f34b4252001b626f2e466d592a42065f66571bff3790d4e1b14",
+  "load_seconds": 4.6832988,
+  "response": {
+    "result": {
+      "roll": {
+        "value": "one",
+        "confidence": 0.1928925388303027,
+        "probability": 0.13859778446750756,
+        "probabilities": {
+          "one": 0.13859778446750756,
+          "two": 0.05512921776878113,
+          "three": 0.15751854703361046,
+          "four": 0.11504789419759824,
+          "five": 0.32741044902525224,
+          "six": 0.2062961075072504
+        },
+        "distribution": [
+          {
+            "value": "one",
+            "probability": 0.13859778446750756
+          },
+          {
+            "value": "two",
+            "probability": 0.05512921776878113
+          },
+          {
+            "value": "three",
+            "probability": 0.15751854703361046
+          },
+          {
+            "value": "four",
+            "probability": 0.11504789419759824
+          },
+          {
+            "value": "five",
+            "probability": 0.32741044902525224
+          },
+          {
+            "value": "six",
+            "probability": 0.2062961075072504
+          }
+        ]
+      }
+    },
+    "thinking": {},
+    "thinking_effort": {},
+    "skipped": [],
+    "usage": {
+      "decisions": 1,
+      "input_tokens": 648,
+      "generated_tokens": 0
+    }
+  },
+  "evaluation_seconds": 38.1783617,
+  "ok": true,
+  "error": null
+}

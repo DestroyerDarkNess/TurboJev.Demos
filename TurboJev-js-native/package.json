@@ -6,6 +6,6 @@
     "start": "node main.js"
   },
   "dependencies": {
-    "@turbojev/node": "0.31.0"
+    "@turbojev/node": "0.33.0"
   }
 }

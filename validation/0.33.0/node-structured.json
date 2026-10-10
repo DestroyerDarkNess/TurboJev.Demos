@@ -1,0 +1,64 @@
+{
+  "example": "structured",
+  "package_version": "0.33.0",
+  "language": "JavaScript / Node",
+  "platform": "win32",
+  "architecture": "x64",
+  "device": "gpu",
+  "model": "C:\\Users\\Administrator\\.cache\\turbojev\\Qwen3-0.6B-Q4_K_M.gguf",
+  "model_sha256": "9acfc1e001311f34b4252001b626f2e466d592a42065f66571bff3790d4e1b14",
+  "load_seconds": 4.4661903,
+  "response": {
+    "result": {
+      "invoice": {
+        "merchant": "Acme",
+        "overdue": true
+      },
+      "rows": [
+        {
+          "item": "Pencil",
+          "quantity": 2
+        },
+        {
+          "item": "Notebook",
+          "quantity": 1
+        }
+      ],
+      "priority": {
+        "value": 1.999833888348254,
+        "confidence": 0.9997508325223814,
+        "probability": 0.9998393594415901,
+        "probabilities": {
+          "low": 0.000005471093335928894,
+          "medium": 0.00015516946507388728,
+          "high": 0.9998393594415901
+        },
+        "distribution": [
+          {
+            "value": "low",
+            "probability": 0.000005471093335928894
+          },
+          {
+            "value": "medium",
+            "probability": 0.00015516946507388728
+          },
+          {
+            "value": "high",
+            "probability": 0.9998393594415901
+          }
+        ]
+      }
+    },
+    "thinking": {},
+    "thinking_effort": {},
+    "skipped": [],
+    "usage": {
+      "decisions": 4,
+      "input_tokens": 772,
+      "generated_tokens": 39
+    }
+  },
+  "evaluation_seconds": 17.0261663,
+  "ok": true,
+  "error": null
+}

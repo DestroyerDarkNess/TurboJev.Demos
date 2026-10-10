@@ -11,6 +11,10 @@ internal static class Examples
     public static JsonNode? CreateRequest(Options options, JsonObject report)
     {
         if (options.Example == "fair-die") return null;
+        if (options.Example is "structured" or "hierarchical" or "discover-categories" or "dice" or "limits")
+        {
+            return JsonNode.Parse(File.ReadAllText(Data("recipes", $"{options.Example}.json")));
+        }
         if (options.Example == "ticket") return JsonSerializer.SerializeToNode(new
         {
             state = new { ticket = "My package arrived broken. Please send a replacement." },
@@ -107,16 +111,11 @@ internal static class Examples
             {
                 context = "A single roll of a fair die.",
                 seed = 42,
+                mode = "argmax",
+                temperature = 1,
                 questions = new Dictionary<string, object>
                 {
-                    ["roll"] = new
-                    {
-                        type = "string",
-                        @enum = labels,
-                        instructions = "What number will come up on a single roll of a fair six-sided die?",
-                        permutations = budget,
-                        return_probabilities = true
-                    },
+                    ["roll"] = new Dice(budget).ToSchema(),
                 },
             };
             var timer = Stopwatch.StartNew();

@@ -1,6 +1,6 @@
 # TurboJev — Python
 
-Uses **turbojev 0.31.0 from PyPI**, not local SDK source. Install with the same Python interpreter you use to run the demo.
+Uses **turbojev 0.33.0 from PyPI**, not local SDK source. Install with the same Python interpreter you use to run the demo.
 
 ```powershell
 python -m pip install -r requirements.txt
@@ -11,7 +11,7 @@ python main.py receipt --device gpu --fields first_item,total
 python main.py receipt-us --image C:/photos/receipt.jpg --device gpu
 ```
 
-`ticket` calls `evaluate`; `fields` calls `generate` and demonstrates integers, decimal numbers, boolean probabilities, actual null, dependencies and conditional omission. All five modes are implemented in this folder's `main.py`. Downloads, reporting, request schemas and receipt assets are included here. You can copy this folder elsewhere and run it without the other demos or any parent Python files.
+`ticket` calls `evaluate`; `fields` calls `generate` and demonstrates integers, decimal numbers, boolean probabilities, actual null, dependencies and conditional omission. All modes are implemented in this folder's `main.py`. Downloads, reporting, request schemas and receipt assets are included here. You can copy this folder elsewhere and run it without the other demos or any parent Python files.
 
 CPU is the default. GPU is explicit and does not fall back. Text uses Qwen3 0.6B GGUF; image extraction uses Qwen3.5 2B plus a matching projector. Download progress, transfer speed and ETA appear on first use; all languages reuse `~/.cache/turbojev` where compatible. `--model PATH` selects a local GGUF; receipts also accept `--mmproj PATH`. `--fields` selects a recorded subset including dependencies. See `python main.py <example> --help` for each mode's options.
 
@@ -26,3 +26,19 @@ Reports for ticket/fields default to `result-<example>.json` in the working dire
 Fair-die and receipt definitions are adapted from [TypeLLM](https://github.com/TypeLLM/TypeLLM/tree/main/examples), Apache-2.0; see the included [TYPELLM-LICENSE](TYPELLM-LICENSE). The photograph at `receipts/cord/receipt.jpg` is CORD-v2 test receipt 4, attributed to Park et al., *CORD: A Consolidated Receipt Dataset for Post-OCR Parsing* (2019), NAVER/CLOVA. It is [CC BY 4.0](https://huggingface.co/datasets/naver-clova-ix/cord-v2), under these [license terms](https://creativecommons.org/licenses/by/4.0/), and is retained unchanged. The photo is not covered by the code's Apache license.
 
 Current PyPI wheels cover Windows x86/x64/ARM64 according to the Python process architecture. Other systems need matching published wheels. A 32-bit process may not fit the default vision model/projector. An older installed TurboJev can reject new options; install the requirements first and verify with `python -m pip show turbojev`.
+
+
+## Structured SDK examples (TurboJev 0.33.0)
+
+```sh
+python main.py structured
+python main.py hierarchical
+python main.py discover-categories
+python main.py dice
+python main.py limits
+```
+
+All use the registry package, never a workspace build. Dice samples from the
+model distribution with seed 42; fair-die measures the distribution with greedy
+decoding and compares it with 1/6 per face. Auto costs six layouts, and all costs
+720. Numeric limits constrain generated digits, including fractional digits.

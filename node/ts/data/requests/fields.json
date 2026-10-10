@@ -1,0 +1,40 @@
+{
+  "context": "There are seven overdue invoices. Their total is 324.50 GBP. No payment reference is provided.",
+  "thinking": false,
+  "questions": {
+    "count": {
+      "type": "integer",
+      "instructions": "How many invoices are overdue?"
+    },
+    "total": {
+      "type": "number",
+      "instructions": "What is the total in GBP?"
+    },
+    "overdue": {
+      "type": "boolean",
+      "instructions": "Are there overdue invoices?",
+      "return_probabilities": true
+    },
+    "reference": {
+      "type": ["string", "null"],
+      "instructions": "Return the payment reference, or null if absent."
+    },
+    "reminder": {
+      "type": "string",
+      "when": {
+        "overdue": true
+      },
+      "depends_on": ["total"],
+      "instructions": "Write one short payment reminder including the total."
+    },
+    "large_account_note": {
+      "type": "string",
+      "when": {
+        "count": {
+          "gt": 10
+        }
+      },
+      "instructions": "Write a short note about the high invoice count."
+    }
+  }
+}

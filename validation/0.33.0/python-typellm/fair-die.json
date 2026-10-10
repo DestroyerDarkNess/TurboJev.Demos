@@ -1,0 +1,87 @@
+{
+  "demo": "fair-die",
+  "source": "https://typellm.ai/examples/fair-die",
+  "package_version": "0.33.0",
+  "platform": "Windows-11-10.0.26100-SP0",
+  "machine": "AMD64",
+  "python_bits": 64,
+  "device": "gpu",
+  "request": {
+    "context": "A single roll of a fair six-sided die.",
+    "questions": {
+      "roll": {
+        "type": "string",
+        "enum": [
+          "one",
+          "two",
+          "three",
+          "four",
+          "five",
+          "six"
+        ],
+        "instructions": "What number will come up on this roll?",
+        "return_probabilities": true
+      }
+    },
+    "mode": "argmax",
+    "temperature": 0,
+    "seed": 42,
+    "text_max_tokens": 256,
+    "numeric_max_tokens": 256
+  },
+  "model": "C:\\Users\\Administrator\\.cache\\turbojev\\Qwen3-0.6B-Q4_K_M.gguf",
+  "model_sha256": "9acfc1e001311f34b4252001b626f2e466d592a42065f66571bff3790d4e1b14",
+  "load_seconds": 1.1257471999851987,
+  "response": {
+    "result": {
+      "roll": {
+        "value": "five",
+        "confidence": 0.1296858593826532,
+        "probability": 0.274738216152211,
+        "probabilities": {
+          "one": 0.14450117616521696,
+          "two": 0.09566291073230733,
+          "three": 0.15977725199752993,
+          "four": 0.12226286344917948,
+          "five": 0.274738216152211,
+          "six": 0.20305758150355516
+        },
+        "distribution": [
+          {
+            "value": "one",
+            "probability": 0.14450117616521696
+          },
+          {
+            "value": "two",
+            "probability": 0.09566291073230733
+          },
+          {
+            "value": "three",
+            "probability": 0.15977725199752993
+          },
+          {
+            "value": "four",
+            "probability": 0.12226286344917948
+          },
+          {
+            "value": "five",
+            "probability": 0.274738216152211
+          },
+          {
+            "value": "six",
+            "probability": 0.20305758150355516
+          }
+        ]
+      }
+    },
+    "thinking": {},
+    "thinking_effort": {},
+    "skipped": [],
+    "usage": {
+      "decisions": 1,
+      "input_tokens": 618,
+      "generated_tokens": 0
+    }
+  },
+  "inference_seconds": 2.604939899989404
+}

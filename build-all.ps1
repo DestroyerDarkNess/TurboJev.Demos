@@ -27,7 +27,7 @@ foreach ($target in @(
     if ($LASTEXITCODE -ne 0) { throw "PyPI wheel download failed for $($target.Name)" }
 }
 
-Push-Location (Join-Path $PSScriptRoot "TurboJev-csharp-NET")
+Push-Location (Join-Path $PSScriptRoot "dotnet/csharp")
 try {
     foreach ($rid in $rids) {
         Invoke-Checked dotnet @('publish', '-c', 'Release', '-r', $rid, '--self-contained', 'false', '-o', (Join-Path $PSScriptRoot ".artifacts\dotnet\$rid"))
@@ -36,15 +36,15 @@ try {
     Pop-Location
 }
 
-foreach ($project in @('TurboJev-js-native', 'TurboJev-TS-node')) {
+foreach ($project in @('node/js', 'node/ts')) {
     Push-Location (Join-Path $PSScriptRoot $project)
     try {
         Invoke-Checked npm.cmd @('ci', '--no-audit', '--no-fund')
-        if ($project -eq 'TurboJev-TS-node') { Invoke-Checked npm.cmd @('run', 'build') }
+        if ($project -eq 'node/ts') { Invoke-Checked npm.cmd @('run', 'build') }
     } finally { Pop-Location }
 }
 
-Push-Location (Join-Path $PSScriptRoot "TurboJev-rust")
+Push-Location (Join-Path $PSScriptRoot "rust/typed-fields")
 try {
     $rustTargets = @('i686-pc-windows-msvc','x86_64-pc-windows-msvc','aarch64-pc-windows-msvc')
     Invoke-Checked rustup (@('target', 'add', '--toolchain', '1.97.1') + $rustTargets)
@@ -55,5 +55,7 @@ try {
     }
 } finally { Pop-Location }
 
-Invoke-Checked py @('-m', 'py_compile', (Join-Path $PSScriptRoot 'TurboJev-Python/main.py'), (Join-Path $PSScriptRoot 'simple/main.py'), (Join-Path $PSScriptRoot 'snake-python/snake.py'), (Join-Path $PSScriptRoot 'snake-python/benchmark.py'), (Join-Path $PSScriptRoot 'fair-die-python/main.py'), (Join-Path $PSScriptRoot 'receipt-python/main.py'), (Join-Path $PSScriptRoot 'receipt-us-python/main.py'))
+$pythonFiles = @(Get-ChildItem -LiteralPath (Join-Path $PSScriptRoot 'python') -Filter '*.py' -Recurse |
+    Select-Object -ExpandProperty FullName)
+Invoke-Checked py (@('-m', 'py_compile') + $pythonFiles)
 Write-Host "Package checks/builds completed for Windows x86, x64, and ARM64 where the registry publishes native artifacts."

@@ -1,0 +1,68 @@
+{
+  "demo": "date-order",
+  "source": "https://typellm.ai/examples/date-order",
+  "package_version": "0.33.0",
+  "platform": "Windows-11-10.0.26100-SP0",
+  "machine": "AMD64",
+  "python_bits": 64,
+  "device": "gpu",
+  "request": {
+    "context": "Two dates: June 8, 2026 and 07/06/2026. Dates written as xx/xx/yyyy are DD/MM/YYYY.",
+    "questions": {
+      "earlier": {
+        "type": "string",
+        "enum": [
+          "June 8, 2026",
+          "07/06/2026"
+        ],
+        "instructions": "Which date is earlier?",
+        "thinking": "auto",
+        "return_probabilities": true
+      }
+    },
+    "mode": "argmax",
+    "temperature": 0,
+    "seed": 42,
+    "text_max_tokens": 256,
+    "numeric_max_tokens": 256
+  },
+  "model": "C:\\Users\\Administrator\\.cache\\turbojev\\Qwen3-0.6B-Q4_K_M.gguf",
+  "model_sha256": "9acfc1e001311f34b4252001b626f2e466d592a42065f66571bff3790d4e1b14",
+  "load_seconds": 2.824239900044631,
+  "response": {
+    "result": {
+      "earlier": {
+        "value": "07/06/2026",
+        "confidence": 5.600933294935828e-08,
+        "probability": 0.5000000280046665,
+        "probabilities": {
+          "June 8, 2026": 0.4999999719953335,
+          "07/06/2026": 0.5000000280046665
+        },
+        "distribution": [
+          {
+            "value": "June 8, 2026",
+            "probability": 0.4999999719953335
+          },
+          {
+            "value": "07/06/2026",
+            "probability": 0.5000000280046665
+          }
+        ]
+      }
+    },
+    "thinking": {
+      "earlier": "<think>\nOkay, let's see. The user wants to know which date is earlier between June 8, 2026, and 07/06/2026. The dates are written in DD/MM/YYYY format. \n\nFirst, I need to convert both dates into the same format. Let's take the first one: June 8, 2026. Since it's written as DD/MM/YYYY, June is the first month, so June 8 would be 06/08/2026. The second date is 07/06/2026. Comparing the two, 06/08/2026 is earlier than 07/06/2026 because 06 is less than 07. So the answer should be option A. \n\nWait, but the options are A and B. The question says which date is earlier. So between A and B, A is \"07/06/2026\" and B is \"June 8, 2026\". Since A is the date written as DD/MM/YYYY, which is the correct format, and the other is in the format of \"June 8, 2026\". So the answer should be A. But let me check again. The first date is June 8, which is 06/08/2026, and the second is 07/06/2026. So yes, A is earlier. So the correct answer is A.\n</think>\n<think>\nOkay, let's see. The user wants to know which date is earlier between June 8, 2026, and 07/06/2026. The format they need is DD/MM/YYYY, so I should convert both dates into that format.\n\nFirst date: June 8, 2026. June is the 6th month, so converting that would be 6/08/2026. Wait, but the original date is written as June 8, 2026. So in DD/MM/YYYY, June is 6, so it's 06/08/2026. The second date is 07/06/2026. Comparing the two, the first is 06/08/2026 and the second is 07/06/2026. Since the first day of the month is June (month 6), and the second is July (month 7), the first date is earlier. So the answer should be A.\n</think>"
+    },
+    "thinking_effort": {
+      "earlier": "high"
+    },
+    "skipped": [],
+    "usage": {
+      "decisions": 1,
+      "input_tokens": 429,
+      "generated_tokens": 566
+    }
+  },
+  "inference_seconds": 26.016786099993624
+}

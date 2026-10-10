@@ -8,12 +8,11 @@
 **/*.py[cod]
 *.gguf
 .cache/
-.artifacts/
+**/.artifacts/
 .vs/
-TurboJev-csharp-NET/result-*.json
 **/result-*.json
 **/result.json
 .playwright-cli/
 output/playwright/
 
-.venv*/
+**/.venv*/

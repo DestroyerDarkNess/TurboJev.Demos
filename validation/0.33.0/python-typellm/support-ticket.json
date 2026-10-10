@@ -1,0 +1,138 @@
+{
+  "demo": "support-ticket",
+  "source": "https://typellm.ai/examples/support-ticket",
+  "package_version": "0.33.0",
+  "platform": "Windows-11-10.0.26100-SP0",
+  "machine": "AMD64",
+  "python_bits": 64,
+  "device": "gpu",
+  "request": {
+    "context": "Subject: Charged twice this month\n\nHi, I upgraded to the Pro plan on the 3rd and my card was charged twice, $49 each time. I can't find a way to get the second charge back in the billing page. Please help, this is my company card.",
+    "questions": {
+      "queue": {
+        "type": "string",
+        "enum": [
+          "billing",
+          "technical",
+          "account",
+          "sales"
+        ],
+        "instructions": "Which team should handle this ticket?",
+        "return_probabilities": true
+      },
+      "urgency": {
+        "type": "string",
+        "enum": [
+          "low",
+          "medium",
+          "high"
+        ],
+        "instructions": "How urgent is it?",
+        "return_probabilities": true
+      },
+      "wants_refund": {
+        "type": "boolean",
+        "instructions": "Is the customer asking for money back?",
+        "return_probabilities": true
+      },
+      "summary": {
+        "type": "string",
+        "instructions": "Summarise the problem in one short sentence."
+      }
+    },
+    "mode": "argmax",
+    "temperature": 0,
+    "seed": 42,
+    "text_max_tokens": 256,
+    "numeric_max_tokens": 256
+  },
+  "model": "C:\\Users\\Administrator\\.cache\\turbojev\\Qwen3-0.6B-Q4_K_M.gguf",
+  "model_sha256": "9acfc1e001311f34b4252001b626f2e466d592a42065f66571bff3790d4e1b14",
+  "load_seconds": 1.2234542000223882,
+  "response": {
+    "result": {
+      "queue": {
+        "value": "billing",
+        "confidence": 0.9995433883571124,
+        "probability": 0.9996575412678343,
+        "probabilities": {
+          "billing": 0.9996575412678343,
+          "technical": 6.765872471108408e-06,
+          "account": 0.0003266058963827014,
+          "sales": 9.086963311900001e-06
+        },
+        "distribution": [
+          {
+            "value": "billing",
+            "probability": 0.9996575412678343
+          },
+          {
+            "value": "technical",
+            "probability": 6.765872471108408e-06
+          },
+          {
+            "value": "account",
+            "probability": 0.0003266058963827014
+          },
+          {
+            "value": "sales",
+            "probability": 9.086963311900001e-06
+          }
+        ]
+      },
+      "urgency": {
+        "value": "high",
+        "confidence": 0.15325305247052892,
+        "probability": 0.4355020349803526,
+        "probabilities": {
+          "low": 0.26563779642136265,
+          "medium": 0.29886016859828474,
+          "high": 0.4355020349803526
+        },
+        "distribution": [
+          {
+            "value": "low",
+            "probability": 0.26563779642136265
+          },
+          {
+            "value": "medium",
+            "probability": 0.29886016859828474
+          },
+          {
+            "value": "high",
+            "probability": 0.4355020349803526
+          }
+        ]
+      },
+      "wants_refund": {
+        "value": true,
+        "confidence": 0.9988647890738294,
+        "probability": 0.9994323945369147,
+        "probabilities": {
+          "true": 0.9994323945369147,
+          "false": 0.0005676054630852928
+        },
+        "distribution": [
+          {
+            "value": true,
+            "probability": 0.9994323945369147
+          },
+          {
+            "value": false,
+            "probability": 0.0005676054630852928
+          }
+        ]
+      },
+      "summary": "I upgraded to the Pro plan on the 3rd and my company card was charged twice, $49 each time, which I cannot get back in the billing page."
+    },
+    "thinking": {},
+    "thinking_effort": {},
+    "skipped": [],
+    "usage": {
+      "decisions": 4,
+      "input_tokens": 1754,
+      "generated_tokens": 40
+    }
+  },
+  "inference_seconds": 13.015897200035397
+}

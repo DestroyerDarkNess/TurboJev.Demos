@@ -1,0 +1,103 @@
+{
+  "demo": "identical-resumes",
+  "source": "https://typellm.ai/examples/identical-resumes",
+  "package_version": "0.33.0",
+  "platform": "Windows-11-10.0.26100-SP0",
+  "machine": "AMD64",
+  "python_bits": 64,
+  "device": "gpu",
+  "request": {
+    "context": "Role: Senior backend engineer: Python, PostgreSQL, 5+ years building APIs.\nBoth candidates applied for this role.",
+    "questions": {
+      "listed_first": {
+        "type": "string",
+        "instructions": "Which candidate should we invite to interview for this role?",
+        "return_probabilities": true,
+        "choices": [
+          {
+            "value": "R-1042",
+            "description": "7 years as a backend engineer. Built REST APIs in Python and Django; ran PostgreSQL in production; led a team of 3."
+          },
+          {
+            "value": "R-3317",
+            "description": "7 years as a backend engineer. Built REST APIs in Python and Django; ran PostgreSQL in production; led a team of 3."
+          }
+        ]
+      },
+      "listed_second": {
+        "type": "string",
+        "instructions": "Which candidate should we invite to interview for this role?",
+        "return_probabilities": true,
+        "choices": [
+          {
+            "value": "R-3317",
+            "description": "7 years as a backend engineer. Built REST APIs in Python and Django; ran PostgreSQL in production; led a team of 3."
+          },
+          {
+            "value": "R-1042",
+            "description": "7 years as a backend engineer. Built REST APIs in Python and Django; ran PostgreSQL in production; led a team of 3."
+          }
+        ]
+      }
+    },
+    "mode": "argmax",
+    "temperature": 0,
+    "seed": 42,
+    "text_max_tokens": 256,
+    "numeric_max_tokens": 256
+  },
+  "model": "C:\\Users\\Administrator\\.cache\\turbojev\\Qwen3-0.6B-Q4_K_M.gguf",
+  "model_sha256": "9acfc1e001311f34b4252001b626f2e466d592a42065f66571bff3790d4e1b14",
+  "load_seconds": 1.2205253000138327,
+  "response": {
+    "result": {
+      "listed_first": {
+        "value": "R-3317",
+        "confidence": 0.5299605453324261,
+        "probability": 0.764980272666213,
+        "probabilities": {
+          "R-1042": 0.2350197273337869,
+          "R-3317": 0.764980272666213
+        },
+        "distribution": [
+          {
+            "value": "R-1042",
+            "probability": 0.2350197273337869
+          },
+          {
+            "value": "R-3317",
+            "probability": 0.764980272666213
+          }
+        ]
+      },
+      "listed_second": {
+        "value": "R-1042",
+        "confidence": 0.16809871944088095,
+        "probability": 0.5840493597204405,
+        "probabilities": {
+          "R-3317": 0.4159506402795595,
+          "R-1042": 0.5840493597204405
+        },
+        "distribution": [
+          {
+            "value": "R-3317",
+            "probability": 0.4159506402795595
+          },
+          {
+            "value": "R-1042",
+            "probability": 0.5840493597204405
+          }
+        ]
+      }
+    },
+    "thinking": {},
+    "thinking_effort": {},
+    "skipped": [],
+    "usage": {
+      "decisions": 2,
+      "input_tokens": 736,
+      "generated_tokens": 0
+    }
+  },
+  "inference_seconds": 2.112271599995438
+}

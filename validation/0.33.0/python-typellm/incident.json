@@ -1,0 +1,63 @@
+{
+  "demo": "incident",
+  "source": "https://typellm.ai/examples/incident",
+  "package_version": "0.33.0",
+  "platform": "Windows-11-10.0.26100-SP0",
+  "machine": "AMD64",
+  "python_bits": 64,
+  "device": "gpu",
+  "request": {
+    "context": "Alert at 14:02: checkout API error rate 38% (normal: under 1%) since the 13:55 deploy of payments-service v2.14. p95 latency 4.1 s. About 1,200 customers affected so far.",
+    "questions": {
+      "severity": {
+        "type": "string",
+        "enum": [
+          "low",
+          "medium",
+          "high",
+          "critical"
+        ],
+        "instructions": "How severe is this incident?"
+      },
+      "roll_back": {
+        "type": "boolean",
+        "depends_on": [
+          "severity"
+        ],
+        "instructions": "Given the incident and its severity, should the deploy be rolled back now?"
+      },
+      "status_message": {
+        "type": "string",
+        "depends_on": [
+          "severity",
+          "roll_back"
+        ],
+        "instructions": "One sentence for the status page, saying what is affected and what is being done."
+      }
+    },
+    "mode": "argmax",
+    "temperature": 0,
+    "seed": 42,
+    "text_max_tokens": 256,
+    "numeric_max_tokens": 256
+  },
+  "model": "C:\\Users\\Administrator\\.cache\\turbojev\\Qwen3-0.6B-Q4_K_M.gguf",
+  "model_sha256": "9acfc1e001311f34b4252001b626f2e466d592a42065f66571bff3790d4e1b14",
+  "load_seconds": 3.4369491999968886,
+  "response": {
+    "result": {
+      "severity": "high",
+      "roll_back": true,
+      "status_message": "1,200 customers affected so far, 38% API error rate, and p95 latency 4.1 s"
+    },
+    "thinking": {},
+    "thinking_effort": {},
+    "skipped": [],
+    "usage": {
+      "decisions": 3,
+      "input_tokens": 459,
+      "generated_tokens": 33
+    }
+  },
+  "inference_seconds": 5.861522599996533
+}

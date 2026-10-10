@@ -1,0 +1,62 @@
+[
+  {
+    "demo": "incident",
+    "exit_code": 0,
+    "wall_seconds": 13.384639900003094
+  },
+  {
+    "demo": "email-triage",
+    "exit_code": 0,
+    "wall_seconds": 7.452865500003099
+  },
+  {
+    "demo": "new-category",
+    "exit_code": 0,
+    "wall_seconds": 10.235778000031132
+  },
+  {
+    "demo": "category-tree",
+    "exit_code": 0,
+    "wall_seconds": 5.372182699968107
+  },
+  {
+    "demo": "standup",
+    "exit_code": 0,
+    "wall_seconds": 6.917094699980225
+  },
+  {
+    "demo": "expense-audit",
+    "exit_code": 1,
+    "wall_seconds": 71.56679570005508
+  },
+  {
+    "demo": "letter-count",
+    "exit_code": 0,
+    "wall_seconds": 253.81548759998986
+  },
+  {
+    "demo": "date-order",
+    "exit_code": 0,
+    "wall_seconds": 33.14710780000314
+  },
+  {
+    "demo": "support-ticket",
+    "exit_code": 0,
+    "wall_seconds": 16.921246899990365
+  },
+  {
+    "demo": "sure-refund",
+    "exit_code": 0,
+    "wall_seconds": 7.615868899971247
+  },
+  {
+    "demo": "fair-die",
+    "exit_code": 0,
+    "wall_seconds": 6.782054300012533
+  },
+  {
+    "demo": "identical-resumes",
+    "exit_code": 0,
+    "wall_seconds": 6.394397299969569
+  }
+]

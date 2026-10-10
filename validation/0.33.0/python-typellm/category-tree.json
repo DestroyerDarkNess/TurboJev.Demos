@@ -1,0 +1,88 @@
+{
+  "demo": "category-tree",
+  "source": "https://typellm.ai/examples/category-tree",
+  "package_version": "0.33.0",
+  "platform": "Windows-11-10.0.26100-SP0",
+  "machine": "AMD64",
+  "python_bits": 64,
+  "device": "gpu",
+  "request": {
+    "context": "Product: Stainless steel French press, 34 oz, double-wall insulated, makes 8 cups.",
+    "questions": {
+      "department": {
+        "type": "string",
+        "enum": [
+          "electronics",
+          "home_kitchen",
+          "sports_outdoors"
+        ],
+        "instructions": "Which department does this product belong to?"
+      },
+      "electronics": {
+        "type": "string",
+        "enum": [
+          "phones",
+          "laptops",
+          "audio",
+          "cameras"
+        ],
+        "instructions": "Which kind of electronics is it?",
+        "when": {
+          "department": "electronics"
+        }
+      },
+      "home_kitchen": {
+        "type": "string",
+        "enum": [
+          "cookware",
+          "coffee_tea",
+          "bedding",
+          "lighting"
+        ],
+        "instructions": "Which kind of home and kitchen product is it?",
+        "when": {
+          "department": "home_kitchen"
+        }
+      },
+      "sports_outdoors": {
+        "type": "string",
+        "enum": [
+          "camping",
+          "cycling",
+          "fitness",
+          "hiking"
+        ],
+        "instructions": "Which kind of sports and outdoors product is it?",
+        "when": {
+          "department": "sports_outdoors"
+        }
+      }
+    },
+    "mode": "argmax",
+    "temperature": 0,
+    "seed": 42,
+    "text_max_tokens": 256,
+    "numeric_max_tokens": 256
+  },
+  "model": "C:\\Users\\Administrator\\.cache\\turbojev\\Qwen3-0.6B-Q4_K_M.gguf",
+  "model_sha256": "9acfc1e001311f34b4252001b626f2e466d592a42065f66571bff3790d4e1b14",
+  "load_seconds": 1.1995826000347733,
+  "response": {
+    "result": {
+      "department": "home_kitchen",
+      "home_kitchen": "coffee_tea"
+    },
+    "thinking": {},
+    "thinking_effort": {},
+    "skipped": [
+      "electronics",
+      "sports_outdoors"
+    ],
+    "usage": {
+      "decisions": 2,
+      "input_tokens": 236,
+      "generated_tokens": 0
+    }
+  },
+  "inference_seconds": 0.8286453000037
+}

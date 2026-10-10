@@ -1,0 +1,18 @@
+{
+  "package_version": "0.33.0",
+  "source_schema_count": 12,
+  "original_contexts_and_schemas_retained": true,
+  "cli_override_schema_checks": 24,
+  "default_completed_workflows": 11,
+  "default_runtime_failures": 1,
+  "expense_medium_workflow_completed": true,
+  "architecture_build_checks": [
+    "Windows x86",
+    "Windows x64",
+    "Windows ARM64"
+  ],
+  "executed_on": "Windows x64, Vulkan GPU",
+  "copied_standalone_incident_executed": true,
+  "cross_demo_code_imports": false,
+  "latencies_are_not_controlled_benchmarks": true
+}

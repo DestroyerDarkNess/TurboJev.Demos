@@ -1,0 +1,128 @@
+{
+  "demo": "expense-audit",
+  "source": "https://typellm.ai/examples/expense-audit",
+  "package_version": "0.33.0",
+  "platform": "Windows-11-10.0.26100-SP0",
+  "machine": "AMD64",
+  "python_bits": 64,
+  "device": "gpu",
+  "request": {
+    "context": "Expense claim: Priya Shah, client visit to Boston, 14-15 September.\n\nPolicy: hotels up to $250 a night; meals up to $75 per person; no alcohol; economy fares only.\n\nSept 14  Round-trip flight to Boston, economy        $412.00\nSept 14  Harbor View Hotel, 1 night                   $289.00\nSept 14  Client dinner for 2, incl. 2 glasses of wine  $148.00\nSept 15  Taxi to Logan Airport                        $42.50\n\nTotal claimed: $891.50",
+    "questions": {
+      "line_items": {
+        "type": "array",
+        "instructions": "Every expense line, as listed.",
+        "items": {
+          "type": "object",
+          "properties": {
+            "date": {
+              "type": "string"
+            },
+            "description": {
+              "type": "string"
+            },
+            "amount": {
+              "type": "number"
+            },
+            "category": {
+              "type": "string",
+              "choices": [
+                {
+                  "value": "travel",
+                  "description": "Flights and trains."
+                },
+                {
+                  "value": "lodging",
+                  "description": "Hotels."
+                },
+                {
+                  "value": "meals",
+                  "description": "Food and drink."
+                },
+                {
+                  "value": "ground",
+                  "description": "Taxis, rideshare and parking."
+                }
+              ]
+            }
+          }
+        }
+      },
+      "claimed_total": {
+        "type": "number",
+        "instructions": "The total claimed, in dollars."
+      },
+      "adds_up": {
+        "type": "boolean",
+        "depends_on": [
+          "line_items",
+          "claimed_total"
+        ],
+        "thinking_effort": "low",
+        "instructions": "Do the line items add up to the claimed total?"
+      },
+      "violations": {
+        "type": "array",
+        "depends_on": [
+          "line_items"
+        ],
+        "instructions": "Every policy rule the claim breaks; none if it follows the policy.",
+        "items": {
+          "type": "string",
+          "choices": [
+            {
+              "value": "hotel_over_cap",
+              "description": "A hotel night above $250."
+            },
+            {
+              "value": "meal_over_cap",
+              "description": "A meal above $75 per person."
+            },
+            {
+              "value": "alcohol",
+              "description": "Alcohol on a bill."
+            },
+            {
+              "value": "premium_fare",
+              "description": "A fare above economy."
+            }
+          ],
+          "thinking_effort": "low"
+        }
+      },
+      "approve": {
+        "type": "boolean",
+        "depends_on": [
+          "adds_up",
+          "violations"
+        ],
+        "return_probabilities": true,
+        "instructions": "Approve the claim as submitted? Only if it adds up and breaks no rule."
+      },
+      "note": {
+        "type": "string",
+        "depends_on": [
+          "violations"
+        ],
+        "instructions": "One sentence to the employee on what to fix before resubmitting."
+      }
+    },
+    "mode": "argmax",
+    "temperature": 0,
+    "seed": 42,
+    "text_max_tokens": 256,
+    "numeric_max_tokens": 256
+  },
+  "model": "C:\\Users\\Administrator\\.cache\\turbojev\\Qwen3-0.6B-Q4_K_M.gguf",
+  "model_sha256": "9acfc1e001311f34b4252001b626f2e466d592a42065f66571bff3790d4e1b14",
+  "load_seconds": 1.3038897999795154,
+  "error": {
+    "type": "TurboJevError",
+    "message": "CORE_ERROR: TurboJev core error: backend inference failed: THINKING_BUDGET_EXHAUSTED: reasoning did not finish; no answer was fabricated",
+    "usage": {
+      "decisions": 2,
+      "input_tokens": 1715,
+      "generated_tokens": 86
+    }
+  }
+}

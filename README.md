@@ -1,79 +1,95 @@
 # TurboJev demos
 
-Standalone projects using the latest published TurboJev release, **0.33.0**.
-Each project owns its code and input data. Model downloads are cached, but demos
-do not import another project's implementation or build a local TurboJev SDK.
+Runnable examples using TurboJev **0.33.0 from public package registries and
+CDNs**. Each demo has its own folder, source code, input data and run
+instructions. Demos use the published SDK; they do not build TurboJev locally
+or import another demo.
 
-| Technology                   | Projects                                                                                       | Package source                           |
-| ---------------------------- | ---------------------------------------------------------------------------------------------- | ---------------------------------------- |
-| [Python](python/README.md)   | Twelve workflow/thinking/probability ports, Snake, simple decisions, typed fields and receipts | PyPI                                     |
-| [Node](node/README.md)       | JavaScript and TypeScript                                                                      | npm                                      |
-| [.NET](dotnet/README.md)     | C#                                                                                             | NuGet                                    |
-| [Webpage](webpage/README.md) | Vanilla HTML/JavaScript, text and typed/media examples                                         | Public CDNs                              |
-| [Rust](rust/README.md)       | Typed decisions and structured fields                                                          | crates.io and public NuGet native assets |
+## Run a demo
 
-## Run
+Choose a language and run its example from the demo folder:
 
-```sh
-cd python/category-tree
-python -m pip install -r requirements.txt
-python main.py
+### Python
+
+```powershell
+cd python/simple
+py -m pip install -r requirements.txt
+py main.py
 ```
 
-Text defaults to QJev3.5 0.8B v19c GGUF Q8_0 (~0.81 GB). Downloads have a progress bar, speed and ETA.
-CPU is the default; explicit GPU requests never silently fall back. Use
-`--model PATH` or `TURBOJEV_MODEL` for a compatible checkpoint. Each folder has
-its own README and install/run commands.
+### JavaScript
 
-Native packages currently contain Windows x86, x64 and ARM64 assets. Run with a
-matching Node/Python/.NET architecture. Rust code uses the published C ABI for
-real inference. Browser WASM is architecture independent. Linux/macOS execution
-requires compatible published native assets; no local SDK build is substituted.
+```powershell
+cd node/js/typed-workflows
+npm ci
+npm start -- ticket
+```
 
-## Build checks and evidence
+### TypeScript
 
-On Windows, `.\build-all.ps1` checks the registry assets, publishes the C# demo
-for three architectures, builds Node/TypeScript, checks Rust targets and compiles
-all Python entry points. Requires Node, Python, Rust and .NET 8. Cross-compilation
-is not execution on another architecture.
+```powershell
+cd node/ts/typed-workflows
+npm ci
+npm start -- ticket
+```
 
-[Published-package evidence](validation/0.33.0/README.md) includes model hashes,
-responses and timings. New Python ports have separate records under
-[python-typellm](validation/0.33.0/python-typellm/README.md). Small models may
-misclassify or reason incorrectly. No host policy substitutes an expected answer.
+### C# / .NET
 
-The TypeLLM ports include their source-page attribution and upstream license.
-The receipt photograph has separate CORD attribution in its demo README.
+```powershell
+cd dotnet/csharp/typed-workflows
+dotnet run -c Release -- ticket
+```
 
-## Default decision model
+### Rust
 
-Text demos download [QJev3.5 0.8B v19c](https://huggingface.co/ZY-Lee4/QJev3.5-0.8B-GGUF),
-the standalone `qjev35-v19c-q8_0.gguf` file, pinned to revision
-`008c7c7a5c35007b8ba6b06afba50f882f000667`. Native downloads verify
-811,843,104 bytes and SHA-256
-`7a5a50953df2fb866a2f39bc4ac8906084cac4e3a5fa8f04adc519058ceedf87`.
-No separate LoRA or base-model download is needed.
+```powershell
+cd rust/typed-fields
+cargo run --release -- ticket
+```
 
-QJev is specialized in finite choices, boolean gates and ordered scores. It
-is not an instruction model for free-form extraction, arithmetic or planning.
-For those existing examples, explicitly supply a suitable model with `--model`
-or `TURBOJEV_MODEL`; browser typed generation accepts its URL. Image examples
-keep their multimodal GGUF and projector. QJev does not replace an ONNX model.
+### Browser
 
-The demos retain TurboJev's published prompt and scoring path. Loading these
-weights does not reproduce QJev's upstream prompt, reversal averaging or
-calibration; probabilities remain conditional scores. Model-selected answers
-and errors stay visible.
+```powershell
+cd webpage/vanilla
+py -m http.server 4174
+```
 
-Alternative repositories are commented in each text model configuration:
+Open <http://localhost:4174>. The page loads TurboJev from published CDN
+packages.
 
-- Jev-Style Qwen3.5 2B Decision v2: requires its letter-scoring prompt.
-- Jev-Style 0.8B Decision v3: requires its per-option verdict scorer.
-- Jev-Style 2B Decision v3: requires block attention and verdict scoring.
+## Choose an example
 
-These specialized alternatives are not interchangeable with general chat
-models. The v3 scoring requirements are not implemented by simply changing a
-GGUF path. Use the comments as integration references, not a compatibility claim.
+| Language | Examples and instructions |
+| --- | --- |
+| Python | [Workflow, probability, reasoning, Snake, typed fields and receipt demos](python/README.md) |
+| JavaScript | [Node.js demo](node/js/typed-workflows/README.md) |
+| TypeScript | [Node.js demo](node/ts/typed-workflows/README.md) |
+| C# / .NET | [Typed decision and structured workflow demos](dotnet/csharp/typed-workflows/README.md) |
+| Rust | [Typed decisions and structured fields](rust/typed-fields/README.md) |
+| Browser | [Vanilla HTML and JavaScript](webpage/vanilla/README.md) |
 
-[QJev default-model checks](validation/0.33.0/qjev-default.json) record the
-actual registry-package responses, model hash and observed mistakes.
+Each demo README lists its commands, options, model requirements and platform support.
+
+## Models and devices
+
+Text demos download QJev3.5 0.8B v19c Q8_0 on first run and cache it under
+`~/.cache/turbojev`. Downloads show progress and are reused by other demos. CPU
+is the default; a demo requests GPU only when you pass `--device gpu`. Image
+demos use a compatible vision GGUF and projector. Results show the model's
+actual output, including mistakes.
+
+Use a different local text model with `--model PATH` or `TURBOJEV_MODEL`, where
+supported. Each demo README lists its exact options.
+
+## Check the demos
+
+On Windows, `build-all.ps1` checks package availability, builds the C# and
+TypeScript projects, checks Rust targets and compiles Python files. It requires
+Python, Node.js, Rust and .NET 8. Cross-compilation does not verify execution on
+another CPU architecture.
+
+```powershell
+.\build-all.ps1
+```
+
+The [validation records](validation/0.33.0/README.md) include actual model responses, timings and platform coverage. Attribution and third-party licenses are included with the relevant demos.

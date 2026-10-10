@@ -30,7 +30,7 @@ Text also accepts `TURBOJEV_MODEL`. Custom vision models require both paths. Gen
 
 Current native npm packages cover Windows ia32/x64/ARM64. Run with the matching Node architecture; CPU/GPU backend support and available memory still apply. A 32-bit process may not fit the default vision pair. Other OS targets require matching published native packages; no local SDK is built as a workaround.
 
-Fair die and receipt definitions are adapted from TypeLLM, Apache-2.0; see [its retained license](TYPELLM-LICENSE). The CORD photograph is separately CC BY 4.0, NAVER/CLOVA, Park et al. (2019); attribution and source are in the [receipt README](../../python/receipt/README.md).
+Fair die and receipt definitions are adapted from TypeLLM, Apache-2.0; see [its retained license](TYPELLM-LICENSE). The CORD photograph is separately CC BY 4.0, NAVER/CLOVA, Park et al. (2019); attribution and source are in the [receipt README](../../../python/receipt/README.md).
 
 ## Structured SDK examples (TurboJev 0.33.0)
 

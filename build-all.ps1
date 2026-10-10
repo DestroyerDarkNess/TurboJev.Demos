@@ -36,11 +36,11 @@ try {
     Pop-Location
 }
 
-foreach ($project in @('node/js', 'node/ts')) {
+foreach ($project in @('node/js/typed-workflows', 'node/ts/typed-workflows')) {
     Push-Location (Join-Path $PSScriptRoot $project)
     try {
         Invoke-Checked npm.cmd @('ci', '--no-audit', '--no-fund')
-        if ($project -eq 'node/ts') { Invoke-Checked npm.cmd @('run', 'build') }
+        if ($project -eq 'node/ts/typed-workflows') { Invoke-Checked npm.cmd @('run', 'build') }
     } finally { Pop-Location }
 }
 

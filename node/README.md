@@ -2,5 +2,5 @@
 
 Uses TurboJev 0.33.0 from public package registries/CDNs. Each project owns its code and data.
 
-- [js](js/README.md)
-- [ts](ts/README.md)
+- [JavaScript typed workflows](js/typed-workflows/README.md)
+- [TypeScript typed workflows](ts/typed-workflows/README.md)

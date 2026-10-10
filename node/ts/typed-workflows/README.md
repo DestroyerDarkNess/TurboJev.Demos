@@ -18,7 +18,7 @@ Receipts include full 14/16-field schemas. `--fields a,b` explicitly records a s
 
 Use `--model PATH` (or `TURBOJEV_MODEL` for text) and `--mmproj PATH` together for custom vision models. `--max-tokens` limits generated output per field; `--output PATH` selects the report destination. Model answers, including dependent calculations and mistakes, remain unchanged. Expected receipt labels are checked afterward; your own photo has no reference labels unless explicitly selecting the original reference with `--reference-labels`.
 
-The published native packages cover Windows ia32/x64/ARM64; run a matching Node process. A 32-bit process may need a smaller vision model. Linux/macOS require matching published native artifacts. Each image field repeats inference, so a full receipt can take minutes. See the [Node README](../js/README.md) for all options, report semantics, runtime limits and TypeLLM/CORD attribution.
+The published native packages cover Windows ia32/x64/ARM64; run a matching Node process. A 32-bit process may need a smaller vision model. Linux/macOS require matching published native artifacts. Each image field repeats inference, so a full receipt can take minutes. See the [Node README](../../js/typed-workflows/README.md) for all options, report semantics, runtime limits and TypeLLM/CORD attribution.
 
 ## Structured SDK examples (TurboJev 0.33.0)
 

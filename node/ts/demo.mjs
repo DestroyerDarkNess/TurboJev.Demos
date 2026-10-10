@@ -21,6 +21,22 @@ import { performance } from "node:perf_hooks";
 
 const root = dirname(fileURLToPath(import.meta.url));
 const cache = join(homedir(), ".cache", "turbojev");
+// Default text model: QJev3.5 0.8B v19c, standalone Q8_0 (811,843,104 bytes).
+// Decision-trained weights; not a general extraction, reasoning or vision model.
+// TurboJev uses its normal prompt/scoring path; upstream benchmark claims do not transfer.
+// Alternatives (download locally and pass --model PATH; no automatic fallback):
+// Jev-Style 2B v2 (letter scoring; requires its trained prompt)
+// https://huggingface.co/chaoliangUNSW/Jev-Style-Qwen3.5-2B-Decision-v2-GGUF
+// Jev-Style 0.8B v3 (requires a per-option verdict scorer)
+// https://huggingface.co/chaoliangUNSW/Jev-Style-0.8B-Decision-v3-GGUF
+// Jev-Style 2B v3 (requires block attention and a verdict scorer)
+// https://huggingface.co/chaoliangUNSW/Jev-Style-2B-Decision-v3-GGUF
+const textModelName = "qjev35-v19c-q8_0.gguf";
+const textModelUrl =
+  "https://huggingface.co/ZY-Lee4/QJev3.5-0.8B-GGUF/resolve/008c7c7a5c35007b8ba6b06afba50f882f000667/qjev35-v19c-q8_0.gguf";
+const textModelBytes = 811843104;
+const textModelSha256 = "7a5a50953df2fb866a2f39bc4ac8906084cac4e3a5fa8f04adc519058ceedf87";
+
 const visionBase =
   "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/";
 const help = `Usage: npm start -- [ticket|fields|structured|hierarchical|discover-categories|dice|limits|fair-die|receipt|receipt-us] [options]
@@ -188,12 +204,7 @@ export async function modelPaths(options) {
       ),
     };
   return {
-    model: await download(
-      "Qwen3-0.6B-Q4_K_M.gguf",
-      "https://huggingface.co/bartowski/Qwen_Qwen3-0.6B-GGUF/resolve/60b85c0e3d8fe0f6474f406922a26d12aca4550d/Qwen_Qwen3-0.6B-Q4_K_M.gguf",
-      484220320,
-      "9acfc1e001311f34b4252001b626f2e466d592a42065f66571bff3790d4e1b14",
-    ),
+    model: await download(textModelName, textModelUrl, textModelBytes, textModelSha256),
   };
 }
 const readJson = (file) => JSON.parse(readFileSync(file, "utf8"));

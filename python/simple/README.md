@@ -14,7 +14,7 @@ python main.py
 ```
 
 The demo installs TurboJev 0.33.0 from PyPI. It does not build TurboJev or import
-its local source. The default Qwen3-0.6B Q4_K_M GGUF downloads with a progress
+its local source. The default QJev3.5 0.8B v19c Q8_0 GGUF downloads with a progress
 bar on first run and is reused from `~/.cache/turbojev/` afterwards. CPU is the
 default; model loading happens before the printed evaluation timer starts.
 
@@ -63,3 +63,7 @@ reorders score levels. Native thinking requires a suitable model and token budge
 The Python source is portable. PyPI 0.33.0 supplies Windows x86, x64, and ARM64
 wheels; use Python matching the desired architecture. Linux and macOS require
 matching published native wheels and are not validated by this example.
+
+The default is QJev3.5 0.8B v19c Q8_0. This is a decision-specialized
+checkpoint, not a guarantee of correct routing, tone or Snake navigation.
+Alternative GGUF repositories are commented in the entry point.

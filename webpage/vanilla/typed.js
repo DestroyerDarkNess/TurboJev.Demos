@@ -1,8 +1,18 @@
 import { Dice } from "https://cdn.jsdelivr.net/npm/@turbojev/web@0.33.0/dist/index.js";
 
 const $ = (id) => document.getElementById(id);
+// Default text model: QJev3.5 0.8B v19c, standalone Q8_0 (811,843,104 bytes).
+// Decision-trained weights; not a general extraction, reasoning or vision model.
+// TurboJev uses its normal prompt/scoring path; upstream benchmark claims do not transfer.
+// Alternative GGUF repositories (URL selection still requires compatible scoring):
+// Jev-Style 2B v2 (letter scoring; requires its trained prompt)
+// https://huggingface.co/chaoliangUNSW/Jev-Style-Qwen3.5-2B-Decision-v2-GGUF
+// Jev-Style 0.8B v3 (requires a per-option verdict scorer)
+// https://huggingface.co/chaoliangUNSW/Jev-Style-0.8B-Decision-v3-GGUF
+// Jev-Style 2B v3 (requires block attention and a verdict scorer)
+// https://huggingface.co/chaoliangUNSW/Jev-Style-2B-Decision-v3-GGUF
 const textUrl =
-  "https://huggingface.co/bartowski/Qwen_Qwen3-0.6B-GGUF/resolve/60b85c0e3d8fe0f6474f406922a26d12aca4550d/Qwen_Qwen3-0.6B-Q4_K_M.gguf";
+  "https://huggingface.co/ZY-Lee4/QJev3.5-0.8B-GGUF/resolve/008c7c7a5c35007b8ba6b06afba50f882f000667/qjev35-v19c-q8_0.gguf";
 const visionBase =
   "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/";
 const labels = ["one", "two", "three", "four", "five", "six"];
@@ -86,14 +96,14 @@ async function presets() {
   recipeOptions = {};
   if (name === "fair-die") {
     $("context").value = "A single roll of a fair die.";
-    $("questions").value = JSON.stringify(
-      { roll: new Dice().toSchema() },
-      null,
-      2,
-    );
+    $("questions").value = JSON.stringify({ roll: new Dice().toSchema() }, null, 2);
   } else {
     const response = await fetch(
-      isVision ? `./typed-data/${name}/questions.json` : name === "fields" ? "./typed-data/fields.json" : `./typed-data/recipes/${name}.json`,
+      isVision
+        ? `./typed-data/${name}/questions.json`
+        : name === "fields"
+          ? "./typed-data/fields.json"
+          : `./typed-data/recipes/${name}.json`,
     );
     if (!response.ok) throw Error("Could not read example definitions");
     const data = await response.json();
@@ -149,7 +159,7 @@ $("load").addEventListener("click", async () => {
         ...($("runtime").value === "llamacpp"
           ? {
               modelUrl: $("model-url").value,
-              modelLabel: vision() ? "Qwen3.5 2B" : "Qwen3 0.6B",
+              modelLabel: vision() ? "Qwen3.5 2B" : "QJev3.5 0.8B v19c",
               ...(vision() ? { mmprojUrl: $("projector-url").value } : {}),
             }
           : {}),

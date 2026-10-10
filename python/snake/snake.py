@@ -5,6 +5,7 @@ from __future__ import annotations
 import argparse
 import importlib.metadata
 import json
+import hashlib
 import math
 import os
 import platform
@@ -31,11 +32,21 @@ except ImportError:
     console = None
 
 
-MODEL_URL = (
-    "https://huggingface.co/bartowski/Qwen_Qwen3-0.6B-GGUF/resolve/main/"
-    "Qwen_Qwen3-0.6B-Q4_K_M.gguf?download=true"
-)
-MODEL_NAME = "Qwen3 0.6B Instruct · GGUF · Q4_K_M (~0.48 GB)"
+# Default text model: QJev3.5 0.8B v19c, standalone Q8_0 (811,843,104 bytes).
+# Decision-trained weights; not a general extraction, reasoning or vision model.
+# TurboJev uses its normal prompt/scoring path; upstream benchmark claims do not transfer.
+# Alternatives (download locally and pass --model PATH; no automatic fallback):
+# Jev-Style 2B v2 (letter scoring; requires its trained prompt)
+# https://huggingface.co/chaoliangUNSW/Jev-Style-Qwen3.5-2B-Decision-v2-GGUF
+# Jev-Style 0.8B v3 (requires a per-option verdict scorer)
+# https://huggingface.co/chaoliangUNSW/Jev-Style-0.8B-Decision-v3-GGUF
+# Jev-Style 2B v3 (requires block attention and a verdict scorer)
+# https://huggingface.co/chaoliangUNSW/Jev-Style-2B-Decision-v3-GGUF
+MODEL_URL = "https://huggingface.co/ZY-Lee4/QJev3.5-0.8B-GGUF/resolve/008c7c7a5c35007b8ba6b06afba50f882f000667/qjev35-v19c-q8_0.gguf"
+MODEL_FILE = "qjev35-v19c-q8_0.gguf"
+MODEL_BYTES = 811843104
+MODEL_SHA256 = "7a5a50953df2fb866a2f39bc4ac8906084cac4e3a5fa8f04adc519058ceedf87"
+MODEL_NAME = "QJev3.5 0.8B v19c · GGUF · Q8_0 (~0.81 GB)"
 DIRECTIONS = {
     "up": (0, -1),
     "down": (0, 1),
@@ -46,10 +57,20 @@ OPPOSITE = {"up": "down", "down": "up", "left": "right", "right": "left"}
 WIDTH, HEIGHT = 12, 10
 
 
+def valid_default_model(path: Path) -> bool:
+    if not path.is_file() or path.stat().st_size != MODEL_BYTES:
+        return False
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for chunk in iter(lambda: stream.read(1024 * 1024), b""):
+            digest.update(chunk)
+    return digest.hexdigest() == MODEL_SHA256
+
+
 def download_default_model() -> Path:
-    cache = Path.home() / ".cache" / "turbojev" / "Qwen3-0.6B-Q4_K_M.gguf"
+    cache = Path.home() / ".cache" / "turbojev" / MODEL_FILE
     cache.parent.mkdir(parents=True, exist_ok=True)
-    if cache.exists():
+    if valid_default_model(cache):
         if console:
             console.print(f"[dim]Using cached model: {cache}[/dim]")
         else:
@@ -81,6 +102,8 @@ def download_default_model() -> Path:
                 else:
                     print(f"\rDownloaded {received / 2**20:.0f} MB", end="", flush=True)
         print()
+        if not valid_default_model(temporary):
+            raise ValueError("QJev download size or SHA-256 mismatch.")
         temporary.replace(cache)
     except Exception:
         temporary.unlink(missing_ok=True)

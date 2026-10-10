@@ -15,7 +15,7 @@ python main.py --model /path/to/model.gguf
 python main.py --dry-run
 ```
 
-Defaults to Qwen3 0.6B Q4_K_M (~484 MB). The download shows progress, speed and
+Defaults to QJev3.5 0.8B v19c Q8_0 (~0.81 GB). The download shows progress, speed and
 ETA, verifies its checksum and caches under `~/.cache/turbojev`. CPU is the
 default; requesting an unsupported GPU returns an error without fallback.
 
@@ -33,3 +33,14 @@ All Python code belongs to this folder; there are no imports or invocations of
 other demos. Native wheels currently cover Windows x86/x64/ARM64. Other systems
 need compatible registry packages; portable code does not establish execution
 on every architecture. Source attribution/license: `TYPELLM-LICENSE`.
+
+QJev is specialized in bounded decisions. For open text/number extraction,
+arrays or model reasoning, select a general instruction GGUF with `--model PATH`
+(or `TURBOJEV_MODEL`). The example schemas stay unchanged; the host never
+fabricates an answer. QJev is not expected to reproduce those generation demos.
+Its upstream accuracy/calibration figures use a different prompt/scoring path
+and do not describe these TurboJev runs. Alternative model URLs and integration
+requirements are commented next to the model configuration in each entry point.
+
+Thinking defaults to `off`. `--thinking example` retains the original
+source schema settings when using a compatible general model.

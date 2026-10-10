@@ -1,13 +1,27 @@
 const $ = (id) => document.getElementById(id);
+// Default text model: QJev3.5 0.8B v19c, standalone Q8_0 (811,843,104 bytes).
+// Decision-trained weights; not a general extraction, reasoning or vision model.
+// TurboJev uses its normal prompt/scoring path; upstream benchmark claims do not transfer.
+// Alternative GGUF repositories (URL selection still requires compatible scoring):
+// Jev-Style 2B v2 (letter scoring; requires its trained prompt)
+// https://huggingface.co/chaoliangUNSW/Jev-Style-Qwen3.5-2B-Decision-v2-GGUF
+// Jev-Style 0.8B v3 (requires a per-option verdict scorer)
+// https://huggingface.co/chaoliangUNSW/Jev-Style-0.8B-Decision-v3-GGUF
+// Jev-Style 2B v3 (requires block attention and a verdict scorer)
+// https://huggingface.co/chaoliangUNSW/Jev-Style-2B-Decision-v3-GGUF
+const qjevUrl =
+  "https://huggingface.co/ZY-Lee4/QJev3.5-0.8B-GGUF/resolve/008c7c7a5c35007b8ba6b06afba50f882f000667/qjev35-v19c-q8_0.gguf";
+
 const modelCatalog = {
   transformers: [
-    { id: "onnx-community/Qwen3-0.6B-ONNX", name: "Qwen3 Â· 0.6B Â· ONNX" },
-    { id: "onnx-community/Qwen2.5-0.5B-Instruct", name: "Qwen2.5 Â· 0.5B Â· ONNX" },
+    { id: "onnx-community/Qwen3-0.6B-ONNX", name: "Qwen3 · 0.6B · ONNX" },
+    { id: "onnx-community/Qwen2.5-0.5B-Instruct", name: "Qwen2.5 · 0.5B · ONNX" },
   ],
   llamacpp: [
+    { id: "ZY-Lee4/QJev3.5-0.8B-GGUF", name: "QJev3.5 · 0.8B · v19c · Q8_0 · GGUF", url: qjevUrl },
     {
       id: "Qwen/Qwen3-0.6B-GGUF",
-      name: "Qwen3 Â· 0.6B Â· Q8_0 Â· GGUF",
+      name: "Qwen3 · 0.6B · Q8_0 · GGUF",
       url: "https://huggingface.co/Qwen/Qwen3-0.6B-GGUF/resolve/23749fefcc72300e3a2ad315e1317431b06b590a/Qwen3-0.6B-Q8_0.gguf",
     },
   ],
@@ -15,13 +29,13 @@ const modelCatalog = {
 const examples = {
   account: {
     state:
-      "A customer says a password reset succeeded, but every login attempt still returns â€˜account lockedâ€™. Two unlock emails were requested and neither arrived.",
+      "A customer says a password reset succeeded, but every login attempt still returns ‘account locked’. Two unlock emails were requested and neither arrived.",
     question: "Which queue should handle this request?",
     options: ["Account access support", "Billing support", "Close as resolved"],
   },
   email: {
     state:
-      "An email claims to be from the payroll team and says the recipientâ€™s salary payment will be suspended today. It comes from payroll-review@outlook.com and links to a non-company sign-in page asking for a password and verification code.",
+      "An email claims to be from the payroll team and says the recipient’s salary payment will be suspended today. It comes from payroll-review@outlook.com and links to a non-company sign-in page asking for a password and verification code.",
     question: "How should this email be classified?",
     options: ["Legitimate", "Spam", "Phishing"],
   },
@@ -46,8 +60,8 @@ function updateModelChoices() {
   );
   $("runtime-detail").textContent =
     runtime === "llamacpp"
-      ? "GGUF models Â· llama.cpp WebAssembly, with optional WebGPU."
-      : "ONNX models Â· Transformers.js WebAssembly or WebGPU.";
+      ? "GGUF models · llama.cpp WebAssembly, with optional WebGPU."
+      : "ONNX models · Transformers.js WebAssembly or WebGPU.";
 }
 
 // Load the published wasm-bindgen module directly; its default initializer
@@ -159,7 +173,7 @@ $("load").addEventListener("click", async () => {
     engineReady = true;
     $("runtime-state").textContent = "Ready";
     $("runtime-detail").textContent =
-      `${descriptor.model} Â· ${runtime === "llamacpp" ? "llama.cpp WASM" : "Transformers.js"} Â· ${device === "wasm" ? "CPU" : "WebGPU"}`;
+      `${descriptor.model} · ${runtime === "llamacpp" ? "llama.cpp WASM" : "Transformers.js"} · ${device === "wasm" ? "CPU" : "WebGPU"}`;
     $("load-progress").hidden = true;
     $("empty").hidden = false;
     $("result").hidden = true;
@@ -261,7 +275,7 @@ $("compare").addEventListener("click", async () => {
     const turboMs = median(turboRuns.map((run) => run.elapsedMs));
     renderComparisonSide("turbo", turboRuns.at(-1).response, turboMs);
     $("comparison-status").textContent =
-      "TurboJev finished; releasing its model before loading SemIfâ€™s reference runtimeâ€¦";
+      "TurboJev finished; releasing its model before loading SemIf’s reference runtimeâ€¦";
     await call("close");
     engineReady = false;
     referenceWorker = new Worker("./semif-worker.js", { type: "module" });
@@ -279,9 +293,9 @@ $("compare").addEventListener("click", async () => {
     $("comparison-ratio").textContent =
       ratio >= 1
         ? `SemIf direct readout was ${ratio.toFixed(2)}Ã— faster.`
-        : `TurboJev was ${(1 / ratio).toFixed(2)}Ã— faster than SemIfâ€™s direct readout.`;
+        : `TurboJev was ${(1 / ratio).toFixed(2)}Ã— faster than SemIf’s direct readout.`;
     $("comparison-status").textContent =
-      "Median of 3 runs per engine. Same Qwen3 0.6B Q8_0 GGUF, state, question, options, and device; each engine formats its own prompt. Model load and warmup are excluded. TurboJev ran first.";
+      "Median of 3 runs per engine. Same selected GGUF, state, question, options, and device; each engine formats its own prompt. Model load and warmup are excluded. TurboJev ran first.";
     await loadTurboAgain();
     $("comparison-status").textContent += " TurboJev is ready again.";
   } catch (error) {
@@ -416,7 +430,7 @@ async function loadTurboAgain() {
   $("load-progress").hidden = true;
   $("runtime-state").textContent = "Ready";
   $("runtime-detail").textContent =
-    `${selectedModel.textContent} Â· llama.cpp WASM Â· ${$("device").value === "wasm" ? "CPU" : "WebGPU"}`;
+    `${selectedModel.textContent} · llama.cpp WASM · ${$("device").value === "wasm" ? "CPU" : "WebGPU"}`;
 }
 
 document.querySelectorAll("[data-example]").forEach((button) =>

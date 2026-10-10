@@ -15,7 +15,7 @@ cargo run --release -- --help
 
 `ticket` uses `evaluate`. The other modes use `generate`: scalar/null fields, boolean probabilities, dependencies/conditions, enum permutation budgets and full 14/16-field image schemas. Receipt `--fields` selects an explicit subset and includes dependencies. Expected labels are compared only after inference; no host arithmetic substitutes for model-generated calculations. All answers, mistakes, model/library hashes, device and timings are retained in `result-<example>.json` (`--output PATH` overrides it).
 
-CPU is the default; GPU is explicitly requested without fallback. Text defaults to Qwen3 0.6B Q4_K_M (~484 MB). Images use Qwen3.5 2B Q4_K_M and matching F16 projector (~1.95 GB together). GGUF downloads show progress, speed and ETA and reuse `~/.cache/turbojev`. Defaults check byte counts and headers; the text model also checks SHA-256. Interrupted downloads restart. `--model PATH` and `--mmproj PATH` select a compatible custom vision pair; text also accepts `TURBOJEV_MODEL`.
+CPU is the default; GPU is explicitly requested without fallback. Text defaults to QJev3.5 0.8B v19c Q8_0 (~0.81 GB). Images use Qwen3.5 2B Q4_K_M and matching F16 projector (~1.95 GB together). GGUF downloads show progress, speed and ETA and reuse `~/.cache/turbojev`. Defaults check byte counts and headers; the text model also checks SHA-256. Interrupted downloads restart. `--model PATH` and `--mmproj PATH` select a compatible custom vision pair; text also accepts `TURBOJEV_MODEL`.
 
 `fair-die` compares actual distributions for 1/auto/8 orderings; `--all-permutations` opts into 720. Averaging is additional inference, not guaranteed correctness. `--max-tokens` bounds each generated field. Each image field repeats processing and can take minutes. The CORD photo is bundled; `receipt-us` requires your own photo. `--reference-labels` applies only to the exact original reference image. A 32-bit process may need a smaller vision pair.
 
@@ -31,7 +31,6 @@ Compilation for an architecture is not execution on it; use a matching host/emul
 
 Question definitions are adapted from TypeLLM (Apache-2.0; [license](TYPELLM-LICENSE)). The CORD photograph has its separate CC BY 4.0 attribution in the [receipt README](../../python/receipt/README.md).
 
-
 ## Structured SDK examples (TurboJev 0.33.0)
 
 ```sh
@@ -44,8 +43,14 @@ cargo run -- limits
 
 All use the registry package, never a workspace build. Dice samples from the
 model distribution with seed 42; fair-die measures the distribution with greedy
-decoding and compares it with 1/6 per face. Auto costs six layouts, and all costs
-720. Numeric limits constrain generated digits, including fractional digits.
-
+decoding and compares it with 1/6 per face. Auto costs six layouts, and all costs 720. Numeric limits constrain generated digits, including fractional digits.
 
 Bundled image attribution: [data/receipt/ATTRIBUTION.md](data/receipt/ATTRIBUTION.md).
+
+QJev is specialized in bounded decisions. For open text/number extraction,
+arrays or model reasoning, select a general instruction GGUF with `--model PATH`
+(or `TURBOJEV_MODEL`). The example schemas stay unchanged; the host never
+fabricates an answer. QJev is not expected to reproduce those generation demos.
+Its upstream accuracy/calibration figures use a different prompt/scoring path
+and do not describe these TurboJev runs. Alternative model URLs and integration
+requirements are commented next to the model configuration in each entry point.

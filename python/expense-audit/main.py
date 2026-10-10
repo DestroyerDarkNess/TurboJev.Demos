@@ -20,13 +20,20 @@ from turbojev import TurboJev, compile_json_schema
 
 VERSION = "0.33.0"
 SOURCE = "https://typellm.ai/examples/expense-audit"
-MODEL_NAME = "Qwen3-0.6B-Q4_K_M.gguf"
-MODEL_URL = (
-    "https://huggingface.co/bartowski/Qwen_Qwen3-0.6B-GGUF/resolve/"
-    "60b85c0e3d8fe0f6474f406922a26d12aca4550d/" + MODEL_NAME
-)
-MODEL_BYTES = 484220320
-MODEL_SHA256 = "9acfc1e001311f34b4252001b626f2e466d592a42065f66571bff3790d4e1b14"
+# Default text model: QJev3.5 0.8B v19c, standalone Q8_0 (811,843,104 bytes).
+# Decision-trained weights; not a general extraction, reasoning or vision model.
+# TurboJev uses its normal prompt/scoring path; upstream benchmark claims do not transfer.
+# Alternatives (download locally and pass --model PATH; no automatic fallback):
+# Jev-Style 2B v2 (letter scoring; requires its trained prompt)
+# https://huggingface.co/chaoliangUNSW/Jev-Style-Qwen3.5-2B-Decision-v2-GGUF
+# Jev-Style 0.8B v3 (requires a per-option verdict scorer)
+# https://huggingface.co/chaoliangUNSW/Jev-Style-0.8B-Decision-v3-GGUF
+# Jev-Style 2B v3 (requires block attention and a verdict scorer)
+# https://huggingface.co/chaoliangUNSW/Jev-Style-2B-Decision-v3-GGUF
+MODEL_NAME = "qjev35-v19c-q8_0.gguf"
+MODEL_URL = "https://huggingface.co/ZY-Lee4/QJev3.5-0.8B-GGUF/resolve/008c7c7a5c35007b8ba6b06afba50f882f000667/qjev35-v19c-q8_0.gguf"
+MODEL_BYTES = 811843104
+MODEL_SHA256 = "7a5a50953df2fb866a2f39bc4ac8906084cac4e3a5fa8f04adc519058ceedf87"
 FOLDER = Path(__file__).resolve().parent
 
 # The model produces every answer. The host never substitutes expected results.
@@ -195,7 +202,7 @@ def main() -> int:
     parser.add_argument("--device", choices=("cpu", "gpu"), default="cpu")
     parser.add_argument("--context", help="Replace the example's input text.")
     parser.add_argument(
-        "--thinking", choices=("example", "off", "auto", "low", "medium", "high"), default="example"
+        "--thinking", choices=("example", "off", "auto", "low", "medium", "high"), default="off"
     )
     parser.add_argument("--permutations", help="Override finite-field budgets: 1, auto, 8 or all.")
     parser.add_argument("--max-tokens", type=int, default=256)

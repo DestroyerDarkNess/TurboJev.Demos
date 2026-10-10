@@ -16,7 +16,20 @@ from turbojev import Dice, TurboJev
 CACHE = Path.home() / ".cache" / "turbojev"
 
 
-TEXT_MODEL_URL = "https://huggingface.co/bartowski/Qwen_Qwen3-0.6B-GGUF/resolve/60b85c0e3d8fe0f6474f406922a26d12aca4550d/Qwen_Qwen3-0.6B-Q4_K_M.gguf"
+# Default text model: QJev3.5 0.8B v19c, standalone Q8_0 (811,843,104 bytes).
+# Decision-trained weights; not a general extraction, reasoning or vision model.
+# TurboJev uses its normal prompt/scoring path; upstream benchmark claims do not transfer.
+# Alternatives (download locally and pass --model PATH; no automatic fallback):
+# Jev-Style 2B v2 (letter scoring; requires its trained prompt)
+# https://huggingface.co/chaoliangUNSW/Jev-Style-Qwen3.5-2B-Decision-v2-GGUF
+# Jev-Style 0.8B v3 (requires a per-option verdict scorer)
+# https://huggingface.co/chaoliangUNSW/Jev-Style-0.8B-Decision-v3-GGUF
+# Jev-Style 2B v3 (requires block attention and a verdict scorer)
+# https://huggingface.co/chaoliangUNSW/Jev-Style-2B-Decision-v3-GGUF
+TEXT_MODEL_URL = "https://huggingface.co/ZY-Lee4/QJev3.5-0.8B-GGUF/resolve/008c7c7a5c35007b8ba6b06afba50f882f000667/qjev35-v19c-q8_0.gguf"
+TEXT_MODEL_NAME = "qjev35-v19c-q8_0.gguf"
+TEXT_MODEL_BYTES = 811843104
+TEXT_MODEL_SHA256 = "7a5a50953df2fb866a2f39bc4ac8906084cac4e3a5fa8f04adc519058ceedf87"
 
 
 def file_sha256(path):
@@ -78,7 +91,12 @@ def text_model(model=None):
         if not path.is_file():
             raise FileNotFoundError(path)
         return path
-    return download(TEXT_MODEL_URL, CACHE / "Qwen3-0.6B-Q4_K_M.gguf")
+    path = download(TEXT_MODEL_URL, CACHE / TEXT_MODEL_NAME)
+    if path.stat().st_size != TEXT_MODEL_BYTES or file_sha256(path) != TEXT_MODEL_SHA256:
+        raise ValueError(
+            "QJev model size or SHA-256 mismatch; remove the invalid cache file and retry."
+        )
+    return path
 
 
 LABELS = ["one", "two", "three", "four", "five", "six"]

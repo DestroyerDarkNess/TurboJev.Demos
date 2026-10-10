@@ -15,7 +15,7 @@ npm start -- receipt-us --image C:/photos/receipt.jpg --device gpu
 
 Receipts request all 14 CORD or 16 US fields unless `--fields` selects a recorded subset; dependencies are included. Images and arithmetic are processed by the model. Ground-truth labels are compared afterward and never supplied in its request. The bundled CORD photo uses its labels automatically. For your own images no labels apply; `--reference-labels` is only for the exact original reference photo. The original US image is not bundled.
 
-CPU is the default; `--device gpu` explicitly requests a supported native GPU backend and does not fall back. Text defaults to Qwen3 0.6B Q4_K_M (~484 MB). Images default to Qwen3.5 2B Q4_K_M plus matching F16 projector (~1.95 GB together). Pinned downloads show percentage, speed and ETA and share `~/.cache/turbojev` with the other demos. Interrupted downloads restart; default file sizes/GGUF headers are checked, plus a SHA-256 check for the default text model.
+CPU is the default; `--device gpu` explicitly requests a supported native GPU backend and does not fall back. Text defaults to QJev3.5 0.8B v19c Q8_0 (~0.81 GB). Images default to Qwen3.5 2B Q4_K_M plus matching F16 projector (~1.95 GB together). Pinned downloads show percentage, speed and ETA and share `~/.cache/turbojev` with the other demos. Interrupted downloads restart; default file sizes/GGUF headers are checked, plus a SHA-256 check for the default text model.
 
 ```powershell
 npm start -- ticket --model C:/models/text.gguf
@@ -32,7 +32,6 @@ Current native npm packages cover Windows ia32/x64/ARM64. Run with the matching 
 
 Fair die and receipt definitions are adapted from TypeLLM, Apache-2.0; see [its retained license](TYPELLM-LICENSE). The CORD photograph is separately CC BY 4.0, NAVER/CLOVA, Park et al. (2019); attribution and source are in the [receipt README](../../python/receipt/README.md).
 
-
 ## Structured SDK examples (TurboJev 0.33.0)
 
 ```sh
@@ -45,9 +44,7 @@ npm start -- limits
 
 All use the registry package, never a workspace build. Dice samples from the
 model distribution with seed 42; fair-die measures the distribution with greedy
-decoding and compares it with 1/6 per face. Auto costs six layouts, and all costs
-720. Numeric limits constrain generated digits, including fractional digits.
-
+decoding and compares it with 1/6 per face. Auto costs six layouts, and all costs 720. Numeric limits constrain generated digits, including fractional digits.
 
 In PowerShell, pass options directly to Node if the npm shell wrapper consumes
 them. Alternatively use `npm.cmd start -- <example> <options>`.
@@ -56,5 +53,12 @@ them. Alternatively use `npm.cmd start -- <example> <options>`.
 node main.js dice --device gpu
 ```
 
-
 Bundled image attribution: [data/receipt/ATTRIBUTION.md](data/receipt/ATTRIBUTION.md).
+
+QJev is specialized in bounded decisions. For open text/number extraction,
+arrays or model reasoning, select a general instruction GGUF with `--model PATH`
+(or `TURBOJEV_MODEL`). The example schemas stay unchanged; the host never
+fabricates an answer. QJev is not expected to reproduce those generation demos.
+Its upstream accuracy/calibration figures use a different prompt/scoring path
+and do not describe these TurboJev runs. Alternative model URLs and integration
+requirements are commented next to the model configuration in each entry point.

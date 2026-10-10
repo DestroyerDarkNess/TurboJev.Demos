@@ -3,6 +3,21 @@ using System.Security.Cryptography;
 
 internal static class Models
 {
+    // Default text model: QJev3.5 0.8B v19c, standalone Q8_0 (811,843,104 bytes).
+    // Decision-trained weights; not a general extraction, reasoning or vision model.
+    // TurboJev uses its normal prompt/scoring path; upstream benchmark claims do not transfer.
+    // Alternatives (download locally and pass --model PATH; no automatic fallback):
+    // Jev-Style 2B v2 (letter scoring; requires its trained prompt)
+    // https://huggingface.co/chaoliangUNSW/Jev-Style-Qwen3.5-2B-Decision-v2-GGUF
+    // Jev-Style 0.8B v3 (requires a per-option verdict scorer)
+    // https://huggingface.co/chaoliangUNSW/Jev-Style-0.8B-Decision-v3-GGUF
+    // Jev-Style 2B v3 (requires block attention and a verdict scorer)
+    // https://huggingface.co/chaoliangUNSW/Jev-Style-2B-Decision-v3-GGUF
+    private const string TextModelName = "qjev35-v19c-q8_0.gguf";
+    private const string TextModelUrl = "https://huggingface.co/ZY-Lee4/QJev3.5-0.8B-GGUF/resolve/008c7c7a5c35007b8ba6b06afba50f882f000667/qjev35-v19c-q8_0.gguf";
+    private const long TextModelBytes = 811_843_104;
+    private const string TextModelSha256 = "7a5a50953df2fb866a2f39bc4ac8906084cac4e3a5fa8f04adc519058ceedf87";
+
     private const string VisionRoot = "https://huggingface.co/unsloth/Qwen3.5-2B-GGUF/resolve/f6d5376be1edb4d416d56da11e5397a961aca8ae/";
     private static readonly string Cache = Path.Combine(Environment.GetFolderPath(Environment.SpecialFolder.UserProfile), ".cache", "turbojev");
     public static Task<string> ResolveAsync(string? path, bool vision)
@@ -11,7 +26,7 @@ internal static class Models
         if (!string.IsNullOrWhiteSpace(path)) return Task.FromResult(ValidateCustom(path));
         return vision
             ? DownloadAsync("Qwen3.5-2B-Q4_K_M.gguf", VisionRoot + "Qwen3.5-2B-Q4_K_M.gguf", 1_280_835_840)
-            : DownloadAsync("Qwen3-0.6B-Q4_K_M.gguf", "https://huggingface.co/bartowski/Qwen_Qwen3-0.6B-GGUF/resolve/60b85c0e3d8fe0f6474f406922a26d12aca4550d/Qwen_Qwen3-0.6B-Q4_K_M.gguf?download=true", 484_220_320, "9acfc1e001311f34b4252001b626f2e466d592a42065f66571bff3790d4e1b14");
+            : DownloadAsync(TextModelName, TextModelUrl, TextModelBytes, TextModelSha256);
     }
     public static Task<string> ResolveProjectorAsync(string? path) => path is not null
         ? Task.FromResult(ValidateCustom(path))

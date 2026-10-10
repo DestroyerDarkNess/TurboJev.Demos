@@ -1,0 +1,485 @@
+{
+  "sdk_version": "0.33.0",
+  "model": "ZY-Lee4/QJev3.5-0.8B-GGUF",
+  "revision": "008c7c7a5c35007b8ba6b06afba50f882f000667",
+  "file": "qjev35-v19c-q8_0.gguf",
+  "bytes": 811843104,
+  "sha256": "7a5a50953df2fb866a2f39bc4ac8906084cac4e3a5fa8f04adc519058ceedf87",
+  "platform": "Windows x64",
+  "scoring": "Unmodified published TurboJev prompt/scoring; not the QJev reference protocol",
+  "checks": {
+    "python_compile_files": 21,
+    "typellm_schemas_compiled": 12,
+    "typescript_build": true,
+    "dotnet_build": true,
+    "rust_check": true,
+    "browser_cpu_wasm_load_and_evaluate": true
+  },
+  "quality_limits": [
+    "Category-tree chose home_kitchen/cookware for a French press; coffee_tea is the intended leaf.",
+    "Simple example returned urgent=0.0129 and calm tone; no expected answer was substituted.",
+    "Rust debug execution timed out in a 180s build/run check; the documented release run completed.",
+    "These runs do not establish general accuracy, calibrated confidence, cross-architecture execution, or controlled speed comparisons.",
+    "Browser CPU WASM account-access evaluation returned the correct queue in 35.63s in this headless run; this is not a controlled performance benchmark."
+  ],
+  "records": {
+    "node_js": {
+      "example": "ticket",
+      "package_version": "0.33.0",
+      "language": "JavaScript / Node",
+      "platform": "win32",
+      "architecture": "x64",
+      "device": "cpu",
+      "model": "C:\\Users\\Administrator\\.cache\\turbojev\\qjev35-v19c-q8_0.gguf",
+      "model_sha256": "7a5a50953df2fb866a2f39bc4ac8906084cac4e3a5fa8f04adc519058ceedf87",
+      "load_seconds": 2.5752738999999996,
+      "response": {
+        "model": "qwen35 0.8B Q8_0",
+        "answers": {
+          "team": {
+            "type": "choice",
+            "choice": "shipping",
+            "confidence": 0.9999799498472908,
+            "probabilities": {
+              "billing": 7.47749487196087e-06,
+              "technical": 1.2572657837330652e-05,
+              "shipping": 0.9999799498472908
+            }
+          },
+          "urgency": {
+            "type": "score",
+            "score": 0.004165268605539552,
+            "confidence": 0.9969070737739061,
+            "probabilities": {
+              "0": 0.9969070737739061,
+              "1": 0.0020205838466483815,
+              "2": 0.0010723423794455854
+            },
+            "legend": {
+              "0": "Can wait",
+              "1": "This week",
+              "2": "Today"
+            }
+          },
+          "wantsRefund": {
+            "type": "noul",
+            "noul": 0.007253858149525607
+          }
+        },
+        "usage": {
+          "decisions": 3,
+          "input_tokens": 310,
+          "generated_tokens": 0
+        },
+        "_turbojev": {
+          "backend": "llamacpp",
+          "calibration": "softmax",
+          "calibrated": false,
+          "confidence_method": "selected-candidate-probability",
+          "contract": "turbojev.core.v4",
+          "order_robustness": "none",
+          "order_evaluations": 0,
+          "execution": {
+            "prefix_reuse": "none",
+            "scheduling": "serial",
+            "parallel_task_limit": 1,
+            "projection": "full-vocabulary"
+          }
+        }
+      },
+      "evaluation_seconds": 10.248116399999999,
+      "ok": true,
+      "error": null
+    },
+    "node_ts": {
+      "example": "ticket",
+      "package_version": "0.33.0",
+      "language": "TypeScript / Node",
+      "platform": "win32",
+      "architecture": "x64",
+      "device": "cpu",
+      "model": "C:\\Users\\Administrator\\.cache\\turbojev\\qjev35-v19c-q8_0.gguf",
+      "model_sha256": "7a5a50953df2fb866a2f39bc4ac8906084cac4e3a5fa8f04adc519058ceedf87",
+      "load_seconds": 3.5664962,
+      "response": {
+        "model": "qwen35 0.8B Q8_0",
+        "answers": {
+          "team": {
+            "type": "choice",
+            "choice": "shipping",
+            "confidence": 0.9999799498472908,
+            "probabilities": {
+              "billing": 7.47749487196087e-06,
+              "technical": 1.2572657837330652e-05,
+              "shipping": 0.9999799498472908
+            }
+          },
+          "urgency": {
+            "type": "score",
+            "score": 0.004165268605539552,
+            "confidence": 0.9969070737739061,
+            "probabilities": {
+              "0": 0.9969070737739061,
+              "1": 0.0020205838466483815,
+              "2": 0.0010723423794455854
+            },
+            "legend": {
+              "0": "Can wait",
+              "1": "This week",
+              "2": "Today"
+            }
+          },
+          "wantsRefund": {
+            "type": "noul",
+            "noul": 0.007253858149525607
+          }
+        },
+        "usage": {
+          "decisions": 3,
+          "input_tokens": 310,
+          "generated_tokens": 0
+        },
+        "_turbojev": {
+          "backend": "llamacpp",
+          "calibration": "softmax",
+          "calibrated": false,
+          "confidence_method": "selected-candidate-probability",
+          "contract": "turbojev.core.v4",
+          "order_robustness": "none",
+          "order_evaluations": 0,
+          "execution": {
+            "prefix_reuse": "none",
+            "scheduling": "serial",
+            "parallel_task_limit": 1,
+            "projection": "full-vocabulary"
+          }
+        }
+      },
+      "evaluation_seconds": 7.4357726,
+      "ok": true,
+      "error": null
+    },
+    "csharp": {
+      "example": "ticket",
+      "turbojev": "0.33.0.0",
+      "package_version": "0.33.0",
+      "platform": "Microsoft Windows 10.0.26100",
+      "architecture": "X64",
+      "device": "cpu",
+      "model": "C:\\Users\\Administrator\\.cache\\turbojev\\qjev35-v19c-q8_0.gguf",
+      "model_sha256": "7a5a50953df2fb866a2f39bc4ac8906084cac4e3a5fa8f04adc519058ceedf87",
+      "load_seconds": 2.2368382,
+      "evaluation_seconds": 9.701214,
+      "response": {
+        "model": "qwen35 0.8B Q8_0",
+        "answers": {
+          "team": {
+            "type": "choice",
+            "choice": "shipping",
+            "confidence": 0.9999799498472908,
+            "probabilities": {
+              "billing": 7.47749487196087e-06,
+              "technical": 1.2572657837330652e-05,
+              "shipping": 0.9999799498472908
+            }
+          },
+          "urgency": {
+            "type": "score",
+            "score": 0.004165268605539552,
+            "confidence": 0.9969070737739061,
+            "probabilities": {
+              "0": 0.9969070737739061,
+              "1": 0.0020205838466483815,
+              "2": 0.0010723423794455854
+            },
+            "legend": {
+              "0": "Can wait",
+              "1": "This week",
+              "2": "Today"
+            }
+          },
+          "wantsRefund": {
+            "type": "noul",
+            "noul": 0.007253858149525607
+          }
+        },
+        "usage": {
+          "decisions": 3,
+          "input_tokens": 310,
+          "generated_tokens": 0
+        },
+        "_turbojev": {
+          "backend": "llamacpp",
+          "calibration": "softmax",
+          "calibrated": false,
+          "confidence_method": "selected-candidate-probability",
+          "contract": "turbojev.core.v4",
+          "order_robustness": "none",
+          "order_evaluations": 0,
+          "execution": {
+            "prefix_reuse": "none",
+            "scheduling": "serial",
+            "parallel_task_limit": 1,
+            "projection": "full-vocabulary"
+          }
+        }
+      },
+      "ok": true,
+      "error": null
+    },
+    "rust_release": {
+      "example": "ticket",
+      "package_version": "0.33.0",
+      "language": "Rust",
+      "platform": "windows",
+      "architecture": "x86_64",
+      "device": "cpu",
+      "model": "C:\\Users\\Administrator\\.cache/turbojev\\qjev35-v19c-q8_0.gguf",
+      "model_sha256": "7a5a50953df2fb866a2f39bc4ac8906084cac4e3a5fa8f04adc519058ceedf87",
+      "native_library": "\\\\?\\D:\\Projects\\TurboJev\\other\\TurboJev.Demos\\rust\\typed-fields\\.artifacts\\rust-native\\0.33.0\\runtimes\\win-x64\\native\\turbojev_capi.dll",
+      "native_sha256": "9e54c7d3cda6ecb6eae90af71c7292a27eea6e3b253619c5f19cc5bf25b4eb73",
+      "load_seconds": 7.5430656,
+      "response": {
+        "model": "qwen35 0.8B Q8_0",
+        "answers": {
+          "team": {
+            "type": "choice",
+            "choice": "shipping",
+            "confidence": 0.9999799498472908,
+            "probabilities": {
+              "billing": 7.47749487196087e-06,
+              "technical": 1.2572657837330652e-05,
+              "shipping": 0.9999799498472908
+            }
+          },
+          "urgency": {
+            "type": "score",
+            "score": 0.004165268605539552,
+            "confidence": 0.996907073773906,
+            "probabilities": {
+              "0": 0.996907073773906,
+              "1": 0.0020205838466483815,
+              "2": 0.0010723423794455854
+            },
+            "legend": {
+              "0": "Can wait",
+              "1": "This week",
+              "2": "Today"
+            }
+          },
+          "wantsRefund": {
+            "type": "noul",
+            "noul": 0.007253858149525607
+          }
+        },
+        "usage": {
+          "decisions": 3,
+          "input_tokens": 310,
+          "generated_tokens": 0
+        },
+        "_turbojev": {
+          "backend": "llamacpp",
+          "calibration": "softmax",
+          "calibrated": false,
+          "confidence_method": "selected-candidate-probability",
+          "contract": "turbojev.core.v4",
+          "order_robustness": "none",
+          "order_evaluations": 0,
+          "execution": {
+            "prefix_reuse": "none",
+            "scheduling": "serial",
+            "parallel_task_limit": 1,
+            "projection": "full-vocabulary"
+          }
+        }
+      },
+      "evaluation_seconds": 36.1821875,
+      "ok": true,
+      "error": null
+    },
+    "python_category_tree": {
+      "demo": "category-tree",
+      "source": "https://typellm.ai/examples/category-tree",
+      "package_version": "0.33.0",
+      "platform": "Windows-11-10.0.26100-SP0",
+      "machine": "AMD64",
+      "python_bits": 64,
+      "device": "cpu",
+      "request": {
+        "context": "Product: Stainless steel French press, 34 oz, double-wall insulated, makes 8 cups.",
+        "questions": {
+          "department": {
+            "type": "string",
+            "enum": [
+              "electronics",
+              "home_kitchen",
+              "sports_outdoors"
+            ],
+            "instructions": "Which department does this product belong to?",
+            "thinking": false,
+            "permutations": 1
+          },
+          "electronics": {
+            "type": "string",
+            "enum": [
+              "phones",
+              "laptops",
+              "audio",
+              "cameras"
+            ],
+            "instructions": "Which kind of electronics is it?",
+            "when": {
+              "department": "electronics"
+            },
+            "thinking": false,
+            "permutations": 1
+          },
+          "home_kitchen": {
+            "type": "string",
+            "enum": [
+              "cookware",
+              "coffee_tea",
+              "bedding",
+              "lighting"
+            ],
+            "instructions": "Which kind of home and kitchen product is it?",
+            "when": {
+              "department": "home_kitchen"
+            },
+            "thinking": false,
+            "permutations": 1
+          },
+          "sports_outdoors": {
+            "type": "string",
+            "enum": [
+              "camping",
+              "cycling",
+              "fitness",
+              "hiking"
+            ],
+            "instructions": "Which kind of sports and outdoors product is it?",
+            "when": {
+              "department": "sports_outdoors"
+            },
+            "thinking": false,
+            "permutations": 1
+          }
+        },
+        "mode": "argmax",
+        "temperature": 0,
+        "seed": 42,
+        "text_max_tokens": 256,
+        "numeric_max_tokens": 256
+      },
+      "model": "C:\\Users\\Administrator\\.cache\\turbojev\\qjev35-v19c-q8_0.gguf",
+      "model_sha256": "7a5a50953df2fb866a2f39bc4ac8906084cac4e3a5fa8f04adc519058ceedf87",
+      "load_seconds": 2.3186293999897316,
+      "response": {
+        "result": {
+          "department": "home_kitchen",
+          "home_kitchen": "cookware"
+        },
+        "thinking": {},
+        "thinking_effort": {},
+        "skipped": [
+          "electronics",
+          "sports_outdoors"
+        ],
+        "usage": {
+          "decisions": 2,
+          "input_tokens": 258,
+          "generated_tokens": 0
+        }
+      },
+      "inference_seconds": 9.414505900000222
+    },
+    "python_gpu_choice_probes": [
+      {
+        "response": {
+          "model": "qwen35 0.8B Q8_0",
+          "answers": {
+            "team": {
+              "type": "choice",
+              "choice": "shipping",
+              "confidence": 0.9999708069698526,
+              "probabilities": {
+                "dog": 1.1745790537782351e-06,
+                "billing": 2.3116451753102446e-06,
+                "shipping": 0.9999708069698526,
+                "technical": 2.5706805918420192e-05
+              }
+            }
+          },
+          "usage": {
+            "decisions": 1,
+            "input_tokens": 114,
+            "generated_tokens": 0
+          },
+          "_turbojev": {
+            "backend": "llamacpp",
+            "calibration": "softmax",
+            "calibrated": false,
+            "confidence_method": "selected-candidate-probability",
+            "contract": "turbojev.core.v4",
+            "order_robustness": "none",
+            "order_evaluations": 0,
+            "execution": {
+              "prefix_reuse": "none",
+              "scheduling": "serial",
+              "parallel_task_limit": 1,
+              "projection": "full-vocabulary"
+            }
+          }
+        },
+        "seconds": 1.8097411000053398
+      },
+      {
+        "response": {
+          "model": "qwen35 0.8B Q8_0",
+          "answers": {
+            "team": {
+              "type": "choice",
+              "choice": "outage",
+              "confidence": 0.9979108955928423,
+              "probabilities": {
+                "outage": 0.9979108955928423,
+                "billing": 0.0005235025190233994,
+                "feature": 0.001565601888134206
+              }
+            }
+          },
+          "usage": {
+            "decisions": 1,
+            "input_tokens": 104,
+            "generated_tokens": 0
+          },
+          "_turbojev": {
+            "backend": "llamacpp",
+            "calibration": "softmax",
+            "calibrated": false,
+            "confidence_method": "selected-candidate-probability",
+            "contract": "turbojev.core.v4",
+            "order_robustness": "none",
+            "order_evaluations": 0,
+            "execution": {
+              "prefix_reuse": "none",
+              "scheduling": "serial",
+              "parallel_task_limit": 1,
+              "projection": "full-vocabulary"
+            }
+          }
+        },
+        "seconds": 0.6362875000340864
+      }
+    ],
+    "browser_cpu_wasm": {
+      "model": "QJev3.5 \u00b7 0.8B \u00b7 v19c \u00b7 Q8_0 \u00b7 GGUF",
+      "state": "A customer says a password reset succeeded, but every login attempt still returns \u2018account locked\u2019. Two unlock emails were requested and neither arrived.",
+      "question": "Which queue should handle this request?",
+      "selected": "Account access support",
+      "elapsed": "35.63 s",
+      "scores": "Account access support99.6%Close as resolved0.3%Billing support0.1%",
+      "error": ""
+    }
+  }
+}

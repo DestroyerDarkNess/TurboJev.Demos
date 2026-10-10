@@ -28,7 +28,7 @@ python -m pip install -r requirements.txt
 python snake.py
 ```
 
-The default download is **Qwen3 0.6B GGUF Q4_K_M**, about 0.48 GB, with a progress
+The default download is **QJev3.5 0.8B v19c GGUF Q8_0**, about 0.81 GB, with a progress
 bar and a local cache. Supply another compatible GGUF through the prompt,
 `TURBOJEV_MODEL`, or a command-line path:
 
@@ -90,7 +90,6 @@ The [recorded requests and responses](validation/qwen-direct-movement.json)
 include the model hash and all six decisions. This is a failed navigation run,
 not a claim that Snake is solved. It replaces earlier assisted-policy claims.
 
-
 ## Experimental representation and reasoning
 
 `--state-format sensors` is the default: relative food direction plus clear and
@@ -137,3 +136,7 @@ python benchmark.py --model /path/to/Qwen3-0.6B-Q4_K_M.gguf --seeds 0 1 2 --max-
 ```
 
 This writes full requests, responses, timings and game traces to `.artifacts/`.
+
+The default is QJev3.5 0.8B v19c Q8_0. This is a decision-specialized
+checkpoint, not a guarantee of correct routing, tone or Snake navigation.
+Alternative GGUF repositories are commented in the entry point.

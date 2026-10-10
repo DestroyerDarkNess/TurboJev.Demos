@@ -2,7 +2,7 @@
 
 A no-build HTML and vanilla JavaScript example. It loads TurboJev's published browser worker and WebAssembly package from jsDelivr. Use the Runtime menu to choose Transformers.js with ONNX models or llama.cpp WASM with GGUF models. Both run locally in the browser.
 
-The page starts with Qwen3 0.6B Q8_0 GGUF, the same pinned model file used by [SemIf (formerly OpenJev)](https://openjev.com/). Its **Account support** and **Email triage** presets match SemIf's editable examples. CPU/WebAssembly is selected by default; choose WebGPU to request the browser's GPU explicitly. The demo does not switch devices if WebGPU is unavailable.
+The page starts with QJev3.5 0.8B v19c Q8_0 GGUF. Qwen3 0.6B Q8_0 remains available for the previous SemIf comparison. Its **Account support** and **Email triage** presets match SemIf's editable examples. CPU/WebAssembly is selected by default; choose WebGPU to request the browser's GPU explicitly. The demo does not switch devices if WebGPU is unavailable.
 
 After loading the GGUF, choose **Compare TurboJev with SemIf** to run the same state, question, and options through both engines. It displays the selections, option probabilities, and median decision time across three runs. TurboJev is unloaded before the SemIf reference runtime loads so they do not compete for memory. Model loading and warmup are excluded from decision time. The SemIf side reproduces its direct one-token candidate readout with wllama 3.6.1; this is a local reference comparison, not a request to the OpenJev/SemIf website. Browser, device, thermal state, and background load affect results.
 
@@ -25,7 +25,7 @@ Open <http://localhost:4174>. Select **Load model**, wait for the file progress 
 - `@turbojev/wasm@0.33.0/turbojev_wasm.js` from jsDelivr (the module loads its adjacent WASM binary)
 - `@wllama/wllama@3.6.1` from jsDelivr for the SemIf direct-readout reference
 
-The two example prompts and the SemIf scoring procedure are based on the independent [SemIf browser lab](https://openjev.com/) and its [published implementation](https://github.com/TheoLeeCJ/SemIf-OpenJev). The comparison uses Qwen3-0.6B-Q8_0 at Hugging Face revision `23749fefcc72300e3a2ad315e1317431b06b590a` for both paths. Quantized candidate probabilities are conditional on the listed choices and are not calibrated confidence.
+The two example prompts and the SemIf scoring procedure are based on the independent [SemIf browser lab](https://openjev.com/) and its [published implementation](https://github.com/TheoLeeCJ/SemIf-OpenJev). The comparison uses the currently selected GGUF for both paths. Select Qwen3-0.6B-Q8_0 to reproduce the previous model selection. Neither path implements QJev's upstream trained prompt, so this is an engine/prompt comparison, not the QJev reference benchmark. Quantized candidate probabilities are conditional on the listed choices and are not calibrated confidence.
 
 TurboJev itself comes from the latest published `@turbojev/web` and `@turbojev/wasm` packages. The demo requires no Rust toolchain, package installation, or build step.
 
@@ -36,7 +36,7 @@ the original page. Four new presets demonstrate scalar/nullable invoice fields,
 dependencies and conditional omission; the fair die's permutation budgets;
 the bundled CORD receipt's 14 fields; and the US receipt's 16 fields with your photo.
 
-Text defaults to Qwen3 0.6B Q4_K_M GGUF. Vision defaults to Qwen3.5 2B Q4_K_M
+Text defaults to QJev3.5 0.8B v19c Q8_0 GGUF. Vision defaults to Qwen3.5 2B Q4_K_M
 and its matching F16 projector (~1.95 GB total). Change their URLs to select a
 compatible pair. GGUF vision uses the published llama.cpp/WASM adapter; the
 Transformers.js choice on this page is for text. Changing a loaded runtime or
@@ -56,13 +56,17 @@ and divergence from uniform; `all` is an explicit 720-evaluation budget.
 The new question definitions are adapted from TypeLLM, Apache-2.0 ([retained
 license](../../python/fair-die/TYPELLM-LICENSE)). The bundled CORD-v2 test photo 4 is
 unchanged and separately [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/),
-NAVER/CLOVA, Park et al., *CORD: A Consolidated Receipt Dataset for Post-OCR Parsing*
+NAVER/CLOVA, Park et al., _CORD: A Consolidated Receipt Dataset for Post-OCR Parsing_
 (2019), [dataset source](https://huggingface.co/datasets/naver-clova-ix/cord-v2).
 The original US photograph is not redistributed. No browser inference result is
 claimed merely because the UI, schemas or native equivalents passed checks.
-
 
 The typed demo also offers nested objects/arrays, hierarchical routing, category
 discovery, seeded Dice sampling and numeric digit limits. Its selector loads each
 complete recipe, including its decoding options. All runtime/SDK imports use the
 published CDN packages. Open `typed.html` after starting the included server.
+
+The QJev default is GGUF-only; selecting Transformers.js explicitly uses its
+ONNX model list. For open generation on `typed.html`, enter an instruction
+model URL. Vision keeps its matching multimodal model/projector. Alternatives
+are commented in `app.js` and `typed.js`; v3 requires additional scoring support.

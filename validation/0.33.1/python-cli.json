@@ -1,0 +1,62 @@
+[
+  {
+    "demo": "category-tree",
+    "ok": true
+  },
+  {
+    "demo": "date-order",
+    "ok": true
+  },
+  {
+    "demo": "email-triage",
+    "ok": true
+  },
+  {
+    "demo": "expense-audit",
+    "ok": true
+  },
+  {
+    "demo": "fair-die",
+    "ok": true
+  },
+  {
+    "demo": "identical-resumes",
+    "ok": true
+  },
+  {
+    "demo": "incident",
+    "ok": true
+  },
+  {
+    "demo": "letter-count",
+    "ok": true
+  },
+  {
+    "demo": "new-category",
+    "ok": true
+  },
+  {
+    "demo": "receipt",
+    "ok": true
+  },
+  {
+    "demo": "receipt-us",
+    "ok": true
+  },
+  {
+    "demo": "standup",
+    "ok": true
+  },
+  {
+    "demo": "support-ticket",
+    "ok": true
+  },
+  {
+    "demo": "sure-refund",
+    "ok": true
+  },
+  {
+    "demo": "typed-fields",
+    "ok": true
+  }
+]

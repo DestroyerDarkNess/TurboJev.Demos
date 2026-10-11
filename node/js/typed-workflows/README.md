@@ -1,6 +1,6 @@
-# TurboJev — Node.js
+# TurboJev â€” Node.js
 
-Run from this folder with Node.js 20 or later. Install **@turbojev/node 0.33.0 from npm**, including the native package matching your Node process architecture.
+Run from this folder with Node.js 18 or later. Install **@turbojev/node 0.33.1 from npm**, including the native package matching your Node process architecture.
 
 ```powershell
 npm install
@@ -32,7 +32,7 @@ Current native npm packages cover Windows ia32/x64/ARM64. Run with the matching 
 
 Fair die and receipt definitions are adapted from TypeLLM, Apache-2.0; see [its retained license](TYPELLM-LICENSE). The CORD photograph is separately CC BY 4.0, NAVER/CLOVA, Park et al. (2019); attribution and source are in the [receipt README](../../../python/receipt/README.md).
 
-## Structured SDK examples (TurboJev 0.33.0)
+## Structured SDK examples (TurboJev 0.33.1)
 
 ```sh
 npm start -- structured

@@ -21,7 +21,7 @@ var report = new JsonObject
 {
     ["example"] = options.Example,
     ["turbojev"] = typeof(TurboJevEngine).Assembly.GetName().Version?.ToString(),
-    ["package_version"] = "0.33.0",
+    ["package_version"] = "0.33.1",
     ["platform"] = RuntimeInformation.OSDescription,
     ["architecture"] = RuntimeInformation.ProcessArchitecture.ToString(),
     ["device"] = options.Device,
@@ -38,7 +38,7 @@ try
         report["mmproj"] = projector;
         report["mmproj_sha256"] = Models.Hash(projector);
     }
-    Console.WriteLine($"TurboJev 0.33.0 | {options.Example} | {Path.GetFileName(model)} | {options.Device}");
+    Console.WriteLine($"TurboJev 0.33.1 | {options.Example} | {Path.GetFileName(model)} | {options.Device}");
     var timer = Stopwatch.StartNew();
     await using var engine = await TurboJevEngine.LoadAsync(new
     {

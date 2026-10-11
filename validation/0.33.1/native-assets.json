@@ -1,0 +1,44 @@
+[
+  {
+    "rid": "win-x86",
+    "library": "turbojev_capi.dll",
+    "machine": "0x14c",
+    "bytes": 1581568,
+    "ok": true
+  },
+  {
+    "rid": "win-x86",
+    "library": "turbojev_llama_shim.dll",
+    "machine": "0x14c",
+    "bytes": 375296,
+    "ok": true
+  },
+  {
+    "rid": "win-x64",
+    "library": "turbojev_capi.dll",
+    "machine": "0x8664",
+    "bytes": 1985536,
+    "ok": true
+  },
+  {
+    "rid": "win-x64",
+    "library": "turbojev_llama_shim.dll",
+    "machine": "0x8664",
+    "bytes": 404480,
+    "ok": true
+  },
+  {
+    "rid": "win-arm64",
+    "library": "turbojev_capi.dll",
+    "machine": "0xaa64",
+    "bytes": 1682432,
+    "ok": true
+  },
+  {
+    "rid": "win-arm64",
+    "library": "turbojev_llama_shim.dll",
+    "machine": "0xaa64",
+    "bytes": 371200,
+    "ok": true
+  }
+]

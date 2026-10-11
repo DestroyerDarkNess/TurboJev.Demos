@@ -1,6 +1,6 @@
 # TurboJev — Python
 
-Uses **turbojev 0.33.0 from PyPI**, not local SDK source. Install with the same Python interpreter you use to run the demo.
+Uses **turbojev 0.33.1 from PyPI**, not local SDK source. Install with the same Python interpreter you use to run the demo.
 
 ```powershell
 python -m pip install -r requirements.txt
@@ -27,7 +27,7 @@ Fair-die and receipt definitions are adapted from [TypeLLM](https://github.com/T
 
 Current PyPI wheels cover Windows x86/x64/ARM64 according to the Python process architecture. Other systems need matching published wheels. A 32-bit process may not fit the default vision model/projector. An older installed TurboJev can reject new options; install the requirements first and verify with `python -m pip show turbojev`.
 
-## Structured SDK examples (TurboJev 0.33.0)
+## Structured SDK examples (TurboJev 0.33.1)
 
 ```sh
 python main.py structured

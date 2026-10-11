@@ -1,6 +1,6 @@
 # TurboJev — TypeScript / Node.js
 
-Uses **@turbojev/node 0.33.0 from npm**. The TypeScript entry point imports `EvaluationRequest` and `GenerateRequest`, then calls the published engine methods. This folder owns `demo.mjs`, its declarations in `demo.d.mts`, and all request/receipt data. It does not import another demo or implement model inference. You can copy this folder independently.
+Uses **@turbojev/node 0.33.1 from npm**. The TypeScript entry point imports `EvaluationRequest` and `GenerateRequest`, then calls the published engine methods. This folder owns `demo.mjs`, its declarations in `demo.d.mts`, and all request/receipt data. It does not import another demo or implement model inference. You can copy this folder independently.
 
 ```powershell
 npm install
@@ -20,7 +20,7 @@ Use `--model PATH` (or `TURBOJEV_MODEL` for text) and `--mmproj PATH` together f
 
 The published native packages cover Windows ia32/x64/ARM64; run a matching Node process. A 32-bit process may need a smaller vision model. Linux/macOS require matching published native artifacts. Each image field repeats inference, so a full receipt can take minutes. See the [Node README](../../js/typed-workflows/README.md) for all options, report semantics, runtime limits and TypeLLM/CORD attribution.
 
-## Structured SDK examples (TurboJev 0.33.0)
+## Structured SDK examples (TurboJev 0.33.1)
 
 ```sh
 npm start -- structured

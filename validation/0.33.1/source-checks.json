@@ -1,0 +1,11 @@
+{
+  "version": "0.33.1",
+  "python_requirements_checked": 17,
+  "javascript_syntax_checked": 8,
+  "stale_active_release_references": [],
+  "npm_native_architectures": [
+    "ia32",
+    "x64",
+    "arm64"
+  ]
+}

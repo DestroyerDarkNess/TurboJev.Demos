@@ -18,7 +18,7 @@ from urllib.request import urlopen
 
 from turbojev import TurboJev, compile_json_schema
 
-VERSION = "0.33.0"
+VERSION = "0.33.1"
 SOURCE = "https://typellm.ai/examples/expense-audit"
 # Default text model: QJev3.5 0.8B v19c, standalone Q8_0 (811,843,104 bytes).
 # Decision-trained weights; not a general extraction, reasoning or vision model.

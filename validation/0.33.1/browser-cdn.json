@@ -1,0 +1,38 @@
+[
+  {
+    "url": "https://cdn.jsdelivr.net/npm/@turbojev/web@0.33.1/worker.js",
+    "status": 200,
+    "bytes": 4071,
+    "ok": true
+  },
+  {
+    "url": "https://cdn.jsdelivr.net/npm/@turbojev/web@0.33.1/dist/index.js",
+    "status": 200,
+    "bytes": 4332,
+    "ok": true
+  },
+  {
+    "url": "https://cdn.jsdelivr.net/npm/@turbojev/wasm@0.33.1/turbojev_wasm.js",
+    "status": 200,
+    "bytes": 19881,
+    "ok": true
+  },
+  {
+    "url": "https://cdn.jsdelivr.net/npm/@turbojev/wasm@0.33.1/turbojev_wasm_bg.wasm",
+    "status": 200,
+    "bytes": 1105576,
+    "ok": true
+  },
+  {
+    "url": "https://cdn.jsdelivr.net/npm/@turbojev/runtime-llamacpp-wasm@0.33.1/+esm",
+    "status": 200,
+    "bytes": 10829,
+    "ok": true
+  },
+  {
+    "url": "https://esm.sh/@turbojev/runtime-transformersjs@0.33.1?deps=@huggingface/transformers@4.3.0",
+    "status": 200,
+    "bytes": 193,
+    "ok": true
+  }
+]

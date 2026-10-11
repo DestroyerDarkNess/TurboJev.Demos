@@ -1,0 +1,68 @@
+{
+  "example": "ticket",
+  "package_version": "0.33.1",
+  "language": "JavaScript / Node",
+  "platform": "win32",
+  "architecture": "x64",
+  "device": "cpu",
+  "model": "C:\\Users\\Administrator\\.cache\\turbojev\\qjev35-v19c-q8_0.gguf",
+  "model_sha256": "7a5a50953df2fb866a2f39bc4ac8906084cac4e3a5fa8f04adc519058ceedf87",
+  "load_seconds": 6.525218400000002,
+  "response": {
+    "model": "qwen35 0.8B Q8_0",
+    "answers": {
+      "team": {
+        "type": "choice",
+        "choice": "shipping",
+        "confidence": 0.9999799498472908,
+        "probabilities": {
+          "billing": 0.00000747749487196087,
+          "technical": 0.000012572657837330652,
+          "shipping": 0.9999799498472908
+        }
+      },
+      "urgency": {
+        "type": "score",
+        "score": 0.004165268605539552,
+        "confidence": 0.9969070737739061,
+        "probabilities": {
+          "0": 0.9969070737739061,
+          "1": 0.0020205838466483815,
+          "2": 0.0010723423794455854
+        },
+        "legend": {
+          "0": "Can wait",
+          "1": "This week",
+          "2": "Today"
+        }
+      },
+      "wantsRefund": {
+        "type": "noul",
+        "noul": 0.007253858149525607
+      }
+    },
+    "usage": {
+      "decisions": 3,
+      "input_tokens": 310,
+      "generated_tokens": 0
+    },
+    "_turbojev": {
+      "backend": "llamacpp",
+      "calibration": "softmax",
+      "calibrated": false,
+      "confidence_method": "selected-candidate-probability",
+      "contract": "turbojev.core.v4",
+      "order_robustness": "none",
+      "order_evaluations": 0,
+      "execution": {
+        "prefix_reuse": "none",
+        "scheduling": "serial",
+        "parallel_task_limit": 1,
+        "projection": "full-vocabulary"
+      }
+    }
+  },
+  "evaluation_seconds": 21.289134500000003,
+  "ok": true,
+  "error": null
+}

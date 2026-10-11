@@ -13,7 +13,7 @@ python -m pip install --upgrade -r requirements.txt
 python main.py
 ```
 
-The demo installs TurboJev 0.33.0 from PyPI. It does not build TurboJev or import
+The demo installs TurboJev 0.33.1 from PyPI. It does not build TurboJev or import
 its local source. The default QJev3.5 0.8B v19c Q8_0 GGUF downloads with a progress
 bar on first run and is reused from `~/.cache/turbojev/` afterwards. CPU is the
 default; model loading happens before the printed evaluation timer starts.
@@ -60,7 +60,7 @@ reorders score levels. Native thinking requires a suitable model and token budge
 
 ## Platforms
 
-The Python source is portable. PyPI 0.33.0 supplies Windows x86, x64, and ARM64
+The Python source is portable. PyPI 0.33.1 supplies Windows x86, x64, and ARM64
 wheels; use Python matching the desired architecture. Linux and macOS require
 matching published native wheels and are not validated by this example.
 

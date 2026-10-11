@@ -1,5 +1,5 @@
 $ErrorActionPreference = "Stop"
-$version = "0.33.0"
+$version = "0.33.1"
 $rids = @("win-x86", "win-x64", "win-arm64")
 
 function Invoke-Checked {

@@ -1,0 +1,61 @@
+{
+  "version": "0.33.1",
+  "model": "qjev35-v19c-q8_0.gguf",
+  "device": "cpu",
+  "platform": "Windows x64",
+  "evaluation_seconds": 28.223,
+  "response": {
+    "model": "qwen35 0.8B Q8_0",
+    "answers": {
+      "urgent": {
+        "type": "noul",
+        "noul": 0.01286684827958204
+      },
+      "team": {
+        "type": "choice",
+        "choice": "outage",
+        "confidence": 0.9978302866961977,
+        "probabilities": {
+          "outage": 0.9978302866961977,
+          "billing": 0.0005409416010830017,
+          "feature": 0.0016287717027194926
+        }
+      },
+      "tone": {
+        "type": "score",
+        "score": 0.012226425697211222,
+        "confidence": 0.9911434970702673,
+        "probabilities": {
+          "0": 0.9911434970702673,
+          "1": 0.0054865801622541715,
+          "2": 0.003369922767478525
+        },
+        "legend": {
+          "0": "calm",
+          "1": "annoyed",
+          "2": "furious"
+        }
+      }
+    },
+    "usage": {
+      "decisions": 3,
+      "input_tokens": 205,
+      "generated_tokens": 0
+    },
+    "_turbojev": {
+      "backend": "llamacpp",
+      "calibration": "softmax",
+      "calibrated": false,
+      "confidence_method": "selected-candidate-probability",
+      "contract": "turbojev.core.v4",
+      "order_robustness": "none",
+      "order_evaluations": 0,
+      "execution": {
+        "prefix_reuse": "shared",
+        "scheduling": "parallel",
+        "parallel_task_limit": 3,
+        "projection": "full-vocabulary"
+      }
+    }
+  }
+}

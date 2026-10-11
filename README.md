@@ -1,6 +1,6 @@
 # TurboJev demos
 
-Runnable examples using TurboJev **0.33.0 from public package registries and
+Runnable examples using TurboJev **0.33.1 from public package registries and
 CDNs**. Each demo has its own folder, source code, input data and run
 instructions. Demos use the published SDK; they do not build TurboJev locally
 or import another demo.
@@ -92,4 +92,4 @@ another CPU architecture.
 .\build-all.ps1
 ```
 
-The [validation records](validation/0.33.0/README.md) include actual model responses, timings and platform coverage. Attribution and third-party licenses are included with the relevant demos.
+The [current validation records](validation/0.33.1/README.md) list the builds, package checks and real inference smoke runs. [Earlier results](validation/0.33.0/README.md) retain their original version, responses and timings. Attribution and third-party licenses are included with the relevant demos.

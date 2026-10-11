@@ -1,0 +1,41 @@
+{
+  "version": "0.33.1",
+  "checked_at_utc": "2026-10-11T16:30:20.205417+00:00",
+  "package_sources": [
+    "npm",
+    "PyPI",
+    "nuget.org",
+    "crates.io",
+    "jsDelivr",
+    "esm.sh"
+  ],
+  "build_all_exit_code": 0,
+  "dotnet_publish_rids": [
+    "win-x86",
+    "win-x64",
+    "win-arm64"
+  ],
+  "rust_check_targets": [
+    "i686-pc-windows-msvc",
+    "x86_64-pc-windows-msvc",
+    "aarch64-pc-windows-msvc"
+  ],
+  "python_wheel_download_platforms": [
+    "win32",
+    "win_amd64",
+    "win_arm64"
+  ],
+  "typescript_build_passed": true,
+  "python_source_files_compiled": 21,
+  "python_cli_import_checks_passed": 15,
+  "snake_integrity_tests_passed": 8,
+  "real_inference_smoke_runs": [
+    "python/simple",
+    "node/js/typed-workflows ticket"
+  ],
+  "limitations": [
+    "ARM64 packages and cross-compilation verified; no ARM64 hardware execution.",
+    "Browser CDN availability checked; browser inference not rerun.",
+    "Real inference smoke runs cover Python and Node on Windows x64 only, not all demos or multimodal model accuracy."
+  ]
+}

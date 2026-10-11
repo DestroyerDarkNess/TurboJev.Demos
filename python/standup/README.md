@@ -3,7 +3,7 @@
 Extract the names of people present at a standup into a model-generated array. The absent participant must not be included.
 
 Port of [TypeLLM's example](https://typellm.ai/examples/standup), accessed 2026-10-10.
-Uses **TurboJev 0.33.0 from PyPI**, not local SDK source or a hosted API.
+Uses **TurboJev 0.33.1 from PyPI**, not local SDK source or a hosted API.
 
 Run from this folder, or copy it anywhere:
 

@@ -1,6 +1,6 @@
 # Python demos
 
-Each folder is independent and uses TurboJev 0.33.0 from PyPI. Install its own
+Each folder is independent and uses TurboJev 0.33.1 from PyPI. Install its own
 requirements and run its entry point. No demo imports or invokes another demo.
 
 ```sh

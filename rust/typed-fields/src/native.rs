@@ -2,7 +2,75 @@
 use libloading::Library;
 use serde_json::Value;
 use std::ffi::{c_char, c_void, CStr, CString};
+use std::io::{Read, Write};
 use std::path::Path;
+
+/// Download only the matching runtime from the public NuGet package.
+pub fn install(
+    directory: &Path,
+    rid: &str,
+    version: &str,
+) -> Result<(), Box<dyn std::error::Error>> {
+    let marker = directory.join(".installed");
+    if marker.is_file() {
+        return Ok(());
+    }
+    let url = format!(
+        "https://api.nuget.org/v3-flatcontainer/turbojev/{version}/turbojev.{version}.nupkg"
+    );
+    #[cfg(windows)]
+    let agent = ureq::AgentBuilder::new()
+        .tls_connector(std::sync::Arc::new(native_tls::TlsConnector::new()?))
+        .build();
+    #[cfg(not(windows))]
+    let agent = ureq::Agent::new();
+    let response = agent.get(&url).call()?;
+    let total = response
+        .header("Content-Length")
+        .and_then(|value| value.parse::<usize>().ok());
+    let mut source = response.into_reader();
+    let mut bytes = Vec::new();
+    let mut buffer = [0u8; 64 * 1024];
+    loop {
+        let count = source.read(&mut buffer)?;
+        if count == 0 {
+            break;
+        }
+        bytes.extend_from_slice(&buffer[..count]);
+        if bytes.len() > 512 * 1024 * 1024 {
+            return Err("Native package exceeds 512 MiB".into());
+        }
+        if let Some(total) = total {
+            print!(
+                "\rDownloading TurboJev native package: {:.1}%",
+                bytes.len() as f64 * 100.0 / total.max(1) as f64
+            );
+            std::io::stdout().flush()?;
+        }
+    }
+    println!();
+    let mut archive = zip::ZipArchive::new(std::io::Cursor::new(bytes))?;
+    let prefix = format!("runtimes/{rid}/native/");
+    std::fs::create_dir_all(directory)?;
+    let mut extracted = 0;
+    for index in 0..archive.len() {
+        let mut entry = archive.by_index(index)?;
+        let Some(name) = entry.name().strip_prefix(&prefix).map(str::to_owned) else {
+            continue;
+        };
+        if name.is_empty() || name.contains(['/', '\\']) || name == ".." {
+            continue;
+        }
+        let mut file = std::fs::File::create(directory.join(name))?;
+        std::io::copy(&mut entry, &mut file)?;
+        extracted += 1;
+    }
+    if extracted < 8 {
+        return Err(format!("Published package lacks the complete {rid} runtime").into());
+    }
+    std::fs::write(marker, version)?;
+    Ok(())
+}
 
 type Open = unsafe extern "C" fn(*const c_char, *mut *mut c_void) -> i32;
 type Call = unsafe extern "C" fn(*mut c_void, *const c_char, *mut *mut c_char) -> i32;

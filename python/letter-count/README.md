@@ -3,7 +3,7 @@
 Compare letter counting in hello and strawberry with per-field automatic reasoning and integer probability distributions.
 
 Port of [TypeLLM's example](https://typellm.ai/examples/letter-count), accessed 2026-10-10.
-Uses **TurboJev 0.33.1 from PyPI**, not local SDK source or a hosted API.
+Uses **TurboJev 0.34.0 from PyPI**, not local SDK source or a hosted API.
 
 Run from this folder, or copy it anywhere:
 

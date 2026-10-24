@@ -6,7 +6,7 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="TurboJev" Version="0.33.1" />
+    <PackageReference Include="TurboJev" Version="0.34.0" />
     <Content Include="data/**/*" CopyToOutputDirectory="PreserveNewest" CopyToPublishDirectory="PreserveNewest" />
   </ItemGroup>
 </Project>

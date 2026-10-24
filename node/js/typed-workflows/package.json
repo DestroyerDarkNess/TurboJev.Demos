@@ -6,7 +6,7 @@
     "start": "node main.js"
   },
   "dependencies": {
-    "@turbojev/node": "0.33.1"
+    "@turbojev/node": "0.34.0"
   },
   "engines": {
     "node": ">=18"

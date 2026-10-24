@@ -1,7 +1,8 @@
 # TurboJev demos
 
-Runnable examples using TurboJev **0.33.1 from public package registries and
-CDNs**. Each demo has its own folder, source code, input data and run
+Runnable examples using TurboJev **0.34.0 from public package registries and
+CDNs**. The 0.34.0 NuGet upload is currently pending a valid publish key, so the
+C# commands cannot restore that version from nuget.org yet. Each demo has its own folder, source code, input data and run
 instructions. Demos use the published SDK; they do not build TurboJev locally
 or import another demo.
 
@@ -72,6 +73,13 @@ Each demo README lists its commands, options, model requirements and platform su
 
 ## Models and devices
 
+Native packages cover Windows/Linux x86/x64/ARM64 and macOS x64/ARM64.
+Linux requires glibc 2.28+; macOS requires 11+. Python and npm select the
+running interpreter architecture; .NET also requires a supported CLR RID.
+Current official Node Linux runtimes do not include x86. Browser demos use
+architecture-independent WASM. Cross-built macOS assets have not been executed
+on a Mac.
+
 Text demos download QJev3.5 0.8B v19c Q8_0 on first run and cache it under
 `~/.cache/turbojev`. Downloads show progress and are reused by other demos. CPU
 is the default; a demo requests GPU only when you pass `--device gpu`. Image
@@ -92,4 +100,4 @@ another CPU architecture.
 .\build-all.ps1
 ```
 
-The [current validation records](validation/0.33.1/README.md) list the builds, package checks and real inference smoke runs. [Earlier results](validation/0.33.0/README.md) retain their original version, responses and timings. Attribution and third-party licenses are included with the relevant demos.
+The [current validation records](validation/0.34.0/README.md) list the builds, package checks and real inference smoke runs. [Earlier results](validation/0.33.0/README.md) retain their original version, responses and timings. Attribution and third-party licenses are included with the relevant demos.

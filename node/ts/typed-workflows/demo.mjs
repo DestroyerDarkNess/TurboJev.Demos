@@ -292,7 +292,7 @@ export async function runDemo(load, args, language) {
   }
   const record = {
     example: options.example,
-    package_version: "0.33.1",
+    package_version: "0.34.0",
     language,
     platform: platform(),
     architecture: arch(),

@@ -1,6 +1,6 @@
 $ErrorActionPreference = "Stop"
-$version = "0.33.1"
-$rids = @("win-x86", "win-x64", "win-arm64")
+$version = "0.34.0"
+$rids = @("win-x86", "win-x64", "win-arm64", "linux-x64", "linux-arm64", "osx-x64", "osx-arm64")
 
 function Invoke-Checked {
     param([string]$Command, [string[]]$Arguments)
@@ -10,6 +10,10 @@ function Invoke-Checked {
 
 foreach ($arch in @("ia32", "x64", "arm64")) {
     Invoke-Checked npm.cmd @('view', "@turbojev/node-win32-$arch@$version", 'version')
+    Invoke-Checked npm.cmd @('view', "@turbojev/node-linux-$arch@$version", 'version')
+}
+foreach ($arch in @("x64", "arm64")) {
+    Invoke-Checked npm.cmd @('view', "@turbojev/node-darwin-$arch@$version", 'version')
 }
 Invoke-Checked npm.cmd @('view', "@turbojev/runtime-llamacpp-wasm@$version", 'version')
 
@@ -17,7 +21,12 @@ $wheelRoot = Join-Path $PSScriptRoot ".artifacts\python"
 foreach ($target in @(
     @{ Platform = "win32"; Name = "x86" },
     @{ Platform = "win_amd64"; Name = "x64" },
-    @{ Platform = "win_arm64"; Name = "arm64" }
+    @{ Platform = "win_arm64"; Name = "arm64" },
+    @{ Platform = "manylinux_2_28_i686"; Name = "linux-x86" },
+    @{ Platform = "manylinux_2_28_x86_64"; Name = "linux-x64" },
+    @{ Platform = "manylinux_2_28_aarch64"; Name = "linux-arm64" },
+    @{ Platform = "macosx_11_0_x86_64"; Name = "osx-x64" },
+    @{ Platform = "macosx_11_0_arm64"; Name = "osx-arm64" }
 )) {
     $destination = Join-Path $wheelRoot $target.Name
     New-Item -ItemType Directory -Force -Path $destination | Out-Null
@@ -58,4 +67,4 @@ try {
 $pythonFiles = @(Get-ChildItem -LiteralPath (Join-Path $PSScriptRoot 'python') -Filter '*.py' -Recurse |
     Select-Object -ExpandProperty FullName)
 Invoke-Checked py (@('-m', 'py_compile') + $pythonFiles)
-Write-Host "Package checks/builds completed for Windows x86, x64, and ARM64 where the registry publishes native artifacts."
+Write-Host "Registry assets checked for eight desktop targets; .NET built for its seven supported RIDs. Execution on other hosts is a separate check."

@@ -76,42 +76,39 @@ fn runtime(options: &Options) -> Result<PathBuf> {
     if let Some(directory) = &options.native_dir {
         return Ok(directory.join(name).canonicalize()?);
     }
-    if !cfg!(windows) {
-        return Err("No Linux/macOS native package published for 0.33.1; provide --native-dir from a matching registry package".into());
-    }
-    let rid = match std::env::consts::ARCH {
-        "x86" => "win-x86",
-        "x86_64" => "win-x64",
-        "aarch64" => "win-arm64",
+    let architecture = match std::env::consts::ARCH {
+        "x86" => "x86",
+        "x86_64" => "x64",
+        "aarch64" => "arm64",
         _ => return Err("No matching published architecture".into()),
     };
+    let system = match std::env::consts::OS {
+        "windows" => "win",
+        "linux" => "linux",
+        "macos" => "osx",
+        _ => return Err("No matching published operating system".into()),
+    };
+    let rid = format!("{system}-{architecture}");
     for folder in [
-        ".artifacts/nuget-registry/turbojev/0.33.1",
-        ".artifacts/rust-native/0.33.1",
+        ".artifacts/nuget-registry/turbojev/0.34.0",
+        ".artifacts/rust-native/0.34.0",
     ] {
         let path = Path::new(ROOT)
             .join(folder)
             .join("runtimes")
-            .join(rid)
+            .join(&rid)
             .join("native")
             .join(name);
         if path.is_file() {
             return Ok(path.canonicalize()?);
         }
     }
-    let status = std::process::Command::new("powershell.exe")
-        .args(["-NoProfile", "-ExecutionPolicy", "Bypass", "-File"])
-        .arg(Path::new(env!("CARGO_MANIFEST_DIR")).join("setup-native.ps1"))
-        .status()?;
-    if !status.success() {
-        return Err("Registry runtime installation failed".into());
-    }
-    Ok(Path::new(ROOT)
-        .join(".artifacts/rust-native/0.33.1/runtimes")
-        .join(rid)
-        .join("native")
-        .join(name)
-        .canonicalize()?)
+    let directory = Path::new(ROOT)
+        .join(".artifacts/rust-native/0.34.0/runtimes")
+        .join(&rid)
+        .join("native");
+    native::install(&directory, &rid, "0.34.0")?;
+    Ok(directory.join(name).canonicalize()?)
 }
 fn request(options: &Options, report: &mut Value) -> Result<Option<Value>> {
     if !options.vision()
@@ -363,7 +360,7 @@ fn run(options: &Options, report: &mut Value) -> Result<()> {
 }
 fn main() -> Result<()> {
     let options = Options::parse();
-    let mut report = json!({"example":options.example,"package_version":"0.33.1","language":"Rust","platform":std::env::consts::OS,"architecture":std::env::consts::ARCH,"device":options.device});
+    let mut report = json!({"example":options.example,"package_version":"0.34.0","language":"Rust","platform":std::env::consts::OS,"architecture":std::env::consts::ARCH,"device":options.device});
     let outcome = run(&options, &mut report);
     report["ok"] = json!(outcome.is_ok());
     report["error"] = outcome

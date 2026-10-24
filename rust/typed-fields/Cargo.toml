@@ -4,12 +4,13 @@ version = "0.1.0"
 edition = "2021"
 
 [dependencies]
-turbojev = "=0.33.1"
+turbojev = "=0.34.0"
 serde_json = { version = "1", features = ["preserve_order"] }
 base64 = "0.22"
 libloading = "0.8"
 sha2 = "0.10"
 clap = { version = "4", features = ["derive"] }
+zip = { version = "2.4", default-features = false, features = ["deflate"] }
 
 [target.'cfg(windows)'.dependencies]
 # System TLS avoids ring's C/assembly toolchain requirement for Windows ARM64.

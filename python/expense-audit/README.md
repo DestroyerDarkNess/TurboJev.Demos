@@ -3,7 +3,7 @@
 Extract expense rows, check their sum and policy violations with model reasoning, then decide approval and write a note. The host does not calculate the sum or choose the violations.
 
 Port of [TypeLLM's example](https://typellm.ai/examples/expense-audit), accessed 2026-10-10.
-Uses **TurboJev 0.33.1 from PyPI**, not local SDK source or a hosted API.
+Uses **TurboJev 0.34.0 from PyPI**, not local SDK source or a hosted API.
 
 Run from this folder, or copy it anywhere:
 

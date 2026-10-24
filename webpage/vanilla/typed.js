@@ -1,4 +1,4 @@
-import { Dice } from "https://cdn.jsdelivr.net/npm/@turbojev/web@0.33.1/dist/index.js";
+import { Dice } from "https://cdn.jsdelivr.net/npm/@turbojev/web@0.34.0/dist/index.js";
 
 const $ = (id) => document.getElementById(id);
 // Default text model: QJev3.5 0.8B v19c, standalone Q8_0 (811,843,104 bytes).
@@ -149,7 +149,7 @@ $("load").addEventListener("click", async () => {
     const descriptor = await call("load", {
       model: $("model-url").value,
       runtimeModuleUrl: new URL("./runtime.js", import.meta.url).href,
-      wasmModuleUrl: "https://cdn.jsdelivr.net/npm/@turbojev/wasm@0.33.1/turbojev_wasm.js",
+      wasmModuleUrl: "https://cdn.jsdelivr.net/npm/@turbojev/wasm@0.34.0/turbojev_wasm.js",
       runtimeOptions: {
         backend: $("runtime").value,
         modality: vision() ? "image" : "text",
@@ -213,7 +213,7 @@ $("generate").addEventListener("click", async () => {
   $("save").disabled = true;
   report = {
     example: $("example").value,
-    package_version: "0.33.1",
+    package_version: "0.34.0",
     runtime: $("runtime").value,
     device: $("device").value,
     model: $("model-url").value,

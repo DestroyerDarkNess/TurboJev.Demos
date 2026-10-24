@@ -1,6 +1,6 @@
 # TurboJev — Python
 
-Uses **turbojev 0.33.1 from PyPI**, not local SDK source. Install with the same Python interpreter you use to run the demo.
+Uses **turbojev 0.34.0 from PyPI**, not local SDK source. Install with the same Python interpreter you use to run the demo.
 
 ```powershell
 python -m pip install -r requirements.txt
@@ -25,9 +25,9 @@ Reports for ticket/fields default to `result-<example>.json` in the working dire
 
 Fair-die and receipt definitions are adapted from [TypeLLM](https://github.com/TypeLLM/TypeLLM/tree/main/examples), Apache-2.0; see the included [TYPELLM-LICENSE](TYPELLM-LICENSE). The photograph at `receipts/cord/receipt.jpg` is CORD-v2 test receipt 4, attributed to Park et al., _CORD: A Consolidated Receipt Dataset for Post-OCR Parsing_ (2019), NAVER/CLOVA. It is [CC BY 4.0](https://huggingface.co/datasets/naver-clova-ix/cord-v2), under these [license terms](https://creativecommons.org/licenses/by/4.0/), and is retained unchanged. The photo is not covered by the code's Apache license.
 
-Current PyPI wheels cover Windows x86/x64/ARM64 according to the Python process architecture. Other systems need matching published wheels. A 32-bit process may not fit the default vision model/projector. An older installed TurboJev can reject new options; install the requirements first and verify with `python -m pip show turbojev`.
+PyPI wheels cover Windows/Linux x86/x64/ARM64 and macOS x64/ARM64 (glibc 2.28+ / macOS 11+), selected by the Python process architecture. Other systems need matching published wheels. A 32-bit process may not fit the default vision model/projector. An older installed TurboJev can reject new options; install the requirements first and verify with `python -m pip show turbojev`.
 
-## Structured SDK examples (TurboJev 0.33.1)
+## Structured SDK examples (TurboJev 0.34.0)
 
 ```sh
 python main.py structured

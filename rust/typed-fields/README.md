@@ -1,8 +1,8 @@
 # TurboJev — Rust
 
-Real model-backed examples using the **turbojev 0.33.1 contract from crates.io** and the **0.33.1 native C ABI from the public NuGet package**. No local TurboJev or llama.cpp source is compiled. The small `native.rs` owner invokes that stable ABI on its creating thread, frees returned strings and closes the engine; all inference and decision logic stays in the published library.
+Real model-backed examples using the **turbojev 0.34.0 contract from crates.io** and the **0.34.0 native C ABI from the public NuGet package**. No local TurboJev or llama.cpp source is compiled. The small `native.rs` owner invokes that stable ABI on its creating thread, frees returned strings and closes the engine; all inference and decision logic stays in the published library.
 
-Rust 1.97.1 is selected by `rust-toolchain.toml`. On Windows, the first run reuses the demo repository's isolated nuget.org cache, or `setup-native.ps1` downloads/extracts the public package with all three Windows architectures. No .NET SDK or NuGet token is required by the installer. The Rust process selects x86/x64/ARM64 automatically.
+Rust 1.97.1 is selected by `rust-toolchain.toml`. The first run downloads the public NuGet package and extracts only the runtime matching the process: Windows/Linux x86/x64/ARM64 or macOS x64/ARM64. The installer is Rust code in this demo; no PowerShell, Python, .NET SDK or NuGet token is needed. Linux requires glibc 2.28+; macOS requires 11+.
 
 ```powershell
 cargo run --release -- ticket
@@ -27,11 +27,11 @@ cargo check --locked --target aarch64-pc-windows-msvc
 cargo run --release --target-dir C:/temp/turbojev-demo-build -- fields
 ```
 
-Compilation for an architecture is not execution on it; use a matching host/emulator. Published 0.33.1 native assets cover Windows only. `--native-dir` accepts the matching library directory from a public package when available for another OS; missing runtime support is an error, not a fabricated answer. Request and receipt data are contained in this folder; it can be copied independently.
+Compilation for an architecture is not execution on it; use a matching host/emulator. Published 0.34.0 native assets cover Windows/Linux x86/x64/ARM64 and macOS x64/ARM64. `--native-dir` overrides the automatically installed registry library directory; missing runtime support is an error, not a fabricated answer. Request and receipt data are contained in this folder; it can be copied independently.
 
 Question definitions are adapted from TypeLLM (Apache-2.0; [license](TYPELLM-LICENSE)). The CORD photograph has its separate CC BY 4.0 attribution in the [receipt README](../../python/receipt/README.md).
 
-## Structured SDK examples (TurboJev 0.33.1)
+## Structured SDK examples (TurboJev 0.34.0)
 
 ```sh
 cargo run -- structured

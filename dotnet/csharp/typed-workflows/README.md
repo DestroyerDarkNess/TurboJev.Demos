@@ -1,6 +1,6 @@
 # TurboJev â€” C# / .NET
 
-Five examples using **TurboJev 0.33.1 from nuget.org**, with no project reference or local engine build. This application targets .NET 8; use the .NET 8 SDK and runtime or a supported later SDK with that runtime installed. The TurboJev package also supports .NET Framework 4.8 and .NET Core through its `net48` and `netstandard2.0` assemblies. Run the commands from this directory.
+Five examples targeting **TurboJev 0.34.0 from nuget.org**, with no project reference or local engine build. The 0.34.0 NuGet upload is pending a valid publish key; these commands work once that version is visible on nuget.org. The application targets .NET 8; use the .NET 8 SDK and runtime or a supported later SDK with that runtime installed. The TurboJev package also supports .NET Framework 4.8 and .NET Core through its `net48` and `netstandard2.0` assemblies. Run the commands from this directory.
 
 ```powershell
 dotnet restore
@@ -57,7 +57,7 @@ dotnet publish -c Release -r win-x64 --self-contained false
 dotnet publish -c Release -r win-arm64 --self-contained false
 ```
 
-The published NuGet package contains native Windows x86/x64/ARM64 assets. Execute each build on a matching host or emulator. A successful cross-build is not proof of execution on that architecture. Linux/macOS require matching published native assets before these demos can run there. A 32-bit process may not fit the default vision model and projector; choose a smaller compatible pair. GPU support depends on the packaged backend and hardware.
+NuGet contains Windows/Linux x86/x64/ARM64 and macOS x64/ARM64 libraries (glibc 2.28+ / macOS 11+). Modern .NET does not provide a Linux x86 CLR. Execute each build on a matching host or emulator. A successful cross-build is not proof of execution on that architecture. Linux/macOS use the bundled RID libraries. A 32-bit process may not fit the default vision model and projector; choose a smaller compatible pair. GPU support depends on the packaged backend and hardware.
 
 ## Verified execution
 
@@ -79,7 +79,7 @@ Fair-die and receipt question/reference definitions are adapted from [TypeLLM](h
 
 The included photo is CORD-v2 test receipt 4: Park et al., _CORD: A Consolidated Receipt Dataset for Post-OCR Parsing_ (2019), NAVER/CLOVA, [CC BY 4.0](https://huggingface.co/datasets/naver-clova-ix/cord-v2). The image is retained unchanged and its separate license is [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/), rather than the code license. The US receipt reference photo is not redistributed because its image license has not been established; supply your own photo.
 
-## Structured SDK examples (TurboJev 0.33.1)
+## Structured SDK examples (TurboJev 0.34.0)
 
 ```sh
 dotnet run -- structured

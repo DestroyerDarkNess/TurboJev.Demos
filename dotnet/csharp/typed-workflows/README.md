@@ -1,6 +1,6 @@
 # TurboJev â€” C# / .NET
 
-Five examples targeting **TurboJev 0.34.0 from nuget.org**, with no project reference or local engine build. The 0.34.0 NuGet upload is pending a valid publish key; these commands work once that version is visible on nuget.org. The application targets .NET 8; use the .NET 8 SDK and runtime or a supported later SDK with that runtime installed. The TurboJev package also supports .NET Framework 4.8 and .NET Core through its `net48` and `netstandard2.0` assemblies. Run the commands from this directory.
+Five examples targeting **TurboJev 0.34.0 from nuget.org**, with no project reference or local engine build. The application targets .NET 8; use the .NET 8 SDK and runtime or a supported later SDK with that runtime installed. The TurboJev package also supports .NET Framework 4.8 and .NET Core through its `net48` and `netstandard2.0` assemblies. Run the commands from this directory.
 
 ```powershell
 dotnet restore

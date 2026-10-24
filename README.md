@@ -1,8 +1,7 @@
 # TurboJev demos
 
 Runnable examples using TurboJev **0.34.0 from public package registries and
-CDNs**. The 0.34.0 NuGet upload is currently pending a valid publish key, so the
-C# commands cannot restore that version from nuget.org yet. Each demo has its own folder, source code, input data and run
+CDNs**. Each demo has its own folder, source code, input data and run
 instructions. Demos use the published SDK; they do not build TurboJev locally
 or import another demo.
 
